@@ -1,0 +1,31 @@
+{
+  "objectives": [
+    { "conditions": [{ "type": "flag", "key": "ending_reached", "value": true }],
+      "text": "기록은 남았다." },
+
+    { "conditions": [{ "type": "flag", "key": "chapter7_done", "value": true }],
+      "text": "엘리베이터 앞에서 마지막 정리를 한다. (최종장)" },
+    { "conditions": [{ "type": "flag", "key": "chapter6_done", "value": true }],
+      "text": "엘리베이터에서 하루를 넘긴다. 삭제된 기록을 찾을 차례다. (7장)" },
+    { "conditions": [{ "type": "flag", "key": "chapter5_done", "value": true }],
+      "text": "엘리베이터에서 하루를 넘긴다. (6장)" },
+    { "conditions": [{ "type": "flag", "key": "chapter4_done", "value": true }],
+      "text": "엘리베이터에서 하루를 넘긴다. (5장)" },
+    { "conditions": [{ "type": "flag", "key": "chapter3_done", "value": true }],
+      "text": "엘리베이터에서 퇴근한다. 어디로 갈지 정해야 한다. (4장)" },
+
+    { "conditions": [{ "type": "flag", "key": "checked_memory_01", "value": true }],
+      "text": "사무실 사람들에게 말을 건다. (대리 · 팀장 · 옆자리 직원 · 경비 데스크 · 정수기 앞 동기)" },
+    { "conditions": [{ "type": "flag", "key": "chapter2_done", "value": true }],
+      "text": "엘리베이터에서 하루를 넘긴다. (3장)" },
+
+    { "conditions": [{ "type": "flag", "key": "chapter1_done", "value": true }],
+      "text": "오른쪽 끝 엘리베이터를 타고 퇴근한다." },
+    { "conditions": [{ "type": "flag", "key": "asked_intern", "value": true }],
+      "text": "관리실 쪽 CCTV 모니터나 경비 데스크에서 오전 영상을 확인한다." },
+    { "conditions": [{ "type": "flag", "key": "coffee_done", "value": true }],
+      "text": "내 책상을 조사해 주문 내역을 다시 본다." },
+    { "conditions": [{ "type": "flag", "key": "prologue_done", "value": true }],
+      "text": "책상 위에 놓인 커피를 조사한다. (가까이 가서 E)" }
+  ]
+}

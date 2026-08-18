@@ -1,4 +1,4 @@
-/** 상호작용 가능 거리 (px, 중심 간 거리 기준) — gamd.md 5장 */
+/** 상호작용 가능 거리 (px, 오브젝트 경계 기준) — gamd.md 5장 */
 export const INTERACT_RANGE = 48;
 
 /** 플레이어 이동 */

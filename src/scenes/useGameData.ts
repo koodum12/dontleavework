@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import {
-  loadCharacters, loadEndings, loadEventFiles, loadEvidence, loadItems, loadMental, loadNotes, loadPhone,
+  loadCharacters, loadEndings, loadEventFiles, loadObjectives, loadEvidence, loadItems, loadMental, loadNotes, loadPhone,
 } from '@/data/loader/JsonLoader';
 import type {
   CharacterFile, EndingFile, EvidenceFile, ItemFile, MentalConfig, NoteFile, PhoneFile,
 } from '@/data/types';
+import type { ObjectiveFile } from '@/game/state/objectives';
 import { useEventStore } from '@/game/event/EventManager';
 import { useGameStore } from '@/game/state/gameStore';
 
@@ -18,13 +19,14 @@ export interface GameData {
   characters: CharacterFile;
   mental: MentalConfig | null;
   endings: EndingFile | null;
+  objectives: ObjectiveFile | null;
   ready: boolean;
 }
 
 const EMPTY: GameData = {
   items: {}, evidence: {}, notes: {}, characters: {},
   phone: { messages: {}, photos: {}, memos: {} },
-  mental: null, endings: null, ready: false,
+  mental: null, endings: null, objectives: null, ready: false,
 };
 
 /** 정적 데이터는 클라이언트에서 한 번만 읽는다. 실패해도 게임은 계속 뜬다. */
@@ -46,8 +48,9 @@ export function useGameData(): GameData {
       loadCharacters().catch(warn('characters.json')),
       loadMental().catch(warn('mental.json')),
       loadEndings().catch(warn('endings.json')),
+      loadObjectives().catch(warn('objectives.json')),
       loadEventFiles(),
-    ]).then(([items, evidence, notes, phone, characters, mental, endings, eventFiles]) => {
+    ]).then(([items, evidence, notes, phone, characters, mental, endings, objectives, eventFiles]) => {
       if (cancelled) return;
       useEventStore.getState().loadFromRaw(eventFiles);
       if (mental) useGameStore.getState().setMentalConfig(mental);
@@ -59,6 +62,7 @@ export function useGameData(): GameData {
         characters: characters ?? {},
         mental,
         endings,
+        objectives,
         ready: true,
       });
     });

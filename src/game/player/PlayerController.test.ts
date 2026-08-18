@@ -62,6 +62,18 @@ describe('플레이어 이동', () => {
     expect(findNearest(p, map)?.object.id).toBe('coffee');
   });
 
+  it('큰 오브젝트는 경계 기준으로 판정한다 (중심이 멀어도 붙어 있으면 조사 가능)', () => {
+    // 책상 rect: x 400~496, y 400~464 → 중심 (448, 432)
+    const infront = { x: 448, y: 388, facing: 'down' as const }; // 경계에서 12px, 중심에서 44px
+    expect(findNearest(infront, map)?.object.id).toBe('desk');
+
+    const corner = { x: 380, y: 380, facing: 'down' as const }; // 경계에서 28px, 중심에서 85px
+    expect(findNearest(corner, map)?.object.id).toBe('desk');
+
+    const far = { x: 448, y: 330, facing: 'down' as const }; // 경계에서 70px
+    expect(findNearest(far, map)).toBeNull();
+  });
+
   it('멀어지면 상호작용 대상이 없다', () => {
     const p = { x: 900, y: 700, facing: 'down' as const };
     expect(findNearest(p, map)).toBeNull();

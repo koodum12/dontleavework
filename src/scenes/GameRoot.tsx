@@ -9,6 +9,7 @@ import { InputController, type TriggerAction } from '@/game/player/InputControll
 import { useUIStore } from '@/game/state/uiStore';
 import { gameStateSnapshot, useGameStore } from '@/game/state/gameStore';
 import { useMentalBandId } from '@/game/state/useMentalFilter';
+import { currentObjective } from '@/game/state/objectives';
 import { useEventStore } from '@/game/event/EventManager';
 import { evaluate } from '@/game/event/ConditionManager';
 import { collectionStats, findEnding } from '@/game/ending/EndingManager';
@@ -208,6 +209,7 @@ export default function GameRoot() {
     .filter((p): p is PhonePhoto => Boolean(p));
   const characterNames = Object.fromEntries(Object.entries(data.characters).map(([id, c]) => [id, c.name]));
   const endingMeta = ending && data.endings ? findEnding(data.endings, ending) : null;
+  const objective = currentObjective(data.objectives, gameStateSnapshot());
 
   if (phase === 'home') {
     return <Home onNewGame={startNewGame} onContinue={continueGame} />;
@@ -226,6 +228,11 @@ export default function GameRoot() {
         <div className="hud">
           <div className="hud-top-left">
             <MentalState mental={mental} max={data.mental?.max ?? 100} bands={data.mental?.bands ?? []} />
+            {objective && (
+              <div className="hud-objective" data-testid="objective">
+                <span>오늘 할 일</span> {objective}
+              </div>
+            )}
             <div className="hud-help">
               WASD 이동 · E 조사 · Space 진행 · Tab 휴대폰{unread > 0 ? ` (${unread})` : ''} · I 인벤토리 · ESC 메뉴
             </div>

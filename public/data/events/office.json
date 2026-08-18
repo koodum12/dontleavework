@@ -4,13 +4,76 @@
       "id": "day_gate",
       "type": "branch",
       "branches": [
-        { "conditions": [{ "type": "flag", "key": "chapter7_done", "value": true }], "next": "final_start" },
-        { "conditions": [{ "type": "flag", "key": "chapter6_done", "value": true }], "next": "chapter07_start" },
-        { "conditions": [{ "type": "flag", "key": "chapter5_done", "value": true }], "next": "chapter06_start" },
-        { "conditions": [{ "type": "flag", "key": "chapter4_done", "value": true }], "next": "chapter05_start" },
-        { "conditions": [{ "type": "flag", "key": "chapter3_done", "value": true }], "next": "chapter04_start" },
-        { "conditions": [{ "type": "flag", "key": "chapter2_done", "value": true }], "next": "chapter03_start" },
-        { "conditions": [{ "type": "flag", "key": "chapter1_done", "value": true }], "next": "chapter2_start" }
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter7_done",
+              "value": true
+            }
+          ],
+          "next": "final_start"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter6_done",
+              "value": true
+            }
+          ],
+          "next": "chapter07_start"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter5_done",
+              "value": true
+            }
+          ],
+          "next": "chapter06_start"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter4_done",
+              "value": true
+            }
+          ],
+          "next": "chapter05_start"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter3_done",
+              "value": true
+            }
+          ],
+          "next": "chapter04_start"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter2_done",
+              "value": true
+            }
+          ],
+          "next": "chapter03_start"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter1_done",
+              "value": true
+            }
+          ],
+          "next": "chapter2_start"
+        }
       ],
       "fallback": "day_gate_blocked"
     },
@@ -18,14 +81,32 @@
       "id": "day_gate_blocked",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "아직 퇴근할 수 없다. 자리에서 확인할 것이 남았다."
+      "text": "아직 퇴근할 수 없다. 자리에서 확인할 것이 남았다. (왼쪽 책상 구역을 먼저 살펴보자)"
     },
     {
       "id": "neighbor_gate",
       "type": "branch",
       "branches": [
-        { "conditions": [{ "type": "flag", "key": "checked_memory_01", "value": true }], "next": "talk_neighbor_main" },
-        { "conditions": [{ "type": "flag", "key": "coffee_done", "value": true }], "next": "chapter1_ask_intern" }
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "checked_memory_01",
+              "value": true
+            }
+          ],
+          "next": "talk_neighbor_main"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "coffee_done",
+              "value": true
+            }
+          ],
+          "next": "chapter1_ask_intern"
+        }
       ],
       "fallback": "talk_later"
     },
@@ -33,7 +114,16 @@
       "id": "printer_look",
       "type": "branch",
       "branches": [
-        { "conditions": [{ "type": "flag", "key": "found_composite", "value": true }], "next": "printer_after" }
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "found_composite",
+              "value": true
+            }
+          ],
+          "next": "printer_after"
+        }
       ],
       "fallback": "printer_idle"
     },
@@ -48,13 +138,27 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "출력 기록은 20:16에서 멈춰 있다. 공용 계정이라 누가 눌렀는지는 남지 않는다.",
-      "effects": [{ "type": "noteAdd", "id": "note_composite" }]
+      "effects": [
+        {
+          "type": "noteAdd",
+          "id": "note_composite"
+        }
+      ]
     },
     {
       "id": "water_look",
       "type": "branch",
       "branches": [
-        { "conditions": [{ "type": "flag", "key": "checked_memory_01", "value": true }], "next": "talk_peer" }
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "checked_memory_01",
+              "value": true
+            }
+          ],
+          "next": "talk_peer"
+        }
       ],
       "fallback": "water_idle"
     },

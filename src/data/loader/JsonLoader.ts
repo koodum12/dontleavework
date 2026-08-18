@@ -3,6 +3,7 @@
 import type {
   CharacterFile, EndingFile, EvidenceFile, ItemFile, LocationFile, MentalConfig, NoteFile, PhoneFile,
 } from '@/data/types';
+import type { ObjectiveFile } from '@/game/state/objectives';
 
 export const DATA_BASE = '/data';
 
@@ -35,6 +36,7 @@ export const loadMental = () => loadJson<MentalConfig>(`${DATA_BASE}/mental.json
 export const loadPhone = () => loadJson<PhoneFile>(`${DATA_BASE}/phone.json`);
 export const loadCharacters = () => loadJson<CharacterFile>(`${DATA_BASE}/characters.json`);
 export const loadEndings = () => loadJson<EndingFile>(`${DATA_BASE}/endings.json`);
+export const loadObjectives = () => loadJson<ObjectiveFile>(`${DATA_BASE}/objectives.json`);
 
 /** 챕터별 이벤트 파일 목록 — 파일이 늘어나면 여기에 추가한다 */
 export const EVENT_FILES = [
