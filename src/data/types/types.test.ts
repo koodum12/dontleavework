@@ -11,8 +11,8 @@ describe('이벤트 타입 스키마', () => {
       speaker: '사랑',
       text: '누가 주문했다고…?',
       choices: [
-        { text: '커피를 마신다', next: 'coffee_drink', effects: [{ type: 'mental', amount: 10 }] },
-        { text: '커피를 보관한다', next: 'coffee_save', effects: [{ type: 'item', itemId: 'coffee' }] },
+        { text: '커피를 마신다', next: 'coffee_drink', effects: [{ type: 'mentalChange', amount: 10 }] },
+        { text: '커피를 보관한다', next: 'coffee_save', effects: [{ type: 'itemGet', id: 'item_strange_coffee' }] },
         { text: '커피를 버린다', next: 'coffee_throw' },
       ],
     };

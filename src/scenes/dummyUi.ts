@@ -2,7 +2,7 @@
  * UI 스켈레톤 확인용 더미 데이터.
  * 스토리 데이터가 아니다 — Day 2에서 public/data/**.json 으로 대체된다.
  */
-import type { Evidence, Item, Note } from '@/data/types';
+import type { Note } from '@/data/types';
 import type { Message } from '@/components/phone/MessageList';
 import type { Memo } from '@/components/phone/VoiceMemo';
 
@@ -17,12 +17,3 @@ export const DUMMY_NOTES: Note[] = [
 export const DUMMY_MEMOS: Memo[] = [{ id: 'v1', title: '(더미) 음성 메모', length: '0:12' }];
 
 export const DUMMY_PHOTOS: string[] = ['(더미) 사진 1'];
-
-export const DUMMY_ITEMS: Item[] = [
-  { id: 'item_dummy', name: '(더미) 아이템', description: '기능 확인용', mentalRecover: 10 },
-];
-
-export const DUMMY_EVIDENCE: Evidence[] = [
-  { id: 'ev1', category: 'MEMORY', name: '(더미) MEMORY 증거', detail: '기능 확인용' },
-  { id: 'ev2', category: 'case', name: '(더미) 사건 증거', detail: '기능 확인용' },
-];

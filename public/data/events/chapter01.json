@@ -1,0 +1,136 @@
+{
+  "events": [
+    {
+      "id": "chapter1_coffee",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "자리에 커피가 놓여 있다. 07:48, 내 이름으로 주문됐다는 알림.",
+      "next": "chapter1_coffee_2"
+    },
+    {
+      "id": "chapter1_coffee_2",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "누가 주문했다고…?",
+      "effects": [
+        {
+          "type": "mentalChange",
+          "amount": -5
+        }
+      ],
+      "next": "chapter1_coffee_choice"
+    },
+    {
+      "id": "chapter1_coffee_choice",
+      "type": "choice",
+      "text": "커피를 어떻게 할까.",
+      "choices": [
+        {
+          "text": "커피를 마신다",
+          "next": "coffee_drink"
+        },
+        {
+          "text": "커피를 보관한다",
+          "next": "coffee_save"
+        },
+        {
+          "text": "커피를 버린다",
+          "next": "coffee_throw"
+        }
+      ]
+    },
+    {
+      "id": "coffee_drink",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "…괜한 생각이겠지. 한 모금 마시니 손끝이 조금 따뜻해졌다.",
+      "effects": [
+        {
+          "type": "mentalChange",
+          "amount": 10
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_empty_cup",
+          "category": "case"
+        },
+        {
+          "type": "noteAdd",
+          "id": "note_coffee_drunk"
+        },
+        {
+          "type": "flagSet",
+          "key": "drank_coffee",
+          "value": true
+        }
+      ],
+      "next": "chapter1_coffee_after"
+    },
+    {
+      "id": "coffee_save",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "일단… 그대로 둬야겠다. 알림 화면도 캡처해 두자.",
+      "effects": [
+        {
+          "type": "itemGet",
+          "id": "item_strange_coffee"
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_0748_coffee",
+          "category": "MEMORY"
+        },
+        {
+          "type": "noteAdd",
+          "id": "note_coffee_order"
+        },
+        {
+          "type": "flagSet",
+          "key": "kept_coffee",
+          "value": true
+        }
+      ],
+      "next": "chapter1_coffee_after"
+    },
+    {
+      "id": "coffee_throw",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "버렸다. 그런데 컵 홀더에 주문 번호가 찍혀 있었다.",
+      "effects": [
+        {
+          "type": "mentalChange",
+          "amount": -5
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_trash_receipt",
+          "category": "case"
+        },
+        {
+          "type": "noteAdd",
+          "id": "note_coffee_thrown"
+        },
+        {
+          "type": "flagSet",
+          "key": "threw_coffee",
+          "value": true
+        }
+      ],
+      "next": "chapter1_coffee_after"
+    },
+    {
+      "id": "chapter1_coffee_after",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "…일단 일부터 하자. 오늘 안에 끝내야 하는 게 있다."
+    },
+    {
+      "id": "desk_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "익숙한 내 자리. 모니터에는 어제 끝내지 못한 문서가 그대로 떠 있다."
+    }
+  ]
+}

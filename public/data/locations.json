@@ -3,25 +3,133 @@
     "id": "office",
     "width": 1280,
     "height": 960,
-    "spawn": { "x": 160, "y": 480 },
+    "spawn": {
+      "x": 160,
+      "y": 480
+    },
     "walls": [
-      { "x": 0, "y": 0, "w": 1280, "h": 32 },
-      { "x": 0, "y": 928, "w": 1280, "h": 32 },
-      { "x": 0, "y": 0, "w": 32, "h": 960 },
-      { "x": 1248, "y": 0, "w": 32, "h": 960 },
-      { "x": 640, "y": 32, "w": 32, "h": 288 },
-      { "x": 640, "y": 640, "w": 32, "h": 288 }
+      {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 32
+      },
+      {
+        "x": 0,
+        "y": 928,
+        "w": 1280,
+        "h": 32
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 960
+      },
+      {
+        "x": 1248,
+        "y": 0,
+        "w": 32,
+        "h": 960
+      },
+      {
+        "x": 640,
+        "y": 32,
+        "w": 32,
+        "h": 288
+      },
+      {
+        "x": 640,
+        "y": 640,
+        "w": 32,
+        "h": 288
+      }
     ],
     "objects": [
-      { "id": "obj_desk_sarang", "label": "내 책상", "x": 320, "y": 400, "w": 96, "h": 64, "solid": true },
-      { "id": "obj_coffee", "label": "의문의 커피", "x": 352, "y": 368, "w": 24, "h": 24, "solid": false },
-      { "id": "obj_desk_neighbor", "label": "옆자리 직원 책상", "x": 320, "y": 560, "w": 96, "h": 64, "solid": true },
-      { "id": "obj_desk_team_leader", "label": "팀장 책상", "x": 320, "y": 240, "w": 96, "h": 64, "solid": true },
-      { "id": "obj_printer", "label": "복합기", "x": 800, "y": 224, "w": 64, "h": 48, "solid": true },
-      { "id": "obj_water", "label": "정수기", "x": 928, "y": 448, "w": 40, "h": 40, "solid": true },
-      { "id": "obj_security_desk", "label": "경비 데스크", "x": 864, "y": 736, "w": 128, "h": 64, "solid": true },
-      { "id": "obj_cctv_monitor", "label": "CCTV 모니터", "x": 1024, "y": 736, "w": 64, "h": 48, "solid": true },
-      { "id": "obj_elevator", "label": "엘리베이터", "x": 1152, "y": 448, "w": 64, "h": 96, "solid": true }
+      {
+        "id": "obj_desk_sarang",
+        "label": "내 책상",
+        "x": 320,
+        "y": 400,
+        "w": 96,
+        "h": 64,
+        "solid": true,
+        "eventId": "desk_look"
+      },
+      {
+        "id": "obj_coffee",
+        "label": "의문의 커피",
+        "x": 352,
+        "y": 368,
+        "w": 24,
+        "h": 24,
+        "solid": false,
+        "eventId": "chapter1_coffee",
+        "once": true
+      },
+      {
+        "id": "obj_desk_neighbor",
+        "label": "옆자리 직원 책상",
+        "x": 320,
+        "y": 560,
+        "w": 96,
+        "h": 64,
+        "solid": true
+      },
+      {
+        "id": "obj_desk_team_leader",
+        "label": "팀장 책상",
+        "x": 320,
+        "y": 240,
+        "w": 96,
+        "h": 64,
+        "solid": true
+      },
+      {
+        "id": "obj_printer",
+        "label": "복합기",
+        "x": 800,
+        "y": 224,
+        "w": 64,
+        "h": 48,
+        "solid": true
+      },
+      {
+        "id": "obj_water",
+        "label": "정수기",
+        "x": 928,
+        "y": 448,
+        "w": 40,
+        "h": 40,
+        "solid": true
+      },
+      {
+        "id": "obj_security_desk",
+        "label": "경비 데스크",
+        "x": 864,
+        "y": 736,
+        "w": 128,
+        "h": 64,
+        "solid": true
+      },
+      {
+        "id": "obj_cctv_monitor",
+        "label": "CCTV 모니터",
+        "x": 1024,
+        "y": 736,
+        "w": 64,
+        "h": 48,
+        "solid": true
+      },
+      {
+        "id": "obj_elevator",
+        "label": "엘리베이터",
+        "x": 1152,
+        "y": 448,
+        "w": 64,
+        "h": 96,
+        "solid": true
+      }
     ]
   }
 }

@@ -7,3 +7,5 @@ export interface Item {
   /** 사용 후 소모되는가 */
   consumable?: boolean;
 }
+
+export type ItemFile = Record<string, Item>;

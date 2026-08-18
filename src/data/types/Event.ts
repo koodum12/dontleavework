@@ -1,5 +1,5 @@
 import type { Condition } from './Condition';
-import type { Note } from './Note';
+import type { EvidenceCategory } from './Condition';
 
 export type EventType =
   | 'dialogue' | 'choice' | 'interaction' | 'mentalChange'
@@ -8,18 +8,19 @@ export type EventType =
 
 export type EndingId = 'true' | 'hidden' | 'normal' | 'bad';
 
+/** JSON 에 그대로 쓰이는 효과 형태 (day2 §6 예시 기준) */
 export type EventEffect =
-  | { type: 'mental'; amount: number }
-  | { type: 'item'; itemId: string }
-  | { type: 'itemRemove'; itemId: string }
-  | { type: 'evidence'; evidenceId: string }
+  | { type: 'mentalChange'; amount: number }
+  | { type: 'itemGet'; id: string }
+  | { type: 'itemRemove'; id: string }
+  | { type: 'evidenceGet'; id: string; category?: EvidenceCategory }
   | { type: 'characterClue'; characterId: string; clue: string }
-  | { type: 'note'; note: Note }
-  | { type: 'flag'; key: string; value: boolean };
+  | { type: 'noteAdd'; id: string }
+  | { type: 'flagSet'; key: string; value: boolean };
 
 export interface Choice {
   text: string;
-  next: string;
+  next?: string;
   conditions?: Condition[];   // 조건 미충족 시 비활성/숨김
   /** 조건 미충족 시 숨길지(true) 비활성만 할지(false, 기본) */
   hideIfLocked?: boolean;

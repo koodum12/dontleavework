@@ -1,1 +1,8 @@
-{}
+{
+  "sarang": { "id": "sarang", "name": "사랑", "role": "주인공", "description": "평범한 회사원." },
+  "daeri": { "id": "daeri", "name": "대리", "role": "같은 팀" },
+  "team_leader": { "id": "team_leader", "name": "팀장", "role": "팀 책임자" },
+  "neighbor": { "id": "neighbor", "name": "옆자리 직원", "role": "같은 팀" },
+  "guard": { "id": "guard", "name": "경비원", "role": "건물 경비" },
+  "peer": { "id": "peer", "name": "동기", "role": "입사 동기" }
+}

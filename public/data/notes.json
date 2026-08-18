@@ -1,0 +1,20 @@
+{
+  "note_coffee_order": {
+    "id": "note_coffee_order",
+    "fact": "07:48에 내 이름으로 로비 커피 주문이 등록됐다.",
+    "assumption": "누군가 내 계정으로 주문하고 내 자리에 두었다.",
+    "nextCheck": "주문과 전달을 같은 사람이 했는가?"
+  },
+  "note_coffee_drunk": {
+    "id": "note_coffee_drunk",
+    "fact": "출처를 모르는 커피를 마셨다.",
+    "assumption": "확인할 수 있는 건 이제 주문 기록뿐이다.",
+    "nextCheck": "로비 주문 내역을 다시 볼 수 있는가?"
+  },
+  "note_coffee_thrown": {
+    "id": "note_coffee_thrown",
+    "fact": "커피를 버렸다. 컵 홀더에 주문 번호가 남아 있었다.",
+    "assumption": "주문 번호로 주문자를 역추적할 수 있을지도 모른다.",
+    "nextCheck": "로비 카페에 주문 번호를 물어볼 수 있는가?"
+  }
+}

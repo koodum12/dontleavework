@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { createPlayer, movePlayer, nearestInteractable } from './PlayerController';
+import { createPlayer, movePlayer } from './PlayerController';
+import { findNearest } from '@/game/interaction/InteractionManager';
 import { computeCamera } from '@/game/render/Camera';
 import { PLAYER_SPEED } from '@/game/interaction/constants';
 import type { GameMap } from '@/data/types';
@@ -58,12 +59,12 @@ describe('플레이어 이동', () => {
 
   it('solid 가 아닌 오브젝트도 상호작용 대상이 된다', () => {
     const p = { x: 112, y: 312, facing: 'down' as const };
-    expect(nearestInteractable(p, map)?.id).toBe('coffee');
+    expect(findNearest(p, map)?.object.id).toBe('coffee');
   });
 
   it('멀어지면 상호작용 대상이 없다', () => {
     const p = { x: 900, y: 700, facing: 'down' as const };
-    expect(nearestInteractable(p, map)).toBeNull();
+    expect(findNearest(p, map)).toBeNull();
   });
 });
 

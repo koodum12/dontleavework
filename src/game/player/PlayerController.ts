@@ -1,5 +1,5 @@
-import type { GameMap, MapObject, Rect } from '@/data/types';
-import { INTERACT_RANGE, PLAYER_SIZE, PLAYER_SPEED } from '@/game/interaction/constants';
+import type { GameMap, Rect } from '@/data/types';
+import { PLAYER_SIZE, PLAYER_SPEED } from '@/game/interaction/constants';
 
 export type Facing = 'up' | 'down' | 'left' | 'right';
 
@@ -70,20 +70,4 @@ export function movePlayer(
   }
 
   return { x, y, facing };
-}
-
-/** 상호작용 거리 안의 가장 가까운 오브젝트 (중심 간 거리) */
-export function nearestInteractable(player: Player, map: GameMap): MapObject | null {
-  let best: MapObject | null = null;
-  let bestDist = Infinity;
-  for (const o of map.objects) {
-    const cx = o.x + o.w / 2;
-    const cy = o.y + o.h / 2;
-    const dist = Math.hypot(cx - player.x, cy - player.y);
-    if (dist <= INTERACT_RANGE && dist < bestDist) {
-      best = o;
-      bestDist = dist;
-    }
-  }
-  return best;
 }

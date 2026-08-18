@@ -10,3 +10,5 @@ export interface Evidence {
 }
 
 export type { EvidenceCategory };
+
+export type EvidenceFile = Record<string, Evidence>;

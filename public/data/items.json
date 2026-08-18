@@ -1,1 +1,23 @@
-{}
+{
+  "item_strange_coffee": {
+    "id": "item_strange_coffee",
+    "name": "의문의 커피",
+    "description": "07:48, 내 이름으로 주문된 로비 커피. 아직 따뜻하다.",
+    "mentalRecover": 10,
+    "consumable": true
+  },
+  "item_warm_tea": {
+    "id": "item_warm_tea",
+    "name": "따뜻한 차",
+    "description": "탕비실에서 가져온 차.",
+    "mentalRecover": 8,
+    "consumable": true
+  },
+  "item_emergency_pill": {
+    "id": "item_emergency_pill",
+    "name": "비상 안정제",
+    "description": "가방 깊숙한 곳에 있던 약.",
+    "mentalRecover": 20,
+    "consumable": true
+  }
+}

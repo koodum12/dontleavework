@@ -5,3 +5,5 @@ export interface Note {
   assumption?: string;
   nextCheck?: string;
 }
+
+export type NoteFile = Record<string, Note>;

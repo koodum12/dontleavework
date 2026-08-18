@@ -1,1 +1,20 @@
-{}
+{
+  "ev_0748_coffee": {
+    "id": "ev_0748_coffee",
+    "category": "MEMORY",
+    "name": "07:48 커피 알림",
+    "detail": "내 계정으로 등록된 로비 커피 주문 알림."
+  },
+  "ev_empty_cup": {
+    "id": "ev_empty_cup",
+    "category": "case",
+    "name": "빈 컵",
+    "detail": "마셔 버린 커피의 컵. 주문자 정보는 이미 흐려졌다."
+  },
+  "ev_trash_receipt": {
+    "id": "ev_trash_receipt",
+    "category": "case",
+    "name": "버려진 컵 홀더",
+    "detail": "쓰레기통에서 다시 꺼낸 컵 홀더. 주문 번호가 남아 있다."
+  }
+}

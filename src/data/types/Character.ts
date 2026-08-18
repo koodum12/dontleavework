@@ -4,3 +4,5 @@ export interface Character {
   role?: string;
   description?: string;
 }
+
+export type CharacterFile = Record<string, Character>;

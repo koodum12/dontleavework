@@ -2,7 +2,7 @@
 
 /** day1 §4 — 키코드를 컴포넌트에 흩지 않는다. 매핑은 여기 한 곳. */
 export type MoveAction = 'up' | 'down' | 'left' | 'right';
-export type TriggerAction = 'interact' | 'phone' | 'inventory' | 'menu';
+export type TriggerAction = 'interact' | 'phone' | 'inventory' | 'menu' | 'advance';
 
 /** 한글 입력 상태에서도 동작하도록 e.key 가 아니라 e.code 를 쓴다 */
 const MOVE_KEYS: Record<string, MoveAction> = {
@@ -18,6 +18,9 @@ const MOVE_KEYS: Record<string, MoveAction> = {
 
 const TRIGGER_KEYS: Record<string, TriggerAction> = {
   KeyE: 'interact',
+  Space: 'advance',
+  Enter: 'advance',
+  NumpadEnter: 'advance',
   Tab: 'phone',
   KeyI: 'inventory',
   Escape: 'menu',
@@ -58,6 +61,7 @@ export class InputController {
 
   private handleKeyDown = (e: KeyboardEvent) => {
     if (e.code === 'Tab') e.preventDefault(); // 기본 포커스 이동 차단
+    if (e.code === 'Space') e.preventDefault(); // 스페이스로 페이지가 스크롤되지 않게
 
     const move = MOVE_KEYS[e.code];
     if (move) {
