@@ -217,13 +217,24 @@
 여유가 있을 때만. **없어도 게임은 완성 상태를 유지한다.**
 
 ```text
-캐릭터   24 × 32 px, 4방향(up/down/left/right) × 2프레임
-시트     96 × 64  (가로 24px × 4방향, 세로 32px × 2프레임) PNG, 투명 배경
-가구     32의 배수, 오브젝트 rect 크기와 동일
-경로     public/assets/images/characters/<id>.png
-         public/assets/images/objects/<id>.png
-색       캐릭터당 3색 이내 (외곽선 1 + 옷 1 + 강조 1)
+인게임    48 × 64 px (@2x — 논리 크기는 24×32, 픽셀 밀도만 2배)
+시트      192 × 64 × 2 = 192 × 128  (가로 4방향 down/left/right/up, 세로 2프레임)
+초상      256 × 256   대화창·컷씬용 얼굴
+전신      720 × 1080  (네이티브 240×360 을 정수배 ×3 — 1080p 화면용)
+가구      32의 배수, 오브젝트 rect 크기와 동일
+경로      public/assets/images/characters/<id>.png          주간 스프라이트
+          public/assets/images/characters/night/<id>.png    야간 팔레트
+          public/assets/images/characters/hires/<id>.png    전신 1080p
+          public/assets/images/portraits/<id>.png           초상
+          public/assets/images/objects/<id>.png             가구
+색        옷 1색에서 명암 4단(광/기본/그늘/짙은그늘) + 외곽선 + 강조(사원증 금색)
 ```
+
+**@2x 로 두는 이유**: 논리 해상도 960×640 캔버스를 CSS로 확대하므로, 스프라이트를 24×32 로 만들면
+고DPI 화면에서 뭉갠다. 48×64 로 만들어 24×32 크기로 그리면 선명하다 (`imageSmoothingEnabled = false` 유지).
+
+**실루엣 구분**: 색만으로는 야간 팔레트에서 구분이 흐려진다. `characters.json` 의 `art` 로
+머리(short/bob/long/tied)와 액세서리(none/cap/glasses/tie/badge)를 지정해 실루엣을 다르게 만든다.
 
 - [ ] `SpriteCache` — 이미지 1회 로드 후 재사용, 실패 시 색 폴백
 - [ ] 걷기 애니메이션은 이동 중일 때만 프레임 교대 (0.2초)
