@@ -3,9 +3,23 @@
     {
       "id": "final_start",
       "type": "branch",
-      "effects": [{ "type": "chapterSet", "chapter": "final" }],
+      "effects": [
+        {
+          "type": "chapterSet",
+          "chapter": "final"
+        }
+      ],
       "branches": [
-        { "conditions": [{ "type": "flag", "key": "chapter7_done", "value": true }], "next": "final_laptop" }
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "chapter7_done",
+              "value": true
+            }
+          ],
+          "next": "final_laptop"
+        }
       ],
       "fallback": "final_too_early"
     },
@@ -34,7 +48,13 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "대리 — 일정은 알았지만 직접적인 증거는 부족하다. 팀장 — 야간에 남았지만 업무상 확인일 수 있다. 옆자리 직원 — 습관은 알지만 얼굴은 못 봤다. 경비원 — 기록을 보존하려 했다. 동기 — 계획은 알았지만 접근 흔적이 없다. …누구 하나만 보고 범인이라고 할 수는 없어.",
-      "effects": [{ "type": "flagSet", "key": "compared_clues", "value": true }],
+      "effects": [
+        {
+          "type": "flagSet",
+          "key": "compared_clues",
+          "value": true
+        }
+      ],
       "next": "final_prememory"
     },
     {
@@ -42,7 +62,13 @@
       "type": "dialogue",
       "speaker": "보안 담당자",
       "text": "오래된 파일 하나가 나왔습니다 — Evidence_PreMemory. 최초 저장 3년 전, MEMORY 백업 등록은 이틀 뒤. 파일이 손상됐지만, 조건이 맞으면 복구해 볼 수 있습니다.",
-      "effects": [{ "type": "flagSet", "key": "found_prememory", "value": true }],
+      "effects": [
+        {
+          "type": "flagSet",
+          "key": "found_prememory",
+          "value": true
+        }
+      ],
       "next": "final_choice"
     },
     {
@@ -51,39 +77,106 @@
       "speaker": "사랑",
       "text": "마지막 선택.",
       "choices": [
-        { "text": "MEMORY를 삭제하고 회사를 떠난다", "next": "ending_normal" },
+        {
+          "text": "MEMORY를 삭제하고 회사를 떠난다",
+          "next": "ending_normal",
+          "irreversible": true
+        },
         {
           "text": "확보한 기록을 정리해 경찰에 신고한다",
           "next": "ending_true",
           "conditions": [
-            { "type": "evidence_count", "category": "MEMORY", "min": 2 },
-            { "type": "character_clue_count", "min": 2 },
-            { "type": "flag", "key": "intrusion_evidence", "value": true }
+            {
+              "type": "evidence_count",
+              "category": "MEMORY",
+              "min": 2
+            },
+            {
+              "type": "character_clue_count",
+              "min": 2
+            },
+            {
+              "type": "flag",
+              "key": "intrusion_evidence",
+              "value": true
+            }
           ],
-          "lockedText": "자료가 부족하다 (MEMORY 2 · 인물 단서 2 · 침입 기록 1)"
+          "lockedText": "자료가 부족하다 (MEMORY 2 · 인물 단서 2 · 침입 기록 1)",
+          "irreversible": true
         },
         {
           "text": "02:13 백업 파일을 복구한 뒤 신고한다",
           "next": "ending_hidden",
           "conditions": [
-            { "type": "evidence_count", "category": "MEMORY", "min": 2 },
-            { "type": "character_clue_count", "min": 2 },
-            { "type": "flag", "key": "intrusion_evidence", "value": true },
-            { "type": "flag", "key": "checked_cctv", "value": true },
-            { "type": "flag", "key": "checked_memory_01", "value": true },
-            { "type": "flag", "key": "found_0213", "value": true },
-            { "type": "flag", "key": "checked_network_log", "value": true },
-            { "type": "flag", "key": "recovered_deleted_note", "value": true },
-            { "type": "flag", "key": "recovered_voice_memo", "value": true },
-            { "type": "flag", "key": "compared_clues", "value": true },
-            { "type": "flag", "key": "accused_alone", "value": false }
+            {
+              "type": "evidence_count",
+              "category": "MEMORY",
+              "min": 2
+            },
+            {
+              "type": "character_clue_count",
+              "min": 2
+            },
+            {
+              "type": "flag",
+              "key": "intrusion_evidence",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "checked_cctv",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "checked_memory_01",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "found_0213",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "checked_network_log",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "recovered_deleted_note",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "recovered_voice_memo",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "compared_clues",
+              "value": true
+            },
+            {
+              "type": "flag",
+              "key": "accused_alone",
+              "value": false
+            }
           ],
-          "lockedText": "백업 파일이 손상되어 있습니다"
+          "lockedText": "백업 파일이 손상되어 있습니다",
+          "irreversible": true
         },
         {
           "text": "의심되는 사람을 혼자 불러 직접 자백을 받으려 한다",
           "next": "ending_bad",
-          "effects": [{ "type": "flagSet", "key": "accused_alone", "value": true }]
+          "effects": [
+            {
+              "type": "flagSet",
+              "key": "accused_alone",
+              "value": true
+            }
+          ],
+          "irreversible": true
         }
       ]
     }

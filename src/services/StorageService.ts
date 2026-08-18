@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS notes (note_id TEXT PRIMARY KEY);
 CREATE TABLE IF NOT EXISTS messages (message_id TEXT PRIMARY KEY);
 CREATE TABLE IF NOT EXISTS photos (photo_id TEXT PRIMARY KEY);
 CREATE TABLE IF NOT EXISTS completed_interactions (interactable_id TEXT PRIMARY KEY);
+-- 회차 기록: 새 게임을 시작해도 지우지 않는다
+CREATE TABLE IF NOT EXISTS unlocked_endings (ending_id TEXT PRIMARY KEY, reached_at TEXT);
 `;
 
 export class StorageService {
@@ -112,9 +114,11 @@ export class StorageService {
     return this.all('SELECT chapter FROM player_state WHERE id = 1').length > 0;
   }
 
+  /** 진행 상태만 지운다 — 회차 기록(unlocked_endings)은 남긴다 */
   async destroy(): Promise<void> {
-    await idbDelete();
+    await this.init();
     this.db?.run('DELETE FROM player_state; DELETE FROM inventory; DELETE FROM evidence; DELETE FROM character_clues; DELETE FROM flags; DELETE FROM notes; DELETE FROM messages; DELETE FROM photos; DELETE FROM completed_interactions;');
+    await this.persist();
   }
 }
 

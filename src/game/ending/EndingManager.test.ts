@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { collectionStats, endingLockReason, resolveEnding } from './EndingManager';
+import { collectionStats, endingChecklists, endingLockReason, resolveEnding } from './EndingManager';
 import type { EndingFile } from '@/data/types';
 import type { GameStateData } from '@/game/state/gameStore';
 
@@ -97,5 +97,27 @@ describe('EndingManager — 경계', () => {
       evidenceCollected: 2, evidenceTotal: 23, memoryCollected: 2,
       characterCluesCollected: 2, characterTotal: 5,
     });
+  });
+});
+
+describe('엔딩 체크리스트', () => {
+  it('도달한 엔딩을 표시하고 조건별 충족 여부를 돌려준다', () => {
+    const s = state({ evidence: twoMemory, characterClues: twoCharacters, flags: trueFlags });
+    const lists = endingChecklists(file, s, 'true');
+
+    const trueList = lists.find((l) => l.id === 'true')!;
+    expect(trueList.reached).toBe(true);
+    expect(trueList.rows.every((r) => r.met)).toBe(true);
+
+    const hiddenList = lists.find((l) => l.id === 'hidden')!;
+    expect(hiddenList.reached).toBe(false);
+    expect(hiddenList.rows.some((r) => !r.met)).toBe(true);
+    // 조건이 사람이 읽는 말로 나온다
+    expect(hiddenList.rows.map((r) => r.label)).toContain('CCTV 확인');
+    expect(hiddenList.rows.map((r) => r.label)).toContain('MEMORY 증거 2개 이상');
+  });
+
+  it('4개 엔딩 전부의 체크리스트를 만든다', () => {
+    expect(endingChecklists(file, base, null).map((l) => l.id)).toEqual(['hidden', 'true', 'normal', 'bad']);
   });
 });

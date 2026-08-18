@@ -266,11 +266,13 @@
       "choices": [
         {
           "text": "관리실에 가서 CCTV를 확인한다",
-          "next": "cctv_check"
+          "next": "cctv_check",
+          "irreversible": true
         },
         {
           "text": "그냥 집으로 간다",
-          "next": "cctv_skip"
+          "next": "cctv_skip",
+          "irreversible": true
         }
       ]
     },

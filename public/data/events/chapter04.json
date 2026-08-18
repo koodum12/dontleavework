@@ -5,7 +5,12 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "(4장. 선택에는 책임이 따른다) 퇴근길. 07:48 커피, 22:28 문자, 01:56 문구 수정, 02:13 백업. …무서워도, 확인한 것부터 정리하자.",
-      "effects": [{ "type": "chapterSet", "chapter": "chapter04" }],
+      "effects": [
+        {
+          "type": "chapterSet",
+          "chapter": "chapter04"
+        }
+      ],
       "next": "chapter04_choice"
     },
     {
@@ -14,9 +19,21 @@
       "speaker": "사랑",
       "text": "어디로 갈까?",
       "choices": [
-        { "text": "집으로 돌아가 기록을 정리한다 [안전]", "next": "route_home" },
-        { "text": "1층 테이크아웃 코너에 들른다 [검증]", "next": "route_lobby" },
-        { "text": "회사에 남아 사내망 기록을 확인한다 [핵심 조사]", "next": "route_network" }
+        {
+          "text": "집으로 돌아가 기록을 정리한다 [안전]",
+          "next": "route_home",
+          "irreversible": true
+        },
+        {
+          "text": "1층 테이크아웃 코너에 들른다 [검증]",
+          "next": "route_lobby",
+          "irreversible": true
+        },
+        {
+          "text": "회사에 남아 사내망 기록을 확인한다 [핵심 조사]",
+          "next": "route_network",
+          "irreversible": true
+        }
       ]
     },
     {
@@ -25,9 +42,19 @@
       "speaker": "사랑",
       "text": "집으로 돌아가 기록을 시간순으로 정리한다. 07:48 커피 주문 / 22:28 예약 문자 / 01:56 문구 생성 / 02:13 변경 이력 백업. '그 사람이 회사 사람일 가능성이 있다'는 문장을 적었다가 지운다. 아직은… 그렇게 단정할 수 없어.",
       "effects": [
-        { "type": "mentalChange", "amount": 5 },
-        { "type": "noteAdd", "id": "note_fact_split" },
-        { "type": "flagSet", "key": "route_home", "value": true }
+        {
+          "type": "mentalChange",
+          "amount": 5
+        },
+        {
+          "type": "noteAdd",
+          "id": "note_fact_split"
+        },
+        {
+          "type": "flagSet",
+          "key": "route_home",
+          "value": true
+        }
       ],
       "next": "chapter04_end"
     },
@@ -37,11 +64,28 @@
       "speaker": "사랑",
       "text": "18:42, 직접 아이스 아메리카노를 주문하고 영수증을 챙긴다. 직원은 '테이크아웃은 전부 직접 가져가세요'라고 답한다. 그때 휴대폰이 짧게 진동한다 — 로비에서 커피를 받는 내 뒷모습 사진이 개인 동기화 폴더에 저장되어 있다. 공유 링크 생성 18:43 / 발신 기기 미확인.",
       "effects": [
-        { "type": "mentalChange", "amount": -10 },
-        { "type": "photoGet", "id": "photo_lobby_back" },
-        { "type": "evidenceGet", "id": "ev_lobby_photo", "category": "case" },
-        { "type": "noteAdd", "id": "note_lobby_check" },
-        { "type": "flagSet", "key": "route_lobby", "value": true }
+        {
+          "type": "mentalChange",
+          "amount": -10
+        },
+        {
+          "type": "photoGet",
+          "id": "photo_lobby_back"
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_lobby_photo",
+          "category": "case"
+        },
+        {
+          "type": "noteAdd",
+          "id": "note_lobby_check"
+        },
+        {
+          "type": "flagSet",
+          "key": "route_lobby",
+          "value": true
+        }
       ],
       "next": "chapter04_end"
     },
@@ -49,7 +93,16 @@
       "id": "route_network",
       "type": "branch",
       "branches": [
-        { "conditions": [{ "type": "flag", "key": "security_contact", "value": true }], "next": "route_network_main" }
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "security_contact",
+              "value": true
+            }
+          ],
+          "next": "route_network_main"
+        }
       ],
       "fallback": "route_network_blocked"
     },
@@ -66,10 +119,25 @@
       "speaker": "보안 담당자",
       "text": "읽기 전용 사본으로 확인하시죠. — Sarang 계정: 3년 전부터 07:48 출근 확인·로비 주문, 22:28 예약 문자, 02:13 정기 무결성 검사. 미확인 기기: 01:56 MEMORY_01 문구 레이어 생성, 02:04 개인 사진 폴더 열람, 02:11 CCTV 원본 내보내기 요청.",
       "effects": [
-        { "type": "evidenceGet", "id": "ev_network_log", "category": "case" },
-        { "type": "itemGet", "id": "item_network_copy" },
-        { "type": "flagSet", "key": "checked_network_log", "value": true },
-        { "type": "flagSet", "key": "intrusion_evidence", "value": true }
+        {
+          "type": "evidenceGet",
+          "id": "ev_network_log",
+          "category": "case"
+        },
+        {
+          "type": "itemGet",
+          "id": "item_network_copy"
+        },
+        {
+          "type": "flagSet",
+          "key": "checked_network_log",
+          "value": true
+        },
+        {
+          "type": "flagSet",
+          "key": "intrusion_evidence",
+          "value": true
+        }
       ],
       "next": "route_network_log"
     },
@@ -79,10 +147,24 @@
       "speaker": "사랑",
       "text": "바탕화면의 MEMORY_LOG 폴더. 08:00 출근 / 12:30 점심 / 18:30 퇴근 / 23:00 귀가 / 01:00 취침. 그리고 가장 최근 기록 — '오늘은 카페에 가지 않았다.' …오늘은 내가 로비에 갔는데. 보안 담당자: 이건 자동 위치 정보가 아니라 사람이 직접 입력한 텍스트처럼 보이네요.",
       "effects": [
-        { "type": "mentalChange", "delta": "stay_at_night" },
-        { "type": "evidenceGet", "id": "ev_memory_log", "category": "case" },
-        { "type": "noteAdd", "id": "note_network" },
-        { "type": "flagSet", "key": "route_network", "value": true }
+        {
+          "type": "mentalChange",
+          "delta": "stay_at_night"
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_memory_log",
+          "category": "case"
+        },
+        {
+          "type": "noteAdd",
+          "id": "note_network"
+        },
+        {
+          "type": "flagSet",
+          "key": "route_network",
+          "value": true
+        }
       ],
       "next": "chapter04_end"
     },
@@ -91,7 +173,13 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "내가 지금 무서운 건 회사가 아니라… 내가 뭘 기억하지 못하고 있다는 사실일지도 몰라.",
-      "effects": [{ "type": "flagSet", "key": "chapter4_done", "value": true }]
+      "effects": [
+        {
+          "type": "flagSet",
+          "key": "chapter4_done",
+          "value": true
+        }
+      ]
     }
   ]
 }

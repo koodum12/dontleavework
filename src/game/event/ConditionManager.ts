@@ -54,6 +54,45 @@ export function firstUnmet(conditions: Condition[] | undefined, state: GameState
   return conditions.find((c) => !evaluateOne(c, state)) ?? null;
 }
 
+/** 조건을 "무엇을 갖추면 되는가"로 읽히게 (엔딩 체크리스트용) */
+export function conditionLabel(condition: Condition): string {
+  switch (condition.type) {
+    case 'flag':
+      return condition.value
+        ? FLAG_LABELS[condition.key] ?? condition.key
+        : `${FLAG_LABELS[condition.key] ?? condition.key}하지 않음`;
+    case 'evidence_count':
+      return `${condition.category === 'MEMORY' ? 'MEMORY 증거' : condition.category === 'character' ? '인물 증거' : '증거'} ${condition.min}개 이상`;
+    case 'character_clue_count':
+      return `서로 다른 인물 단서 ${condition.min}명분`;
+    case 'has_item':
+      return '필요한 물건 확보';
+    case 'has_evidence':
+      return '근거 증거 확보';
+    case 'mental_below':
+      return `정신력 ${condition.value} 미만`;
+    case 'mental_above':
+      return `정신력 ${condition.value} 초과`;
+    default:
+      return '조건';
+  }
+}
+
+/** 플래그 → 사람이 읽는 말. 없으면 키를 그대로 쓴다 */
+const FLAG_LABELS: Record<string, string> = {
+  intrusion_evidence: '침입 · 열람 · 출력 기록 1개 이상',
+  accused_alone: '특정 인물을 단둘이 추궁',
+  checked_cctv: 'CCTV 확인',
+  checked_memory_01: 'MEMORY_01 조사',
+  found_0213: '02:13 기록 발견',
+  checked_network_log: '사내망 접속 기록 확보',
+  recovered_deleted_note: '삭제된 메모 복구',
+  recovered_voice_memo: '과거 음성 메모 복구',
+  compared_clues: '여러 인물의 단서 비교',
+  recovered_prememory: 'Evidence_PreMemory 복구',
+  memory_deleted: 'MEMORY 삭제 후 퇴사',
+};
+
 export function unmetReason(condition: Condition): string {
   switch (condition.type) {
     case 'flag':

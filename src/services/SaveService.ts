@@ -99,3 +99,21 @@ export async function load(): Promise<boolean> {
 export async function deleteSave(): Promise<void> {
   await storage.destroy();
 }
+
+/* ---- 회차 기록: 도달한 엔딩은 새 게임을 해도 남는다 ---- */
+
+export async function recordEnding(endingId: string): Promise<void> {
+  await storage.init();
+  storage.run('INSERT OR IGNORE INTO unlocked_endings VALUES (?, ?)', [endingId, new Date().toISOString()]);
+  await storage.persist();
+}
+
+export async function unlockedEndings(): Promise<string[]> {
+  try {
+    await storage.init();
+    return storage.all('SELECT ending_id FROM unlocked_endings').map(([id]) => String(id));
+  } catch (e) {
+    console.warn('[SaveService] 회차 기록 읽기 실패:', e);
+    return [];
+  }
+}

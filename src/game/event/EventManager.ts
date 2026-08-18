@@ -139,6 +139,8 @@ export interface RenderableChoice {
   text: string;
   disabled: boolean;
   reason?: string;
+  /** 되돌릴 수 없는 선택 (무엇이 닫히는지는 알려주지 않는다) */
+  irreversible?: boolean;
 }
 
 export function renderableChoices(event: GameEvent | null): RenderableChoice[] {
@@ -153,6 +155,7 @@ export function renderableChoices(event: GameEvent | null): RenderableChoice[] {
       text: choice.text,
       disabled: Boolean(unmet),
       reason: unmet ? choice.lockedText ?? unmetReason(unmet) : undefined,
+      irreversible: choice.irreversible,
     });
   });
   return result;

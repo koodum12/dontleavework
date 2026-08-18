@@ -12,12 +12,12 @@ import { useMentalBandId } from '@/game/state/useMentalFilter';
 import { currentObjective } from '@/game/state/objectives';
 import { useEventStore } from '@/game/event/EventManager';
 import { evaluate } from '@/game/event/ConditionManager';
-import { collectionStats, findEnding } from '@/game/ending/EndingManager';
+import { collectionStats, endingChecklists, findEnding } from '@/game/ending/EndingManager';
 import { triggerInteraction } from '@/game/interaction/InteractionObject';
 import { consumeItem } from '@/game/interaction/consumeItem';
 import type { NearestResult } from '@/game/interaction/InteractionManager';
 import type { Evidence, Note, PhoneMessage, PhonePhoto, VoiceMemoData } from '@/data/types';
-import { deleteSave, hasSave, load, save } from '@/services/SaveService';
+import { deleteSave, hasSave, load, recordEnding, save, unlockedEndings } from '@/services/SaveService';
 import { audio } from '@/services/AudioService';
 import MentalState from '@/components/game/MentalState';
 import InteractionPrompt from '@/components/game/InteractionPrompt';
@@ -53,6 +53,7 @@ export default function GameRoot() {
 
   const [phase, setPhase] = useState<Phase>('home');
   const [saveExists, setSaveExists] = useState(false);
+  const [unlocked, setUnlocked] = useState<string[]>([]);
   const [showDebug, setShowDebug] = useState(false);
   const [fading, setFading] = useState(false);
   const [log, setLog] = useState<string | null>(null);
@@ -78,6 +79,7 @@ export default function GameRoot() {
 
   useEffect(() => {
     hasSave().then(setSaveExists);
+    unlockedEndings().then(setUnlocked);
     if (process.env.NODE_ENV !== 'production') {
       (window as unknown as { __gameStore?: typeof useGameStore }).__gameStore = useGameStore;
     }
@@ -104,10 +106,11 @@ export default function GameRoot() {
 
   /* ---- 엔딩 도달 ---- */
   useEffect(() => {
-    if (ending) {
-      audio.play('ending');
-      void autoSave();
-    }
+    if (!ending) return;
+    audio.play('ending');
+    void autoSave();
+    // 회차 기록은 새 게임을 해도 남는다
+    void recordEnding(ending).then(() => unlockedEndings().then(setUnlocked));
   }, [ending, autoSave]);
 
   /* ---- 휴대폰을 여는 것 자체가 이벤트 트리거 (day3 §5) ---- */
@@ -209,7 +212,7 @@ export default function GameRoot() {
     .filter((p): p is PhonePhoto => Boolean(p));
   const characterNames = Object.fromEntries(Object.entries(data.characters).map(([id, c]) => [id, c.name]));
   const endingMeta = ending && data.endings ? findEnding(data.endings, ending) : null;
-  const objective = currentObjective(data.objectives, gameStateSnapshot());
+  const objective = currentObjective(data.objectives, gameStateSnapshot(), data.notes);
 
   if (phase === 'home') {
     return <Home onNewGame={startNewGame} onContinue={continueGame} />;
@@ -230,7 +233,7 @@ export default function GameRoot() {
             <MentalState mental={mental} max={data.mental?.max ?? 100} bands={data.mental?.bands ?? []} />
             {objective && (
               <div className="hud-objective" data-testid="objective">
-                <span>오늘 할 일</span> {objective}
+                <span>{objective.label}</span> {objective.text}
               </div>
             )}
             <div className="hud-help">
@@ -310,6 +313,8 @@ export default function GameRoot() {
             ending={endingMeta}
             text={currentEvent?.type === 'ending' ? currentEvent.text ?? '' : ''}
             stats={collectionStats(gameStateSnapshot(), Object.keys(data.evidence).length)}
+            checklists={data.endings ? endingChecklists(data.endings, gameStateSnapshot(), ending) : []}
+            unlocked={unlocked}
             onRestart={async () => {
               await deleteSave();
               startNewGame();

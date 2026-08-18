@@ -1,8 +1,9 @@
 'use client';
 
 import DialogBox from '@/components/dialogue/DialogBox';
+import CollectionStrip from '@/components/game/CollectionStrip';
 import { renderableChoices, useEventStore } from '@/game/event/EventManager';
-import { useGameStore } from '@/game/state/gameStore';
+import { gameStateSnapshot, useGameStore } from '@/game/state/gameStore';
 
 /** EventManager 의 현재 이벤트를 구독해 대화창을 그린다 */
 export default function EventLayer() {
@@ -15,14 +16,18 @@ export default function EventLayer() {
 
   if (!current) return null;
 
+  const isChoice = current.type === 'choice';
   const choices = renderableChoices(current).map((c) => ({
     text: c.reason ? `${c.text} — ${c.reason}` : c.text,
     disabled: c.disabled,
     index: c.index,
+    note: c.irreversible ? '되돌릴 수 없다' : undefined,
   }));
 
   return (
     <div className="event-layer">
+      {/* 선택 시점에는 결과가 아니라 지금까지 확보한 것을 보여 준다 */}
+      {isChoice && <CollectionStrip state={gameStateSnapshot()} />}
       <DialogBox
         speaker={current.speaker}
         text={current.text ?? ''}

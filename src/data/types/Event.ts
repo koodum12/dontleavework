@@ -29,6 +29,8 @@ export interface Choice {
   hideIfLocked?: boolean;
   /** 비활성 사유를 직접 지정할 때 */
   lockedText?: string;
+  /** 되돌릴 수 없는 선택 — 무엇이 닫히는지는 알려주지 않고 표시만 한다 */
+  irreversible?: boolean;
   effects?: EventEffect[];
 }
 

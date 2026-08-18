@@ -1,6 +1,6 @@
 import type { EndingFile, EndingId, EndingMeta } from '@/data/types';
 import type { GameStateData } from '@/game/state/gameStore';
-import { evaluate, firstUnmet, unmetReason } from '@/game/event/ConditionManager';
+import { conditionLabel, evaluate, evaluateOne, firstUnmet, unmetReason } from '@/game/event/ConditionManager';
 
 /**
  * 엔딩 판정 — Day 3 의 ConditionManager 를 그대로 재사용한다 (평가기를 새로 만들지 않는다).
@@ -18,6 +18,35 @@ export function findEnding(file: EndingFile, id: EndingId): EndingMeta | null {
 export function endingLockReason(ending: EndingMeta, state: GameStateData): string | null {
   const unmet = firstUnmet(ending.conditions, state);
   return unmet ? unmetReason(unmet) : null;
+}
+
+export interface ChecklistRow {
+  label: string;
+  met: boolean;
+}
+
+export interface EndingChecklist {
+  id: EndingId;
+  name: string;
+  reached: boolean;
+  rows: ChecklistRow[];
+}
+
+/**
+ * 엔딩별 조건 체크리스트 — **엔딩 화면에서만** 공개한다.
+ * 플레이 중에는 결과를 알려주지 않고, 끝난 뒤에 무엇이 모자랐는지 보여 준다.
+ */
+export function endingChecklists(
+  file: EndingFile,
+  state: GameStateData,
+  reachedId: EndingId | null,
+): EndingChecklist[] {
+  return file.endings.map((ending) => ({
+    id: ending.id,
+    name: ending.name,
+    reached: ending.id === reachedId,
+    rows: ending.conditions.map((c) => ({ label: conditionLabel(c), met: evaluateOne(c, state) })),
+  }));
 }
 
 export interface CollectionStats {
