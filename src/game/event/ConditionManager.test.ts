@@ -16,6 +16,7 @@ const base: GameStateData = {
   completedInteractions: [],
   currentChapter: null,
   currentEvent: null,
+  ending: null,
 };
 
 const state = (over: Partial<GameStateData>): GameStateData => ({ ...base, ...over });

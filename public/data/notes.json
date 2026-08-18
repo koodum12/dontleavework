@@ -1,44 +1,142 @@
 {
   "note_coffee_order": {
-    "id": "note_coffee_order", "chapter": "chapter01",
+    "id": "note_coffee_order",
+    "chapter": "chapter01",
     "fact": "07:48에 내 이름으로 로비 커피 주문이 등록됐다. 같은 시각 '출근 확인 완료' 알림이 왔고, 커피는 로비가 아니라 내 책상 위에 있었다.",
     "assumption": "누군가 내 계정으로 주문하고 내 자리에 두었다.",
     "nextCheck": "주문과 전달을 같은 사람이 했는가?"
   },
   "note_pickup_unknown": {
-    "id": "note_pickup_unknown", "chapter": "chapter01",
+    "id": "note_pickup_unknown",
+    "chapter": "chapter01",
     "fact": "08:03 픽업 완료 / 배달 요청 없음. 주문 화면에는 픽업한 사람이 남지 않는다.",
     "assumption": "픽업한 사람과 자리에 둔 사람이 같은 사람일 수 있다.",
     "nextCheck": "로비 픽업대 영상을 볼 수 있는가?"
   },
   "note_cctv": {
-    "id": "note_cctv", "chapter": "chapter01",
+    "id": "note_cctv",
+    "chapter": "chapter01",
     "fact": "07:48에 누군가 로비에서 커피를 받아 내 책상에 놓았다. 그 사람은 다른 직원이 열어 둔 출입문으로 들어왔다.",
     "assumption": "그 사람이 내 이름으로 커피를 주문했다.",
     "nextCheck": "주문은 자동으로 실행된 것인가?"
   },
   "note_no_cctv": {
-    "id": "note_no_cctv", "chapter": "chapter01",
+    "id": "note_no_cctv",
+    "chapter": "chapter01",
     "fact": "오늘은 관리실에 가지 않았다.",
     "assumption": "영상 없이는 픽업한 사람을 특정할 수 없다.",
     "nextCheck": "07:48 로비 픽업대 / 내 자리 전달 장면 확인 필요."
   },
   "note_messages": {
-    "id": "note_messages", "chapter": "chapter02",
+    "id": "note_messages",
+    "chapter": "chapter02",
     "fact": "첫 문자는 예약 전송 형식(M-228-AUTO)이고, 두 번째 문자는 22:30에 일반 문자로 도착했다. 두 번째 번호는 통화가 연결되지 않는다.",
     "assumption": "첫 문자는 자동 메시지이고, 두 번째만 사람이 보냈다.",
     "nextCheck": "M-228-AUTO는 어떤 앱 또는 프로그램에서 왔는가?"
   },
   "note_coffee_drunk": {
-    "id": "note_coffee_drunk", "chapter": "chapter01",
+    "id": "note_coffee_drunk",
+    "chapter": "chapter01",
     "fact": "출처를 모르는 커피를 마셨다. 컵은 사라졌지만 주문 시간과 QR 영수증은 남았다.",
     "assumption": "확인할 수 있는 건 이제 주문 기록뿐이다.",
     "nextCheck": "로비 주문 내역을 다시 볼 수 있는가?"
   },
   "note_coffee_thrown": {
-    "id": "note_coffee_thrown", "chapter": "chapter01",
+    "id": "note_coffee_thrown",
+    "chapter": "chapter01",
     "fact": "커피를 버리기 전 컵 스티커의 주문 시간과 수령 위치를 촬영했다.",
     "assumption": "주문 번호로 주문자를 역추적할 수 있을지도 모른다.",
     "nextCheck": "로비 카페에 주문 번호를 물어볼 수 있는가?"
+  },
+  "note_memory_01": {
+    "id": "note_memory_01",
+    "chapter": "chapter03",
+    "fact": "어제 사진은 21:52에 자동 동기화됐다. 사진 위 문구는 01:56에 새로 만들어졌고, 02:13에 변경 이력이 백업됐다. 등록되지 않은 사내망 기기가 파일을 열었다.",
+    "assumption": "MEMORY_01을 만든 사람이 문구를 적었다.",
+    "nextCheck": "등록되지 않은 사내망 기기는 누구의 기기인가?"
+  },
+  "note_daeri": {
+    "id": "note_daeri",
+    "chapter": "chapter03",
+    "fact": "야근 명단에 내 퇴근 시간과 다른 정보가 적혀 있다. 대리는 야근 명단을 볼 수 있다.",
+    "assumption": "대리가 내 퇴근 정보를 바꿨다.",
+    "nextCheck": "명단을 볼 수 있는 사람이 또 누구인가?"
+  },
+  "note_team_leader": {
+    "id": "note_team_leader",
+    "chapter": "chapter03",
+    "fact": "퇴근 뒤 내 컴퓨터가 다시 켜져 있었다. 팀장은 업무 파일을 원격으로 확인할 수 있다.",
+    "assumption": "팀장이 내 개인 파일을 열었다.",
+    "nextCheck": "원격 권한은 누구에게 있는가?"
+  },
+  "note_neighbor_witness": {
+    "id": "note_neighbor_witness",
+    "chapter": "chapter03",
+    "fact": "미확인 인물이 내 자리에서 화면을 보고 있었다. 목격자는 얼굴과 성별을 확인하지 못했다.",
+    "assumption": "그 사람은 대리다.",
+    "nextCheck": "회색 셔츠만으로 사람을 특정할 수 있는가?"
+  },
+  "note_guard_night": {
+    "id": "note_guard_night",
+    "chapter": "chapter03",
+    "fact": "내 퇴근 뒤 재출입 기록이 있다. 심야 서버 로그에 이상이 있다.",
+    "assumption": "재출입자는 내 파일을 수정한 사람이다.",
+    "nextCheck": "보안 담당자와 함께 기록을 볼 수 있는가?"
+  },
+  "note_peer_memory": {
+    "id": "note_peer_memory",
+    "chapter": "chapter03",
+    "fact": "사고 전의 나는 MEMORY라는 기록 프로그램을 만들고 있었다. 동기도 세부 기능은 모른다.",
+    "assumption": "MEMORY가 지금의 문자와 사진을 보냈다.",
+    "nextCheck": "MEMORY는 지금도 실행되고 있는가?"
+  },
+  "note_fact_split": {
+    "id": "note_fact_split",
+    "chapter": "chapter04",
+    "fact": "누군가 내 일상을 알고 있는 것처럼 보이는 기록이 있다. 일부 기록은 자동 전송 기능일 가능성이 있다.",
+    "assumption": "그 사람이 회사 사람일 가능성이 있다. — 아직은 단정할 수 없다.",
+    "nextCheck": "내 사진을 연 등록되지 않은 사내망 기기는 누구의 기기인가?"
+  },
+  "note_lobby_check": {
+    "id": "note_lobby_check",
+    "chapter": "chapter04",
+    "fact": "자동 주문은 로비 픽업대까지만 실행된다. 07:48 커피를 내 자리로 옮긴 사람은 따로 있다. 18:43에 누군가 내 뒷모습을 찍은 사진이 개인 동기화 폴더에 추가됐다.",
+    "assumption": "사진 속 반사된 사람은 회사 직원이다.",
+    "nextCheck": "발신 기기를 특정할 수 있는가?"
+  },
+  "note_network": {
+    "id": "note_network",
+    "chapter": "chapter04",
+    "fact": "07:48, 22:28, 02:13은 MEMORY의 자동 실행 시간이다. 미확인 기기가 사진·CCTV·기록 폴더를 열람했다. '오늘은 카페에 가지 않았다'는 문장은 사람이 입력한 형식이다.",
+    "assumption": "미확인 기기는 내 일상을 일부러 틀리게 기록하고 있다.",
+    "nextCheck": "미확인 기기의 식별값을 남길 수 있는가?"
+  },
+  "note_observation": {
+    "id": "note_observation",
+    "chapter": "chapter05",
+    "fact": "가까이 일하는 사람은 내 생활 습관 일부를 알 수 있다.",
+    "assumption": "내 습관을 아는 사람은 모두 나를 특별히 관찰한다. — 이것까지 사건과 연결하면 안 된다.",
+    "nextCheck": "관찰과 감시를 무엇으로 구분할 것인가?"
+  },
+  "note_early_leave": {
+    "id": "note_early_leave",
+    "chapter": "chapter06",
+    "fact": "오늘은 평소보다 30분 일찍 퇴근했다. 문자는 회사 출입문을 지난 직후 도착했고, 자동 전송 식별값이 없다.",
+    "assumption": "누군가 회사 안이나 근처에서 나를 보고 있다.",
+    "nextCheck": "출입문 근처 기록을 볼 수 있는가?"
+  },
+  "note_composite": {
+    "id": "note_composite",
+    "chapter": "chapter06",
+    "fact": "20:16에 공용 계정으로 합성 사진이 출력됐다. 용지함은 2층 사무실 복합기다.",
+    "assumption": "출력한 사람은 야간에 회사에 있었다.",
+    "nextCheck": "야간 출입 기록과 출력 시간을 맞출 수 있는가?"
+  },
+  "note_memory_purpose": {
+    "id": "note_memory_purpose",
+    "chapter": "chapter07",
+    "fact": "MEMORY는 조건을 만족하면 자동으로 메시지를 보내고 지정한 폴더의 사진을 동기화한다. 02:13에는 원본과 변경본을 함께 백업한다.",
+    "assumption": "자동 기록은 나를 안심시키기 위한 것이 아니라, 원본이 바뀐 순간을 남기기 위한 것이다.",
+    "nextCheck": "MEMORY가 만들지 않은 흔적은 어디까지인가?"
   }
 }

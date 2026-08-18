@@ -1,0 +1,50 @@
+{
+  "endings": [
+    {
+      "id": "hidden",
+      "name": "HIDDEN ENDING — 퇴근하지 마세요",
+      "summary": "과거의 침입 기록까지 복구해 현재와 이어 붙였다.",
+      "conditions": [
+        { "type": "evidence_count", "category": "MEMORY", "min": 2 },
+        { "type": "character_clue_count", "min": 2 },
+        { "type": "flag", "key": "intrusion_evidence", "value": true },
+        { "type": "flag", "key": "accused_alone", "value": false },
+        { "type": "flag", "key": "checked_cctv", "value": true },
+        { "type": "flag", "key": "checked_memory_01", "value": true },
+        { "type": "flag", "key": "found_0213", "value": true },
+        { "type": "flag", "key": "checked_network_log", "value": true },
+        { "type": "flag", "key": "recovered_deleted_note", "value": true },
+        { "type": "flag", "key": "recovered_voice_memo", "value": true },
+        { "type": "flag", "key": "compared_clues", "value": true },
+        { "type": "flag", "key": "recovered_prememory", "value": true }
+      ]
+    },
+    {
+      "id": "true",
+      "name": "TRUE ENDING — 퇴근합니다",
+      "summary": "자동 기록과 외부의 흔적을 분리해, 공개된 자리에서 보존을 요청했다.",
+      "conditions": [
+        { "type": "evidence_count", "category": "MEMORY", "min": 2 },
+        { "type": "character_clue_count", "min": 2 },
+        { "type": "flag", "key": "intrusion_evidence", "value": true },
+        { "type": "flag", "key": "accused_alone", "value": false }
+      ]
+    },
+    {
+      "id": "normal",
+      "name": "NORMAL ENDING — 새로운 출근",
+      "summary": "MEMORY를 지우고 회사를 떠났다. 기록하는 습관은 남았다.",
+      "conditions": [
+        { "type": "flag", "key": "memory_deleted", "value": true }
+      ]
+    },
+    {
+      "id": "bad",
+      "name": "BAD ENDING — 기록이 없는 사람",
+      "summary": "증거를 정리하지 않은 채 혼자 추궁했고, 사본은 자동 정리되었다.",
+      "conditions": [
+        { "type": "flag", "key": "accused_alone", "value": true }
+      ]
+    }
+  ]
+}

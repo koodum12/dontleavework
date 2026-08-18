@@ -75,8 +75,7 @@
         "w": 96,
         "h": 64,
         "solid": true,
-        "eventId": "chapter1_ask_intern",
-        "once": true
+        "eventId": "neighbor_gate"
       },
       {
         "id": "obj_desk_team_leader",
@@ -85,7 +84,8 @@
         "y": 240,
         "w": 96,
         "h": 64,
-        "solid": true
+        "solid": true,
+        "eventId": "talk_team_leader"
       },
       {
         "id": "obj_printer",
@@ -94,7 +94,8 @@
         "y": 224,
         "w": 64,
         "h": 48,
-        "solid": true
+        "solid": true,
+        "eventId": "printer_look"
       },
       {
         "id": "obj_water",
@@ -103,7 +104,8 @@
         "y": 448,
         "w": 40,
         "h": 40,
-        "solid": true
+        "solid": true,
+        "eventId": "water_look"
       },
       {
         "id": "obj_security_desk",
@@ -113,7 +115,7 @@
         "w": 128,
         "h": 64,
         "solid": true,
-        "eventId": "chapter1_cctv_gate"
+        "eventId": "talk_guard"
       },
       {
         "id": "obj_cctv_monitor",
@@ -133,7 +135,17 @@
         "w": 64,
         "h": 96,
         "solid": true,
-        "eventId": "chapter2_gate"
+        "eventId": "day_gate"
+      },
+      {
+        "id": "obj_desk_daeri",
+        "label": "대리 책상",
+        "x": 800,
+        "y": 400,
+        "w": 96,
+        "h": 64,
+        "solid": true,
+        "eventId": "talk_daeri"
       }
     ]
   }

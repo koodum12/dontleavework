@@ -7,3 +7,4 @@ export * from './Note';
 export * from './Location';
 export * from './Mental';
 export * from './Message';
+export * from './Ending';

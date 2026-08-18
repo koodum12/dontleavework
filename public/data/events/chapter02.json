@@ -1,28 +1,23 @@
 {
   "events": [
     {
-      "id": "chapter2_gate",
-      "type": "branch",
-      "branches": [
-        { "conditions": [{ "type": "flag", "key": "chapter1_done", "value": true }], "next": "chapter2_start" }
-      ],
-      "fallback": "chapter2_locked"
-    },
-    {
-      "id": "chapter2_locked",
-      "type": "dialogue",
-      "speaker": "사랑",
-      "text": "아직 퇴근할 수 없다. 자리에서 확인할 것이 남았다."
-    },
-    {
       "id": "chapter2_start",
       "type": "dialogue",
       "speaker": "사랑",
       "text": "(2장. 이상한 문자) 집에 도착한 사랑은 가방을 내려놓고도 한동안 현관 앞에 서 있다. 띠링. — 모르는 번호로 문자가 온다.",
       "effects": [
-        { "type": "chapterSet", "chapter": "chapter02" },
-        { "type": "messageReceive", "id": "msg_2228_auto" },
-        { "type": "itemGet", "id": "item_warm_tea" }
+        {
+          "type": "chapterSet",
+          "chapter": "chapter02"
+        },
+        {
+          "type": "messageReceive",
+          "id": "msg_2228_auto"
+        },
+        {
+          "type": "itemGet",
+          "id": "item_warm_tea"
+        }
       ],
       "next": "chapter2_notice"
     },
@@ -32,8 +27,15 @@
       "speaker": "사랑",
       "text": "화면 위에는 집 와이파이에 연결되었다는 알림, 그 아래에 시스템 알림이 겹쳐 뜬다. — 예약 메시지 전송 완료 / 식별값 M-228-AUTO.",
       "effects": [
-        { "type": "mentalChange", "delta": "strange_message" },
-        { "type": "evidenceGet", "id": "ev_2228_message", "category": "MEMORY" }
+        {
+          "type": "mentalChange",
+          "delta": "strange_message"
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_2228_message",
+          "category": "MEMORY"
+        }
       ],
       "next": "chapter2_reply_choice"
     },
@@ -42,9 +44,18 @@
       "type": "choice",
       "text": "답장을 할까.",
       "choices": [
-        { "text": "누구세요?", "next": "chapter2_reply_who" },
-        { "text": "장난치지 마세요.", "next": "chapter2_reply_angry" },
-        { "text": "무시한다", "next": "chapter2_reply_ignore" }
+        {
+          "text": "누구세요?",
+          "next": "chapter2_reply_who"
+        },
+        {
+          "text": "장난치지 마세요.",
+          "next": "chapter2_reply_angry"
+        },
+        {
+          "text": "무시한다",
+          "next": "chapter2_reply_ignore"
+        }
       ]
     },
     {
@@ -52,7 +63,13 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "누구세요? — 답장은 전송되었지만, 읽음 표시는 뜨지 않는다.",
-      "effects": [{ "type": "flagSet", "key": "replied_message", "value": true }],
+      "effects": [
+        {
+          "type": "flagSet",
+          "key": "replied_message",
+          "value": true
+        }
+      ],
       "next": "chapter2_second_message"
     },
     {
@@ -61,8 +78,15 @@
       "speaker": "사랑",
       "text": "장난치지 마세요. — 손끝이 조금 떨린다.",
       "effects": [
-        { "type": "mentalChange", "amount": -5 },
-        { "type": "flagSet", "key": "replied_message", "value": true }
+        {
+          "type": "mentalChange",
+          "amount": -5
+        },
+        {
+          "type": "flagSet",
+          "key": "replied_message",
+          "value": true
+        }
       ],
       "next": "chapter2_second_message"
     },
@@ -71,7 +95,13 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "답장을 보내지 않는다. 휴대폰을 쥔 채 침대 끝에 앉는다.",
-      "effects": [{ "type": "flagSet", "key": "replied_message", "value": false }],
+      "effects": [
+        {
+          "type": "flagSet",
+          "key": "replied_message",
+          "value": false
+        }
+      ],
       "next": "chapter2_second_message"
     },
     {
@@ -79,7 +109,12 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "차를 끓여 컵을 감싸고 있을 때 휴대폰이 다시 울린다. — '집에 잘 도착했네요.'",
-      "effects": [{ "type": "messageReceive", "id": "msg_2230_unknown" }],
+      "effects": [
+        {
+          "type": "messageReceive",
+          "id": "msg_2230_unknown"
+        }
+      ],
       "next": "chapter2_compare"
     },
     {
@@ -87,14 +122,28 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "첫 문자에는 식별값 M-228-AUTO, 두 번째에는 아무 정보도 없다. 번호를 눌러 통화를 걸어 보지만 — 연결할 수 없는 번호입니다.",
-      "effects": [{ "type": "photoGet", "id": "photo_call_screen" }],
+      "effects": [
+        {
+          "type": "photoGet",
+          "id": "photo_call_screen"
+        }
+      ],
       "next": "chapter2_cctv_branch"
     },
     {
       "id": "chapter2_cctv_branch",
       "type": "branch",
       "branches": [
-        { "conditions": [{ "type": "flag", "key": "checked_cctv", "value": true }], "next": "chapter2_with_cctv" }
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "checked_cctv",
+              "value": true
+            }
+          ],
+          "next": "chapter2_with_cctv"
+        }
       ],
       "fallback": "chapter2_without_cctv"
     },
@@ -117,7 +166,12 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "커피는 회사에서 시작됐고, 문자는 집에 온 뒤 도착했다. 두 사건을 한 사람에게 묶을 근거는 아직 없다.",
-      "effects": [{ "type": "noteAdd", "id": "note_messages" }],
+      "effects": [
+        {
+          "type": "noteAdd",
+          "id": "note_messages"
+        }
+      ],
       "next": "chapter2_next_choice"
     },
     {
@@ -128,16 +182,34 @@
         {
           "text": "영상 속 인물과 문자 시간을 대조한다",
           "next": "chapter2_cross_check",
-          "conditions": [{ "type": "flag", "key": "checked_cctv", "value": true }],
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "checked_cctv",
+              "value": true
+            }
+          ],
           "lockedText": "대조할 영상이 없다. (CCTV 미확인)"
         },
         {
           "text": "MEMORY 증거 두 개를 나란히 비교한다",
           "next": "chapter2_memory_compare",
-          "conditions": [{ "type": "evidence_count", "category": "MEMORY", "min": 2 }]
+          "conditions": [
+            {
+              "type": "evidence_count",
+              "category": "MEMORY",
+              "min": 2
+            }
+          ]
         },
-        { "text": "'누군가 나를 지켜보고 있다'라고 적는다", "next": "chapter2_write_fear" },
-        { "text": "오늘은 여기까지만 적는다", "next": "chapter2_end" }
+        {
+          "text": "'누군가 나를 지켜보고 있다'라고 적는다",
+          "next": "chapter2_write_fear"
+        },
+        {
+          "text": "오늘은 여기까지만 적는다",
+          "next": "chapter2_end"
+        }
       ]
     },
     {
@@ -146,8 +218,16 @@
       "speaker": "사랑",
       "text": "07:48의 인물과 22:28의 자동 전송. 시간대는 다르지만 둘 다 '자동'이라는 말이 붙어 있다.",
       "effects": [
-        { "type": "flagSet", "key": "cross_checked", "value": true },
-        { "type": "characterClue", "characterId": "guard", "clue": "영상 사본의 생성 시간을 기록해 주었다" }
+        {
+          "type": "flagSet",
+          "key": "cross_checked",
+          "value": true
+        },
+        {
+          "type": "characterClue",
+          "characterId": "guard",
+          "clue": "영상 사본의 생성 시간을 기록해 주었다"
+        }
       ],
       "next": "chapter2_end"
     },
@@ -156,7 +236,13 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "07:48과 22:28. 둘 다 내가 한 일로 기록되어 있다. 내가 하지 않았는데도.",
-      "effects": [{ "type": "flagSet", "key": "memory_pattern_found", "value": true }],
+      "effects": [
+        {
+          "type": "flagSet",
+          "key": "memory_pattern_found",
+          "value": true
+        }
+      ],
       "next": "chapter2_end"
     },
     {
@@ -164,7 +250,12 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "'누군가 나를 지켜보고 있다.' …잠시 눈을 감았다가, 마지막 문장을 지운다. 아니. 내가 확인한 건 문자 두 개뿐이야.",
-      "effects": [{ "type": "mentalChange", "amount": -5 }],
+      "effects": [
+        {
+          "type": "mentalChange",
+          "amount": -5
+        }
+      ],
       "next": "chapter2_end"
     },
     {
@@ -172,7 +263,13 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "현관 잠금장치를 다시 확인하고, 문자를 지우지 않은 채 알람을 조금 일찍 맞춘다. 커튼을 치고, 긴 밤을 보낸다. (2장 끝)",
-      "effects": [{ "type": "flagSet", "key": "chapter2_done", "value": true }]
+      "effects": [
+        {
+          "type": "flagSet",
+          "key": "chapter2_done",
+          "value": true
+        }
+      ]
     },
     {
       "id": "item_stabilizer_used",

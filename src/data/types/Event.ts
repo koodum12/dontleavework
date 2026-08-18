@@ -1,12 +1,11 @@
 import type { Condition } from './Condition';
 import type { EvidenceCategory } from './Condition';
+import type { EndingId } from './Ending';
 
 export type EventType =
   | 'dialogue' | 'choice' | 'interaction' | 'mentalChange'
   | 'itemGet' | 'itemUse' | 'evidenceGet' | 'noteAdd'
   | 'flagSet' | 'condition' | 'branch' | 'ending';
-
-export type EndingId = 'true' | 'hidden' | 'normal' | 'bad';
 
 /** JSON 에 그대로 쓰이는 효과 형태 (day2 §6 예시 기준) */
 export type EventEffect =

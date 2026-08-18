@@ -1,0 +1,117 @@
+{
+  "events": [
+    {
+      "id": "chapter05_start",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "(5장. 나를 보고 있는 사람) 오늘은… 회사에 가기 싫다. 버스 창문에 비친 내 얼굴, 길 건너편에서 같은 방향으로 걷는 사람. 잠시 후 그 사람은 다른 길로 사라진다. …역시 내가 너무 예민한가. 가방 안쪽에서 오래된 비상 안정제를 찾았다.",
+      "effects": [
+        {
+          "type": "chapterSet",
+          "chapter": "chapter05"
+        },
+        {
+          "type": "itemGet",
+          "id": "item_emergency_pill"
+        }
+      ],
+      "next": "chapter05_branch"
+    },
+    {
+      "id": "chapter05_branch",
+      "type": "branch",
+      "branches": [
+        {
+          "conditions": [
+            {
+              "type": "flag",
+              "key": "route_lobby",
+              "value": true
+            }
+          ],
+          "next": "chapter05_coffee_again"
+        }
+      ],
+      "fallback": "chapter05_old_photo"
+    },
+    {
+      "id": "chapter05_coffee_again",
+      "type": "dialogue",
+      "speaker": "로비 카페 직원",
+      "text": "책상 위에 커피와 메모가 있다 — '어제 주문하신 걸 잘못 전달했습니다.' 직원에게 가져가자: 저희가 책상까지 전달한 적은 없어요. 어제도 직접 받아 가셨고요. …저희 글씨는 아닌 것 같은데요.",
+      "effects": [
+        {
+          "type": "itemGet",
+          "id": "item_strange_coffee"
+        },
+        {
+          "type": "flagSet",
+          "key": "delivery_separated",
+          "value": true
+        }
+      ],
+      "next": "chapter05_coffee_note"
+    },
+    {
+      "id": "chapter05_coffee_note",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "주문 기록 자체는 자동일 수 있어. 그런데 누군가가 그 기록을 이용해서 내 자리까지 온 거야.",
+      "next": "chapter05_neighbor"
+    },
+    {
+      "id": "chapter05_old_photo",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "쓰레기통에서 구겨진 사진 한 장을 발견한다. 사랑과 전 애인이 함께 찍힌 사진. 뒷면에는 — '저 자리가 내 자리였어야 했는데.' 모서리에 회사 복합기 관리 번호가 희미하게 남아 있다.",
+      "effects": [
+        {
+          "type": "mentalChange",
+          "delta": "found_own_photo"
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_old_photo",
+          "category": "case"
+        },
+        {
+          "type": "flagSet",
+          "key": "found_old_photo",
+          "value": true
+        }
+      ],
+      "next": "chapter05_daeri_passes"
+    },
+    {
+      "id": "chapter05_daeri_passes",
+      "type": "dialogue",
+      "speaker": "대리",
+      "text": "그거… 예전 사진 같은데요. — 이 사진을 아세요? — 아뇨. 그냥 그렇게 보여서요. 대리는 더 보지 않고 자리로 돌아간다. …방금 말도 사실인지 추측인지 모르겠어.",
+      "effects": [
+        {
+          "type": "characterClue",
+          "characterId": "daeri",
+          "clue": "구겨진 사진을 보고 '예전 사진 같다'고 말했다"
+        }
+      ],
+      "next": "chapter05_neighbor"
+    },
+    {
+      "id": "chapter05_neighbor",
+      "type": "dialogue",
+      "speaker": "옆자리 직원",
+      "text": "오늘 향수 바꾸셨어요? 가끔 옆에서 맡으니까요. 어제랑은 확실히 달라요. — 저에 대해 아는 게 많아 보이면 다 의심해야 하는 줄 알았어요. — 옆자리면 알 수 있는 것도 있죠.",
+      "effects": [
+        {
+          "type": "noteAdd",
+          "id": "note_observation"
+        },
+        {
+          "type": "flagSet",
+          "key": "chapter5_done",
+          "value": true
+        }
+      ]
+    }
+  ]
+}

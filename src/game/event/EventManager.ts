@@ -114,6 +114,7 @@ function enter(eventId: string, set: SetState, get: GetState, depth = 0): boolea
   const game = useGameStore.getState();
   const next = executeEvent(event, game, game.mentalConfig);
   game.setCurrentEvent(event.id);
+  if (event.type === 'ending' && event.ending) game.setEnding(event.ending);
 
   // branch / condition 이벤트는 화면에 뜨지 않는다. 조건을 판정해 곧바로 다음으로 넘어간다.
   if (event.type === 'branch' || event.type === 'condition') {

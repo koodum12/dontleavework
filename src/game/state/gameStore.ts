@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import type { EvidenceCategory, MentalConfig } from '@/data/types';
+import type { EndingId, EvidenceCategory, MentalConfig } from '@/data/types';
 
 export interface HeldEvidence {
   id: string;
@@ -21,6 +21,8 @@ export interface GameStateData {
   completedInteractions: string[];            // once: true 인 상호작용 기록
   currentChapter: string | null;
   currentEvent: string | null;
+  /** 도달한 엔딩 (엔딩 화면 표시용) */
+  ending: EndingId | null;
 }
 
 export interface GameStateActions {
@@ -37,6 +39,7 @@ export interface GameStateActions {
   completeInteraction: (interactableId: string) => void;
   setChapter: (chapter: string | null) => void;
   setCurrentEvent: (eventId: string | null) => void;
+  setEnding: (ending: EndingId | null) => void;
   setMentalConfig: (config: MentalConfig) => void;
   resetGame: () => void;
 }
@@ -58,6 +61,7 @@ const initialState: GameStateData = {
   completedInteractions: [],
   currentChapter: null,
   currentEvent: null,
+  ending: null,
 };
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -109,6 +113,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   setChapter: (currentChapter) => set({ currentChapter }),
   setCurrentEvent: (currentEvent) => set({ currentEvent }),
+  setEnding: (ending) => set({ ending }),
 
   setMentalConfig: (mentalConfig) =>
     set({ mentalConfig, mental: get().mental === DEFAULT_MAX_MENTAL ? mentalConfig.start : get().mental }),
@@ -128,6 +133,7 @@ export const useMessages = () => useGameStore((s) => s.messages);
 export const usePhotos = () => useGameStore((s) => s.photos);
 export const useUnreadMessages = () => useGameStore((s) => s.unreadMessages);
 export const useCurrentChapter = () => useGameStore((s) => s.currentChapter);
+export const useEnding = () => useGameStore((s) => s.ending);
 
 /** 조건 판정 등 순수 함수에 넘길 스냅샷 */
 export const gameStateSnapshot = (): GameStateData => {
@@ -145,5 +151,6 @@ export const gameStateSnapshot = (): GameStateData => {
     completedInteractions: s.completedInteractions,
     currentChapter: s.currentChapter,
     currentEvent: s.currentEvent,
+    ending: s.ending,
   };
 };

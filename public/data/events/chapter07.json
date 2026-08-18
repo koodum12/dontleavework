@@ -1,0 +1,94 @@
+{
+  "events": [
+    {
+      "id": "chapter07_start",
+      "type": "branch",
+      "effects": [{ "type": "chapterSet", "chapter": "chapter07" }],
+      "branches": [
+        {
+          "conditions": [{ "type": "evidence_count", "category": "MEMORY", "min": 2 }],
+          "next": "ch7_deleted_found"
+        }
+      ],
+      "fallback": "ch7_not_enough"
+    },
+    {
+      "id": "ch7_not_enough",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "(7장. 삭제된 기록) 휴대폰을 한참 뒤졌지만 아무것도 새로 보이지 않는다. MEMORY가 남긴 기록을 더 모아야 한다.",
+      "effects": [{ "type": "flagSet", "key": "chapter7_blocked", "value": true }]
+    },
+    {
+      "id": "ch7_deleted_found",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "(7장. 삭제된 기록) 휴대폰에 '최근 삭제된 항목'이 보인다. 삭제된 사진들은 내가 지정해 둔 개인 사진 폴더의 자동 백업본이었다. MEMORY가 몰래 촬영한 것이 아니다.",
+      "effects": [{ "type": "flagSet", "key": "found_deleted_items", "value": true }],
+      "next": "ch7_recover_branch"
+    },
+    {
+      "id": "ch7_recover_branch",
+      "type": "branch",
+      "branches": [
+        {
+          "conditions": [{ "type": "mental_above", "value": 39 }],
+          "next": "ch7_recover_note"
+        },
+        {
+          "conditions": [{ "type": "flag", "key": "stabilizer_used", "value": true }],
+          "next": "ch7_recover_note"
+        }
+      ],
+      "fallback": "ch7_recover_failed"
+    },
+    {
+      "id": "ch7_recover_failed",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "손상된 마지막 줄이 읽히지 않는다. 글자가 흔들려 초점이 잡히지 않는다. 정신을 가라앉히거나 비상 안정제가 필요하다.",
+      "effects": [{ "type": "flagSet", "key": "recovery_pending", "value": true }]
+    },
+    {
+      "id": "ch7_recover_note",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "삭제된 메모를 복구한다 — '프로그램 테스트 완료. 조건을 만족하면 자동으로 메시지를 전송한다. 사진도 지정한 폴더에서 자동으로 동기화 가능.' 그리고 숨겨진 마지막 문장 — '자동 기록은 나를 안심시키기 위한 것이 아니다. 원본이 바뀐 순간을 남기기 위한 것이다.'",
+      "effects": [
+        { "type": "evidenceGet", "id": "ev_deleted_note", "category": "MEMORY" },
+        { "type": "messageReceive", "id": "msg_deleted_memo" },
+        { "type": "noteAdd", "id": "note_memory_purpose" },
+        { "type": "flagSet", "key": "recovered_deleted_note", "value": true }
+      ],
+      "next": "ch7_recover_voice"
+    },
+    {
+      "id": "ch7_recover_voice",
+      "type": "dialogue",
+      "speaker": "과거의 사랑",
+      "text": "오래된 음성 메모가 하나 더 복구된다 — '그 사람이 내 말을 따라 해. 내가 저장한 사진도 알고 있어. 내 착각일 수도 있으니까 기록으로 남겨야 해.'",
+      "effects": [
+        { "type": "evidenceGet", "id": "ev_old_voice_memo", "category": "MEMORY" },
+        { "type": "flagSet", "key": "recovered_voice_memo", "value": true }
+      ],
+      "next": "ch7_memory_settings"
+    },
+    {
+      "id": "ch7_memory_settings",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "MEMORY 설정 화면. 07:48 출근 확인·로비 포인트 주문 / 22:28 귀가 확인 문자 / 02:13 정기 무결성 검사. …커피랑 첫 문자 일부는 내가 설정한 거였어. 하지만 책상 위에 놓인 커피와 오늘 온 문자는 아니야.",
+      "effects": [
+        { "type": "flagSet", "key": "memory_purpose_confirmed", "value": true },
+        { "type": "flagSet", "key": "chapter7_done", "value": true }
+      ],
+      "next": "ch7_end"
+    },
+    {
+      "id": "ch7_end",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "MEMORY가 모든 걸 만든 건 아니야. 그리고 누가 범인인지도… 아직 확실하지 않아."
+    }
+  ]
+}

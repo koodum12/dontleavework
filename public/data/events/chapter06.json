@@ -1,0 +1,145 @@
+{
+  "events": [
+    {
+      "id": "chapter06_start",
+      "type": "choice",
+      "speaker": "사랑",
+      "text": "(6장. 기록되지 않은 하루) 오후 6시 30분. 오늘은 내가 정할 수 있는 것부터 정하자.",
+      "effects": [{ "type": "chapterSet", "chapter": "chapter06" }],
+      "choices": [
+        { "text": "집으로 간다", "next": "ch6_go_home" },
+        { "text": "회사에 남아 기록을 정리한다", "next": "ch6_stay" }
+      ]
+    },
+    {
+      "id": "ch6_go_home",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "평소보다 30분 이르게 퇴근한다. 회사에서 나가려던 순간 휴대폰이 울린다 — '오늘은 그냥 퇴근하시네요.' 어제 두 번째 문자와 같은 번호. 발신·도착 시간이 같고, 자동 전송 식별값도 없다.",
+      "effects": [
+        { "type": "mentalChange", "delta": "strange_message" },
+        { "type": "messageReceive", "id": "msg_early_leave" },
+        { "type": "noteAdd", "id": "note_early_leave" },
+        { "type": "flagSet", "key": "left_early", "value": true }
+      ],
+      "next": "chapter06_end"
+    },
+    {
+      "id": "ch6_stay",
+      "type": "branch",
+      "branches": [
+        { "conditions": [{ "type": "flag", "key": "security_contact", "value": true }], "next": "ch6_stay_main" }
+      ],
+      "fallback": "ch6_stay_alone_warning"
+    },
+    {
+      "id": "ch6_stay_alone_warning",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "혼자 남을 수는 없다. 관리실에 누가 있는지부터 확인해야 한다. 경비원에게 먼저 물어보자.",
+      "next": "chapter06_end"
+    },
+    {
+      "id": "ch6_stay_main",
+      "type": "dialogue",
+      "speaker": "보안 담당자",
+      "text": "'관리실에 있습니다. 혼자 복도로 다니지 마세요.' 낮에는 평범했던 복도가 불이 절반만 켜진 채 길게 이어져 있다. 복도 끝의 형체는 가까이 가 보니 복사기 옆 비닐 커버였다. …내가 본 것과 내가 무서워한 건 다를 수 있어.",
+      "effects": [{ "type": "mentalChange", "delta": "stay_at_night" }],
+      "next": "ch6_printer"
+    },
+    {
+      "id": "ch6_printer",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "삐빅. 2층 복합기 출력함 위에 사진 한 장 — 사랑과 대리의 모습이 합성되어 있다. 뒷면: '이번에는 정말 가까워졌네요.' 출력 시각 20:16 / 사용자 공용 계정 / 용지함 2층 사무실 복합기.",
+      "effects": [
+        { "type": "mentalChange", "delta": "found_composite_photo" },
+        { "type": "photoGet", "id": "photo_composite" },
+        { "type": "itemGet", "id": "item_composite_photo" },
+        { "type": "noteAdd", "id": "note_composite" },
+        { "type": "flagSet", "key": "found_composite", "value": true }
+      ],
+      "next": "ch6_voice_choice"
+    },
+    {
+      "id": "ch6_voice_choice",
+      "type": "choice",
+      "speaker": "과거의 사랑",
+      "text": "MEMORY_01의 '과거 기록 보기'에서 오래된 음성 메모가 나타난다. — '지금 보이는 것과, 내가 추측하는 것을 구분해.'",
+      "choices": [
+        { "text": "음성 메모를 끝까지 듣는다", "next": "ch6_voice_listen" },
+        { "text": "재생을 멈춘다", "next": "ch6_voice_stop" }
+      ]
+    },
+    {
+      "id": "ch6_voice_listen",
+      "type": "dialogue",
+      "speaker": "과거의 사랑",
+      "text": "누군가가 내 파일을 열었을 때, 바로 사람을 의심하지 마. 먼저 원본이 무엇이었는지, 언제 바뀌었는지를 확인해.",
+      "effects": [
+        { "type": "mentalChange", "amount": 15 },
+        { "type": "itemGet", "id": "item_voice_memo" },
+        { "type": "flagSet", "key": "heard_old_voice", "value": true }
+      ],
+      "next": "ch6_action_choice"
+    },
+    {
+      "id": "ch6_voice_stop",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "지금은… 더 듣기 힘들어. 음성 메모는 인벤토리에 저장된다.",
+      "effects": [{ "type": "itemGet", "id": "item_voice_memo" }],
+      "next": "ch6_action_choice"
+    },
+    {
+      "id": "ch6_action_choice",
+      "type": "choice",
+      "speaker": "사랑",
+      "text": "이 사진을 어떻게 할까.",
+      "choices": [
+        { "text": "자료를 복사해 보안 담당자에게 보존을 요청한다", "next": "ch6_preserve" },
+        { "text": "대리에게 직접 물어본다", "next": "ch6_ask_daeri" },
+        { "text": "모른 척하고 MEMORY부터 조사한다", "next": "ch6_keep_memory" }
+      ]
+    },
+    {
+      "id": "ch6_preserve",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "사진을 찍고 복합기 관리 번호와 출력 시간을 기록한다. 관리실의 보안 담당자에게 사본 보존을 요청한다.",
+      "effects": [
+        { "type": "evidenceGet", "id": "ev_print_log", "category": "case" },
+        { "type": "flagSet", "key": "preserved_copy", "value": true },
+        { "type": "flagSet", "key": "intrusion_evidence", "value": true }
+      ],
+      "next": "chapter06_end"
+    },
+    {
+      "id": "ch6_ask_daeri",
+      "type": "dialogue",
+      "speaker": "대리",
+      "text": "그거, 합성 같지 않아요? — 왜 그렇게 생각하세요? — 사진 가장자리가 이상해서요. 제가 이걸 왜 봐야 하는데요? 사랑은 겁이 나서 더 묻지 못하지만 대리의 반응을 기록한다.",
+      "effects": [
+        { "type": "characterClue", "characterId": "daeri", "clue": "합성 사진을 보자마자 '합성 같다'고 말했다" },
+        { "type": "evidenceGet", "id": "ev_clue_daeri", "category": "character" },
+        { "type": "flagSet", "key": "daeri_alerted", "value": true }
+      ],
+      "next": "chapter06_end"
+    },
+    {
+      "id": "ch6_keep_memory",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "사진을 인벤토리에 넣고, 보안 담당자와 함께 MEMORY의 삭제된 기록을 찾기로 한다.",
+      "effects": [{ "type": "flagSet", "key": "memory_chance_kept", "value": true }],
+      "next": "chapter06_end"
+    },
+    {
+      "id": "chapter06_end",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "오늘 확인한 것과 무서웠던 것을 나눠 적는다. 남은 건 삭제된 기록이다.",
+      "effects": [{ "type": "flagSet", "key": "chapter6_done", "value": true }]
+    }
+  ]
+}

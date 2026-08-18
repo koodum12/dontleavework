@@ -1,42 +1,120 @@
 {
   "messages": {
     "msg_0748_checkin": {
-      "id": "msg_0748_checkin", "from": "시스템 알림", "time": "07:48",
+      "id": "msg_0748_checkin",
+      "from": "시스템 알림",
+      "time": "07:48",
       "text": "출근 확인 완료.",
-      "detail": { "발신 시간": "07:48", "식별값": "없음" }
+      "detail": {
+        "발신 시간": "07:48",
+        "식별값": "없음"
+      }
     },
     "msg_2228_auto": {
-      "id": "msg_2228_auto", "from": "알 수 없음", "time": "22:28",
+      "id": "msg_2228_auto",
+      "from": "알 수 없음",
+      "time": "22:28",
       "text": "오늘도 무사히 들어갔나요?",
-      "detail": { "발신 시간": "22:28", "도착 시간": "22:28", "식별값": "M-228-AUTO" }
+      "detail": {
+        "발신 시간": "22:28",
+        "도착 시간": "22:28",
+        "식별값": "M-228-AUTO"
+      }
     },
     "msg_2230_unknown": {
-      "id": "msg_2230_unknown", "from": "알 수 없음", "time": "22:30",
+      "id": "msg_2230_unknown",
+      "from": "알 수 없음",
+      "time": "22:30",
       "text": "집에 잘 도착했네요.",
-      "detail": { "발신 시간": "22:30", "도착 시간": "22:30", "식별값": "없음" }
+      "detail": {
+        "발신 시간": "22:30",
+        "도착 시간": "22:30",
+        "식별값": "없음"
+      }
     },
     "msg_deleted_01": {
-      "id": "msg_deleted_01", "from": "나", "time": "??:??",
+      "id": "msg_deleted_01",
+      "from": "나",
+      "time": "??:??",
       "text": "(복구됨) 기록만 믿지는 마. 날짜랑 출처까지 확인해.",
+      "recoveredBy": "recovered_deleted_note"
+    },
+    "msg_early_leave": {
+      "id": "msg_early_leave",
+      "from": "알 수 없음",
+      "time": "18:02",
+      "text": "오늘은 그냥 퇴근하시네요.",
+      "detail": {
+        "발신 시간": "18:02",
+        "도착 시간": "18:02",
+        "식별값": "없음"
+      }
+    },
+    "msg_deleted_memo": {
+      "id": "msg_deleted_memo",
+      "from": "MEMORY",
+      "time": "02:13",
+      "text": "(복구됨) 프로그램 테스트 완료. 조건을 만족하면 자동으로 메시지를 전송한다.",
       "recoveredBy": "recovered_deleted_note"
     }
   },
   "photos": {
-    "photo_cup_sticker": { "id": "photo_cup_sticker", "title": "컵 스티커", "description": "주문자 사랑 / 주문 시간 07:48 / 수령 위치 1층 로비 픽업" },
-    "photo_receipt_qr": { "id": "photo_receipt_qr", "title": "QR 영수증", "description": "08:03 / 픽업 완료 / 배달 요청 없음" },
-    "photo_call_screen": { "id": "photo_call_screen", "title": "통화 화면 캡처", "description": "연결할 수 없는 번호입니다." }
+    "photo_cup_sticker": {
+      "id": "photo_cup_sticker",
+      "title": "컵 스티커",
+      "description": "주문자 사랑 / 주문 시간 07:48 / 수령 위치 1층 로비 픽업"
+    },
+    "photo_receipt_qr": {
+      "id": "photo_receipt_qr",
+      "title": "QR 영수증",
+      "description": "08:03 / 픽업 완료 / 배달 요청 없음"
+    },
+    "photo_call_screen": {
+      "id": "photo_call_screen",
+      "title": "통화 화면 캡처",
+      "description": "연결할 수 없는 번호입니다."
+    },
+    "photo_memory_01": {
+      "id": "photo_memory_01",
+      "title": "바탕화면 MEMORY_01",
+      "description": "어제 집에서 찍은 사진 위에 '어제보다 오늘이 더 예뻐요.'"
+    },
+    "photo_lobby_back": {
+      "id": "photo_lobby_back",
+      "title": "로비 뒷모습",
+      "description": "공유 링크 생성 18:43 / 발신 기기 미확인"
+    },
+    "photo_composite": {
+      "id": "photo_composite",
+      "title": "합성 사진",
+      "description": "출력 시각 20:16 / 공용 계정 / 2층 복합기"
+    }
   },
   "memos": {
     "memo_old_sarang": {
-      "id": "memo_old_sarang", "title": "과거의 나 (음성)", "length": "0:12",
+      "id": "memo_old_sarang",
+      "title": "과거의 나 (음성)",
+      "length": "0:12",
       "transcript": "혹시 내가 이걸 잊어버리면, 기록을 봐. 그래도 기록만 믿지는 마.",
       "recoveredBy": "recovered_voice_memo"
+    },
+    "memo_pause": {
+      "id": "memo_pause",
+      "title": "과거의 나 (일부)",
+      "length": "0:06",
+      "transcript": "지금 보이는 것과, 내가 추측하는 것을 구분해."
     }
   },
   "onOpen": [
     {
       "eventId": "phone_first_open",
-      "conditions": [{ "type": "flag", "key": "phone_intro_done", "value": false }]
+      "conditions": [
+        {
+          "type": "flag",
+          "key": "phone_intro_done",
+          "value": false
+        }
+      ]
     }
   ]
 }

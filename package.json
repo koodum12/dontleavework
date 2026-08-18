@@ -8,12 +8,15 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "validate": "tsx scripts/validate-events.ts",
+    "prebuild": "npm run validate"
   },
   "dependencies": {
     "next": "15.5.23",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "sql.js": "^1.14.2",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
@@ -21,8 +24,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sql.js": "^1.4.11",
     "eslint": "^9",
     "eslint-config-next": "15.5.23",
+    "tsx": "^4.23.12",
     "typescript": "^5",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.10"

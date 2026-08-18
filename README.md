@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 퇴근하지 마세요
 
-## Getting Started
+미스터리 / 심리 스릴러 추리 게임. 2D 탑다운 사무실을 돌아다니며 조사하고, 기록과 추측을 구분해
+4개의 엔딩 중 하나에 도달한다.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+Next.js 15 (App Router, 정적 export) · React 19 · TypeScript
+Canvas 2D + requestAnimationFrame   — 씬 렌더 / 카메라 (게임 엔진 의존성 없음)
+zustand                             — GameState 단일 스토어
+sql.js + IndexedDB                  — index.db (브라우저 SQLite 저장)
+vitest                              — 로직 단위 테스트
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+서버는 없다. 스토리는 `public/data/**.json` 에서 fetch 하고, 진행 상태는 브라우저에 저장된다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 실행
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev        # http://localhost:3000
 
-## Learn More
+npm run validate   # 스토리 데이터 검증 (빌드 전에 자동 실행)
+npm run test       # 단위 테스트
+npm run build      # 정적 export → out/
+npx serve out      # 빌드 결과를 그대로 확인
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 조작
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| 키 | 동작 |
+|----|------|
+| `W` `A` `S` `D` | 이동 |
+| `E` | 조사 / 상호작용 |
+| `Space` `Enter` | 대사 진행 |
+| `Tab` | 휴대폰 (문자 · 기록 노트 · 사진 · 음성 메모 · 삭제된 항목) |
+| `I` | 인벤토리 (아이템 · 증거 · 특수 자료) |
+| `ESC` | 메뉴 (저장 / 불러오기 / 사운드) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+엘리베이터에서 하루가 넘어간다. 사람과 사물은 조사 순서에 따라 다른 내용을 준다.
 
-## Deploy on Vercel
+## 데이터 구조
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+스토리는 코드에 들어가지 않는다. 대사 · 선택지 · 수치 · 조건은 전부 JSON이다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+public/data/
+├── events/          # 이벤트 정의 (프롤로그 ~ 최종장 + 엔딩)
+│   ├── prologue.json  office.json      # 사무실 게이트/분기
+│   ├── chapter01~07.json               # 각 장
+│   ├── final.json                      # 최종 선택
+│   └── endings.json                    # 4개 엔딩 서술
+├── endings.json     # 엔딩 조건 (평가 순서: HIDDEN → TRUE → NORMAL → BAD)
+├── locations.json   # 맵 · 충돌 · 상호작용 오브젝트 → eventId
+├── characters.json  items.json  evidence.json  notes.json  phone.json
+└── mental.json      # 정신력 구간과 사건별 변화량
+```
+
+이벤트 하나의 형태:
+
+```json
+{
+  "id": "coffee_save",
+  "type": "dialogue",
+  "speaker": "사랑",
+  "text": "일단… 그대로 둬야겠다.",
+  "effects": [
+    { "type": "itemGet", "id": "item_strange_coffee" },
+    { "type": "evidenceGet", "id": "ev_0748_coffee", "category": "MEMORY" },
+    { "type": "noteAdd", "id": "note_coffee_order" },
+    { "type": "flagSet", "key": "kept_coffee", "value": true }
+  ],
+  "next": "chapter1_note"
+}
+```
+
+`type: "branch"` 이벤트는 화면에 뜨지 않고 조건을 판정해 다음 이벤트로 넘긴다.
+선택지에 `conditions` 를 달면 조건 미충족 시 사유와 함께 잠긴다.
+
+## 아키텍처
+
+```
+JSON → JsonLoader → EventParser → EventManager → EventExecutor → GameState → UI
+                                        ↑
+InteractionManager ← PlayerController    └→ ConditionManager → EndingManager
+```
+
+- `src/game/event/` — 이벤트 파싱 / 실행 / 포인터 관리 / 조건 판정
+- `src/game/state/` — zustand GameState (정신력 · 인벤토리 · 증거 · 인물 단서 · 플래그 · 노트)
+- `src/game/render/` — Camera · Renderer · GameLoop (Canvas 2D)
+- `src/game/interaction/` — 최근접 대상 1개 선택, `once` / 반복 처리
+- `src/game/ending/` — 엔딩 판정 (ConditionManager 재사용)
+- `src/services/` — StorageService(sql.js + IndexedDB) · SaveService · AudioService
+
+## 저장
+
+`public/data/**.json` 은 읽기 전용 스토리 정의, `index.db`(IndexedDB) 는 플레이어 진행 상태만 담는다.
+챕터 전환과 이벤트 종료 시 자동 저장되고, ESC 메뉴에서 수동 저장할 수 있다.
+
+## 엔딩
+
+| 엔딩 | 조건 |
+|------|------|
+| BAD — 기록이 없는 사람 | 증거를 정리하지 않고 혼자 추궁 |
+| NORMAL — 새로운 출근 | MEMORY 삭제 후 회사를 떠남 |
+| TRUE — 퇴근합니다 | MEMORY 증거 2 + 서로 다른 인물 단서 2 + 침입/열람 기록 1, 특정 인물 미확정 |
+| HIDDEN — 퇴근하지 마세요 | TRUE 조건 + CCTV · MEMORY_01 · 02:13 · 사내망 기록 · 삭제 메모/음성 메모 복구 · 인물 단서 비교 |
+
+인물 단서는 단서 개수가 아니라 **서로 다른 인물 수**로 센다.

@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { parseEventFile, validateReferences } from '@/game/event/EventParser';
@@ -6,7 +6,10 @@ import type { EventEffect, EvidenceFile, GameEvent, ItemFile, LocationFile, Ment
 
 const read = <T>(p: string): T => JSON.parse(readFileSync(join(process.cwd(), 'public/data', p), 'utf8')) as T;
 
-const EVENT_FILES = ['events/prologue.json', 'events/chapter01.json', 'events/chapter02.json'];
+const EVENT_FILES = readdirSync(join(process.cwd(), 'public/data/events'))
+  .filter((f) => f.endsWith('.json'))
+  .sort()
+  .map((f) => `events/${f}`);
 
 const items = read<ItemFile>('items.json');
 const evidence = read<EvidenceFile>('evidence.json');

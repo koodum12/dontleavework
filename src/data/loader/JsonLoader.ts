@@ -1,7 +1,7 @@
 'use client';
 
 import type {
-  CharacterFile, EvidenceFile, ItemFile, LocationFile, MentalConfig, NoteFile, PhoneFile,
+  CharacterFile, EndingFile, EvidenceFile, ItemFile, LocationFile, MentalConfig, NoteFile, PhoneFile,
 } from '@/data/types';
 
 export const DATA_BASE = '/data';
@@ -34,9 +34,15 @@ export const loadNotes = () => loadJson<NoteFile>(`${DATA_BASE}/notes.json`);
 export const loadMental = () => loadJson<MentalConfig>(`${DATA_BASE}/mental.json`);
 export const loadPhone = () => loadJson<PhoneFile>(`${DATA_BASE}/phone.json`);
 export const loadCharacters = () => loadJson<CharacterFile>(`${DATA_BASE}/characters.json`);
+export const loadEndings = () => loadJson<EndingFile>(`${DATA_BASE}/endings.json`);
 
 /** 챕터별 이벤트 파일 목록 — 파일이 늘어나면 여기에 추가한다 */
-export const EVENT_FILES = ['prologue.json', 'chapter01.json', 'chapter02.json'] as const;
+export const EVENT_FILES = [
+  'prologue.json', 'office.json',
+  'chapter01.json', 'chapter02.json', 'chapter03.json', 'chapter04.json',
+  'chapter05.json', 'chapter06.json', 'chapter07.json',
+  'final.json', 'endings.json',
+] as const;
 
 /**
  * 이벤트 파일들을 읽어 원본 그대로 돌려준다.
