@@ -1,42 +1,84 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Day 1~3: 기능 확인용 최소 스타일만. 디자인은 Day 4. */
+* { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #111;
+  color: #eee;
+  font-family: system-ui, -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  overflow: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.boot { padding: 24px; }
+
+.game-root {
+  width: 100vw; height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+}
+/* 캔버스는 논리 해상도 960×640, CSS로 확대 */
+.game-stage {
+  position: relative;
+  width: min(100vw, calc(100vh * 960 / 640));
+  max-height: 100vh;
+}
+.game-canvas { display: block; width: 100%; height: auto; background: #000; }
+
+.hud { position: absolute; inset: 0; pointer-events: none; }
+.hud > * { pointer-events: auto; }
+
+.hud-top-left { position: absolute; top: 12px; left: 12px; font-size: 13px; }
+.hud-top-right { position: absolute; top: 12px; right: 12px; }
+.hud-help { opacity: 0.7; margin-top: 4px; }
+.hud-center {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.crosshair { opacity: 0.6; }
+.hud-bottom {
+  position: absolute; bottom: 24px; left: 0; right: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  pointer-events: none;
+}
+.hud-log, .ui-prompt {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #666;
+  padding: 6px 10px;
+}
+.hud-demo {
+  position: absolute; top: 60px; right: 12px;
+  width: 320px; max-height: 80vh; overflow: auto;
+  display: flex; flex-direction: column; gap: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.ui-button {
+  background: #222; color: #eee; border: 1px solid #888;
+  padding: 4px 10px; cursor: pointer; font: inherit; font-size: 13px;
 }
+.ui-button:disabled { opacity: 0.45; cursor: default; }
+
+.ui-panel { border: 1px solid #666; background: rgba(0, 0, 0, 0.75); padding: 8px; }
+.ui-panel-title { margin: 0 0 6px; font-size: 13px; }
+
+.ui-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex; align-items: center; justify-content: center;
+}
+.ui-modal { width: min(560px, 90vw); max-height: 80vh; overflow: auto; background: #1a1a1a; border: 1px solid #888; }
+.ui-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #444; }
+.ui-modal-header h2 { margin: 0; font-size: 15px; }
+.ui-modal-body { padding: 12px; }
+
+.ui-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+.ui-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ui-item { border: 1px solid #444; padding: 6px; }
+
+.ui-dialog { border: 1px solid #666; padding: 8px; }
+.ui-speaker { font-weight: 700; margin-bottom: 4px; }
+.ui-dialog-text { margin: 0 0 8px; }
+.ui-choices { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ui-evidence-detail { border-top: 1px solid #444; margin-top: 8px; padding-top: 8px; }
+.ui-mental { border: 1px solid #666; padding: 4px 8px; display: inline-block; }
