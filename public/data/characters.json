@@ -1,8 +1,58 @@
 {
-  "sarang": { "id": "sarang", "name": "사랑", "role": "주인공", "description": "평범한 회사원." },
-  "daeri": { "id": "daeri", "name": "대리", "role": "같은 팀" },
-  "team_leader": { "id": "team_leader", "name": "팀장", "role": "팀 책임자" },
-  "neighbor": { "id": "neighbor", "name": "옆자리 직원", "role": "같은 팀" },
-  "guard": { "id": "guard", "name": "경비원", "role": "건물 경비" },
-  "peer": { "id": "peer", "name": "동기", "role": "입사 동기" }
+  "sarang": {
+    "id": "sarang",
+    "name": "사랑",
+    "role": "주인공",
+    "description": "평범한 회사원. 유일하게 밝은 옷.",
+    "color": "#e0e4ea"
+  },
+  "daeri": {
+    "id": "daeri",
+    "name": "대리",
+    "role": "같은 팀",
+    "color": "#8d8f96",
+    "description": "월요일 근태 취합 담당. 회색 셔츠를 자주 입는다."
+  },
+  "team_leader": {
+    "id": "team_leader",
+    "name": "팀장",
+    "role": "팀 책임자",
+    "color": "#46557d",
+    "description": "항상 야근한다. 업무 파일 원격 확인 권한이 있다."
+  },
+  "neighbor": {
+    "id": "neighbor",
+    "name": "옆자리 직원",
+    "role": "같은 팀",
+    "color": "#c3ae8d",
+    "description": "말수가 적다. 사랑의 생활 습관을 안다."
+  },
+  "guard": {
+    "id": "guard",
+    "name": "경비원",
+    "role": "건물 경비",
+    "color": "#26344f",
+    "description": "야간 출입 기록 담당. 기록을 보존하려 한다."
+  },
+  "peer": {
+    "id": "peer",
+    "name": "동기",
+    "role": "입사 동기",
+    "color": "#8a6a4a",
+    "description": "사고 전의 사랑을 기억한다."
+  },
+  "security_staff": {
+    "id": "security_staff",
+    "name": "보안 담당자",
+    "role": "사내 보안",
+    "description": "읽기 전용 사본과 보존 요청을 담당한다. 유일한 조력자.",
+    "color": "#3f8a86"
+  },
+  "intern": {
+    "id": "intern",
+    "name": "옆자리 인턴",
+    "role": "같은 팀",
+    "description": "아침에 커피 이야기를 꺼낸 사람.",
+    "color": "#9fb59a"
+  }
 }
