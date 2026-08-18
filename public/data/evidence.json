@@ -1,20 +1,88 @@
 {
   "ev_0748_coffee": {
-    "id": "ev_0748_coffee",
-    "category": "MEMORY",
+    "id": "ev_0748_coffee", "category": "MEMORY", "chapter": "chapter01",
     "name": "07:48 커피 알림",
-    "detail": "내 계정으로 등록된 로비 커피 주문 알림."
+    "detail": "주문자 사랑 / 주문 시간 07:48 / 수령 위치 1층 로비 픽업. 같은 시각 '출근 확인 완료' 알림이 함께 떴다."
+  },
+  "ev_2228_message": {
+    "id": "ev_2228_message", "category": "MEMORY", "chapter": "chapter02",
+    "name": "22:28 자동 문자",
+    "detail": "발신 22:28 / 도착 22:28 / 식별값 M-228-AUTO. 예약 메시지 전송 완료 알림이 함께 남아 있었다."
+  },
+  "ev_memory_01": {
+    "id": "ev_memory_01", "category": "MEMORY", "chapter": "chapter03",
+    "name": "MEMORY_01",
+    "detail": "사고 전의 사랑이 만들던 기록 프로그램의 첫 기록."
+  },
+  "ev_deleted_note": {
+    "id": "ev_deleted_note", "category": "MEMORY", "chapter": "chapter07",
+    "name": "삭제된 메모",
+    "detail": "복구된 메모. 삭제 시각이 기록되어 있다."
+  },
+  "ev_0213_backup": {
+    "id": "ev_0213_backup", "category": "MEMORY", "chapter": "chapter06",
+    "name": "02:13 백업",
+    "detail": "02:13에 자동 실행된 백업 기록."
+  },
+  "ev_old_voice_memo": {
+    "id": "ev_old_voice_memo", "category": "MEMORY", "chapter": "chapter07",
+    "name": "과거 음성 메모",
+    "detail": "'그래도 기록만 믿지는 마.' 사고 전 사랑의 목소리."
+  },
+
+  "ev_clue_daeri": {
+    "id": "ev_clue_daeri", "category": "character", "relatedCharacter": "daeri",
+    "name": "대리에 관한 단서", "detail": "대리는 그날 오전 회의실에 있었다고 말했다."
+  },
+  "ev_clue_team_leader": {
+    "id": "ev_clue_team_leader", "category": "character", "relatedCharacter": "team_leader",
+    "name": "팀장에 관한 단서", "detail": "팀장 계정으로 출력 요청 기록이 남아 있다."
+  },
+  "ev_clue_neighbor": {
+    "id": "ev_clue_neighbor", "category": "character", "relatedCharacter": "neighbor", "chapter": "chapter01",
+    "name": "옆자리 직원에 관한 단서", "detail": "8시쯤 자리를 비웠고, 돌아왔을 때 커피가 이미 있었다고 했다."
+  },
+  "ev_clue_guard": {
+    "id": "ev_clue_guard", "category": "character", "relatedCharacter": "guard", "chapter": "chapter01",
+    "name": "경비원에 관한 단서", "detail": "개별 사원증 기록이 남지 않는 출입 방식을 알고 있었다."
+  },
+  "ev_clue_peer": {
+    "id": "ev_clue_peer", "category": "character", "relatedCharacter": "peer",
+    "name": "동기에 관한 단서", "detail": "사고 전의 사랑을 기억하고 있다."
+  },
+
+  "ev_cctv": {
+    "id": "ev_cctv", "category": "case", "chapter": "chapter01",
+    "name": "CCTV 열람 사본",
+    "detail": "07:48 로비 픽업대. 모자와 마스크를 쓴 인물이 커피를 가져가 사랑의 자리에 놓는다. 열람 사본 생성 18:37 / 원본 보존 확인."
+  },
+  "ev_network_log": {
+    "id": "ev_network_log", "category": "case",
+    "name": "사내망 접속 기록", "detail": "미확인 기기가 사진·CCTV·기록 폴더를 열람했다."
+  },
+  "ev_print_log": {
+    "id": "ev_print_log", "category": "case",
+    "name": "사진 출력 기록", "detail": "합성 사진의 출력 요청 기록."
+  },
+  "ev_night_entry": {
+    "id": "ev_night_entry", "category": "case",
+    "name": "야간 출입 정보", "detail": "야간 시간대 출입 기록."
+  },
+  "ev_broken_backup": {
+    "id": "ev_broken_backup", "category": "case",
+    "name": "손상된 백업 파일", "detail": "일부 구간이 손상된 백업."
+  },
+  "ev_receipt_photo": {
+    "id": "ev_receipt_photo", "category": "case", "chapter": "chapter01",
+    "name": "QR 영수증 사진",
+    "detail": "08:03 / 픽업 완료 / 배달 요청 없음. 누가 픽업했는지는 적혀 있지 않다."
   },
   "ev_empty_cup": {
-    "id": "ev_empty_cup",
-    "category": "case",
-    "name": "빈 컵",
-    "detail": "마셔 버린 커피의 컵. 주문자 정보는 이미 흐려졌다."
+    "id": "ev_empty_cup", "category": "case", "chapter": "chapter01",
+    "name": "빈 컵", "detail": "마셔 버린 커피의 컵. 주문 시간과 QR 영수증만 기록에 남았다."
   },
   "ev_trash_receipt": {
-    "id": "ev_trash_receipt",
-    "category": "case",
-    "name": "버려진 컵 홀더",
-    "detail": "쓰레기통에서 다시 꺼낸 컵 홀더. 주문 번호가 남아 있다."
+    "id": "ev_trash_receipt", "category": "case", "chapter": "chapter01",
+    "name": "버린 컵의 스티커 사진", "detail": "버리기 전 촬영한 주문 시간과 수령 위치."
   }
 }

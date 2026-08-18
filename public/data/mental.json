@@ -1,0 +1,19 @@
+{
+  "max": 100,
+  "start": 100,
+  "bands": [
+    { "id": "stable",   "min": 80, "max": 100, "label": "안정" },
+    { "id": "uneasy",   "min": 60, "max": 79,  "label": "불안" },
+    { "id": "unfocused","min": 40, "max": 59,  "label": "집중 저하" },
+    { "id": "trembling","min": 20, "max": 39,  "label": "손 떨림" },
+    { "id": "breaking", "min": 0,  "max": 19,  "label": "판단 어려움" }
+  ],
+  "deltas": {
+    "strange_message": -5,
+    "check_cctv": -10,
+    "found_own_photo": -10,
+    "stay_at_night": -15,
+    "found_composite_photo": -20,
+    "unknown_voice": -10
+  }
+}

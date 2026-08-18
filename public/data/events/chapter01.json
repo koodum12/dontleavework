@@ -4,20 +4,27 @@
       "id": "chapter1_coffee",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "자리에 커피가 놓여 있다. 07:48, 내 이름으로 주문됐다는 알림.",
+      "text": "주문한 적 없는 커피다. 컵 스티커에는 — 주문자 사랑 / 주문 시간 07:48 / 수령 위치 1층 로비 픽업.",
+      "effects": [{ "type": "photoGet", "id": "photo_cup_sticker" }],
+      "next": "chapter1_intern"
+    },
+    {
+      "id": "chapter1_intern",
+      "type": "dialogue",
+      "speaker": "옆자리 인턴",
+      "text": "오늘도 그거 드시네요. 지난주에도 몇 번 드셨잖아요. 로비에서 직접 가져오시는 줄 알았는데.",
+      "effects": [
+        { "type": "characterClue", "characterId": "neighbor", "clue": "지난주에도 커피를 마시는 걸 봤다고 말했다" },
+        { "type": "evidenceGet", "id": "ev_clue_neighbor", "category": "character" }
+      ],
       "next": "chapter1_coffee_2"
     },
     {
       "id": "chapter1_coffee_2",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "누가 주문했다고…?",
-      "effects": [
-        {
-          "type": "mentalChange",
-          "amount": -5
-        }
-      ],
+      "text": "내가 주문했다고…? 아니, 커피 주문이 아니라 출근 확인이라고?",
+      "effects": [{ "type": "mentalChange", "delta": "strange_message" }],
       "next": "chapter1_coffee_choice"
     },
     {
@@ -25,112 +32,164 @@
       "type": "choice",
       "text": "커피를 어떻게 할까.",
       "choices": [
-        {
-          "text": "커피를 마신다",
-          "next": "coffee_drink"
-        },
-        {
-          "text": "커피를 보관한다",
-          "next": "coffee_save"
-        },
-        {
-          "text": "커피를 버린다",
-          "next": "coffee_throw"
-        }
+        { "text": "커피를 마신다", "next": "coffee_drink" },
+        { "text": "커피를 보관한다", "next": "coffee_save" },
+        { "text": "커피를 버린다", "next": "coffee_throw" }
       ]
     },
     {
       "id": "coffee_drink",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "…괜한 생각이겠지. 한 모금 마시니 손끝이 조금 따뜻해졌다.",
+      "text": "누가 장난을 친 거라면… 왜 이렇게 평범한 걸로? 한 모금 마시니 손끝이 조금 따뜻해졌다.",
       "effects": [
-        {
-          "type": "mentalChange",
-          "amount": 10
-        },
-        {
-          "type": "evidenceGet",
-          "id": "ev_empty_cup",
-          "category": "case"
-        },
-        {
-          "type": "noteAdd",
-          "id": "note_coffee_drunk"
-        },
-        {
-          "type": "flagSet",
-          "key": "drank_coffee",
-          "value": true
-        }
+        { "type": "mentalChange", "amount": 10 },
+        { "type": "evidenceGet", "id": "ev_empty_cup", "category": "case" },
+        { "type": "noteAdd", "id": "note_coffee_drunk" },
+        { "type": "flagSet", "key": "drank_coffee", "value": true }
       ],
-      "next": "chapter1_coffee_after"
+      "next": "chapter1_note"
     },
     {
       "id": "coffee_save",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "일단… 그대로 둬야겠다. 알림 화면도 캡처해 두자.",
+      "text": "일단… 그대로 둬야겠다. 커피를 가방 옆에 세워 둔다.",
       "effects": [
-        {
-          "type": "itemGet",
-          "id": "item_strange_coffee"
-        },
-        {
-          "type": "evidenceGet",
-          "id": "ev_0748_coffee",
-          "category": "MEMORY"
-        },
-        {
-          "type": "noteAdd",
-          "id": "note_coffee_order"
-        },
-        {
-          "type": "flagSet",
-          "key": "kept_coffee",
-          "value": true
-        }
+        { "type": "itemGet", "id": "item_strange_coffee" },
+        { "type": "evidenceGet", "id": "ev_0748_coffee", "category": "MEMORY" },
+        { "type": "flagSet", "key": "kept_coffee", "value": true }
       ],
-      "next": "chapter1_coffee_after"
+      "next": "chapter1_note"
     },
     {
       "id": "coffee_throw",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "버렸다. 그런데 컵 홀더에 주문 번호가 찍혀 있었다.",
+      "text": "불안한 걸 억지로 마실 필요는 없어. 버리기 전, 컵 스티커의 주문 시간과 수령 위치를 다시 촬영한다.",
       "effects": [
-        {
-          "type": "mentalChange",
-          "amount": -5
-        },
-        {
-          "type": "evidenceGet",
-          "id": "ev_trash_receipt",
-          "category": "case"
-        },
-        {
-          "type": "noteAdd",
-          "id": "note_coffee_thrown"
-        },
-        {
-          "type": "flagSet",
-          "key": "threw_coffee",
-          "value": true
-        }
+        { "type": "mentalChange", "amount": -5 },
+        { "type": "evidenceGet", "id": "ev_trash_receipt", "category": "case" },
+        { "type": "noteAdd", "id": "note_coffee_thrown" },
+        { "type": "flagSet", "key": "threw_coffee", "value": true }
       ],
-      "next": "chapter1_coffee_after"
+      "next": "chapter1_note"
     },
     {
-      "id": "chapter1_coffee_after",
+      "id": "chapter1_note",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "…일단 일부터 하자. 오늘 안에 끝내야 하는 게 있다."
+      "text": "어느 쪽이든 '1층 로비 픽업'이라는 문장은 남는다. 누군가가 로비에서 커피를 가져와 내 책상까지 옮긴 건 분명하다.",
+      "effects": [
+        { "type": "noteAdd", "id": "note_coffee_order" },
+        { "type": "flagSet", "key": "coffee_done", "value": true }
+      ]
     },
+
     {
       "id": "desk_look",
+      "type": "branch",
+      "branches": [
+        { "conditions": [{ "type": "flag", "key": "coffee_done", "value": true }], "next": "chapter1_lunch" }
+      ],
+      "fallback": "desk_look_plain"
+    },
+    {
+      "id": "desk_look_plain",
       "type": "dialogue",
       "speaker": "사랑",
       "text": "익숙한 내 자리. 모니터에는 어제 끝내지 못한 문서가 그대로 떠 있다."
+    },
+    {
+      "id": "chapter1_lunch",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "(점심시간) 아침에 찍어 둔 QR 영수증을 다시 연다. — 08:03 / 픽업 완료 / 배달 요청 없음. 누가 픽업했는지는 적혀 있지 않다.",
+      "effects": [
+        { "type": "photoGet", "id": "photo_receipt_qr" },
+        { "type": "evidenceGet", "id": "ev_receipt_photo", "category": "case" },
+        { "type": "itemGet", "id": "item_receipt_photo" },
+        { "type": "noteAdd", "id": "note_pickup_unknown" }
+      ],
+      "next": "chapter1_ask_intern"
+    },
+    {
+      "id": "chapter1_ask_intern",
+      "type": "dialogue",
+      "speaker": "옆자리 인턴",
+      "text": "저는 회의실 다녀오느라 8시쯤 자리를 비웠어요. 돌아왔을 때는 커피가 이미 있었고요.",
+      "effects": [
+        { "type": "characterClue", "characterId": "neighbor", "clue": "8시쯤 자리를 비웠다" },
+        { "type": "flagSet", "key": "asked_intern", "value": true }
+      ]
+    },
+
+    {
+      "id": "chapter1_cctv_gate",
+      "type": "branch",
+      "branches": [
+        { "conditions": [{ "type": "flag", "key": "cctv_decided", "value": true }], "next": "chapter1_cctv_done" },
+        { "conditions": [{ "type": "flag", "key": "asked_intern", "value": true }], "next": "chapter1_cctv_choice" }
+      ],
+      "fallback": "chapter1_cctv_too_early"
+    },
+    {
+      "id": "chapter1_cctv_too_early",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "관리실 앞이다. 지금은 물어볼 말이 정리되지 않았다. 자리에서 확인할 것부터 끝내자."
+    },
+    {
+      "id": "chapter1_cctv_choice",
+      "type": "choice",
+      "speaker": "사랑",
+      "text": "주문 내역으로는 못 찾아. 누가 픽업대에서 가져갔는지 보려면… 영상밖에 없어.",
+      "choices": [
+        { "text": "관리실에 가서 CCTV를 확인한다", "next": "cctv_check" },
+        { "text": "그냥 집으로 간다", "next": "cctv_skip" }
+      ]
+    },
+    {
+      "id": "cctv_check",
+      "type": "dialogue",
+      "speaker": "관리실 직원",
+      "text": "07:48. 모자와 마스크를 쓴 인물이 픽업대에서 커피를 가져가 사랑의 자리에 놓고 복도로 사라진다. — 출입문이 열릴 때 여러 명이 한꺼번에 들어왔어요. 개별 사원증 기록이 남지 않아서 영상만으로는 확인이 어렵습니다.",
+      "effects": [
+        { "type": "mentalChange", "delta": "check_cctv" },
+        { "type": "evidenceGet", "id": "ev_cctv", "category": "case" },
+        { "type": "itemGet", "id": "item_cctv_file" },
+        { "type": "characterClue", "characterId": "guard", "clue": "사원증 기록이 남지 않는 출입 방식을 알고 있다" },
+        { "type": "evidenceGet", "id": "ev_clue_guard", "category": "character" },
+        { "type": "noteAdd", "id": "note_cctv" },
+        { "type": "flagSet", "key": "checked_cctv", "value": true },
+        { "type": "flagSet", "key": "cctv_decided", "value": true }
+      ],
+      "next": "chapter1_end"
+    },
+    {
+      "id": "cctv_skip",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "오늘은… 확인할수록 더 이상한 것만 보일 것 같아. 찝찝하지만 집으로 돌아간다.",
+      "effects": [
+        { "type": "noteAdd", "id": "note_no_cctv" },
+        { "type": "flagSet", "key": "checked_cctv", "value": false },
+        { "type": "flagSet", "key": "cctv_decided", "value": true }
+      ],
+      "next": "chapter1_end"
+    },
+    {
+      "id": "chapter1_cctv_done",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "오늘 관리실에서 확인할 건 끝났다. 이제 집에 가자."
+    },
+    {
+      "id": "chapter1_end",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "퇴근. 엘리베이터를 타면 오늘이 끝난다.",
+      "effects": [{ "type": "flagSet", "key": "chapter1_done", "value": true }]
     }
   ]
 }

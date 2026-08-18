@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
-import MessageList, { type Message } from './MessageList';
+import MessageList from './MessageList';
 import RecordNote from './RecordNote';
-import VoiceMemo, { type Memo } from './VoiceMemo';
-import type { Note } from '@/data/types';
+import PhotoList from './PhotoList';
+import VoiceMemo from './VoiceMemo';
+import DeletedList from './DeletedList';
+import type { Note, PhoneMessage, PhonePhoto, VoiceMemoData } from '@/data/types';
 
 type Tab = 'messages' | 'notes' | 'photos' | 'memos' | 'deleted';
 
@@ -21,14 +23,26 @@ const TABS: { id: Tab; label: string }[] = [
 interface Props {
   open: boolean;
   onClose: () => void;
-  messages: Message[];
+  messages: PhoneMessage[];
+  deletedMessages: PhoneMessage[];
   notes: Note[];
-  memos: Memo[];
-  photos: string[];
+  photos: PhonePhoto[];
+  memos: VoiceMemoData[];
+  deletedMemos: VoiceMemoData[];
+  flags: Record<string, boolean>;
+  unread: number;
+  onReadMessages: () => void;
 }
 
-export default function Phone({ open, onClose, messages, notes, memos, photos }: Props) {
+export default function Phone({
+  open, onClose, messages, deletedMessages, notes, photos, memos, deletedMemos, flags, unread, onReadMessages,
+}: Props) {
   const [tab, setTab] = useState<Tab>('messages');
+
+  // 문자 탭을 보고 있으면 미읽음 배지를 지운다
+  useEffect(() => {
+    if (open && tab === 'messages' && unread > 0) onReadMessages();
+  }, [open, tab, unread, onReadMessages]);
 
   return (
     <Modal title="휴대폰" open={open} onClose={onClose}>
@@ -36,16 +50,16 @@ export default function Phone({ open, onClose, messages, notes, memos, photos }:
         {TABS.map((t) => (
           <Button key={t.id} onClick={() => setTab(t.id)} disabled={tab === t.id}>
             {t.label}
+            {t.id === 'messages' && unread > 0 ? ` (${unread})` : ''}
           </Button>
         ))}
       </nav>
       <div className="ui-tab-body">
         {tab === 'messages' && <MessageList messages={messages} />}
         {tab === 'notes' && <RecordNote notes={notes} />}
+        {tab === 'photos' && <PhotoList photos={photos} />}
         {tab === 'memos' && <VoiceMemo memos={memos} />}
-        {tab === 'photos' &&
-          (photos.length === 0 ? <p>사진이 없습니다.</p> : <ul className="ui-list">{photos.map((p) => <li key={p}>{p}</li>)}</ul>)}
-        {tab === 'deleted' && <p>삭제된 항목이 없습니다.</p>}
+        {tab === 'deleted' && <DeletedList messages={deletedMessages} memos={deletedMemos} flags={flags} />}
       </div>
     </Modal>
   );

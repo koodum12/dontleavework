@@ -5,3 +5,5 @@ export * from './Evidence';
 export * from './Item';
 export * from './Note';
 export * from './Location';
+export * from './Mental';
+export * from './Message';

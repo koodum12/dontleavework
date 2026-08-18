@@ -1,1 +1,49 @@
-{ "events": [] }
+{
+  "events": [
+    {
+      "id": "prologue_start",
+      "type": "dialogue",
+      "text": "검은 화면. 휴대폰 메모를 넘기는 소리.",
+      "effects": [{ "type": "chapterSet", "chapter": "prologue" }],
+      "next": "prologue_voice_1"
+    },
+    {
+      "id": "prologue_voice_1",
+      "type": "dialogue",
+      "speaker": "과거의 사랑",
+      "text": "혹시 내가 이걸 잊어버리면, 기록을 봐.",
+      "next": "prologue_voice_2"
+    },
+    {
+      "id": "prologue_voice_2",
+      "type": "dialogue",
+      "speaker": "과거의 사랑",
+      "text": "그래도 기록만 믿지는 마. 누가 바꾼 기록일 수도 있으니까, 날짜랑 출처까지 확인해.",
+      "next": "prologue_save"
+    },
+    {
+      "id": "prologue_save",
+      "type": "dialogue",
+      "text": "화면에 메모 저장 표시가 잠깐 켜진다. — 저장되지 않은 기록이 있습니다.",
+      "effects": [{ "type": "flagSet", "key": "prologue_done", "value": true }],
+      "next": "chapter1_open"
+    },
+    {
+      "id": "chapter1_open",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "(1장. 평범한 월요일) 알람을 끄고 겨우 몸을 일으켰다. 회사에 도착해 자리로 향한다. …책상 위에 커피 한 잔이 놓여 있다.",
+      "effects": [
+        { "type": "chapterSet", "chapter": "chapter01" },
+        { "type": "messageReceive", "id": "msg_0748_checkin" }
+      ]
+    },
+    {
+      "id": "phone_first_open",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "휴대폰에는 읽지 않은 알림이 하나 있다. 07:48 — 출근 확인 완료.",
+      "effects": [{ "type": "flagSet", "key": "phone_intro_done", "value": true }]
+    }
+  ]
+}

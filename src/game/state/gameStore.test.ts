@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { MAX_MENTAL, useGameStore } from './gameStore';
+import { DEFAULT_MAX_MENTAL as MAX_MENTAL, useGameStore } from './gameStore';
 
 const store = () => useGameStore.getState();
 
@@ -36,6 +36,16 @@ describe('GameState', () => {
     expect(store().notes).toEqual(['note_coffee_order']);
     expect(store().flags.kept_coffee).toBe(true);
     expect(store().characterClues.guard).toHaveLength(1);
+  });
+
+  it('문자 수신은 중복되지 않고 미읽음 수를 올린다', () => {
+    store().receiveMessage('msg_2228');
+    store().receiveMessage('msg_2228');
+    store().receiveMessage('msg_2230');
+    expect(store().messages).toEqual(['msg_2228', 'msg_2230']);
+    expect(store().unreadMessages).toBe(2);
+    store().markMessagesRead();
+    expect(store().unreadMessages).toBe(0);
   });
 
   it('resetGame 이 초기 상태로 되돌린다', () => {

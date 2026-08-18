@@ -74,7 +74,9 @@
         "y": 560,
         "w": 96,
         "h": 64,
-        "solid": true
+        "solid": true,
+        "eventId": "chapter1_ask_intern",
+        "once": true
       },
       {
         "id": "obj_desk_team_leader",
@@ -110,7 +112,8 @@
         "y": 736,
         "w": 128,
         "h": 64,
-        "solid": true
+        "solid": true,
+        "eventId": "chapter1_cctv_gate"
       },
       {
         "id": "obj_cctv_monitor",
@@ -119,7 +122,8 @@
         "y": 736,
         "w": 64,
         "h": 48,
-        "solid": true
+        "solid": true,
+        "eventId": "chapter1_cctv_gate"
       },
       {
         "id": "obj_elevator",
@@ -128,7 +132,8 @@
         "y": 448,
         "w": 64,
         "h": 96,
-        "solid": true
+        "solid": true,
+        "eventId": "chapter2_gate"
       }
     ]
   }

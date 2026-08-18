@@ -10,13 +10,17 @@ export type EndingId = 'true' | 'hidden' | 'normal' | 'bad';
 
 /** JSON 에 그대로 쓰이는 효과 형태 (day2 §6 예시 기준) */
 export type EventEffect =
-  | { type: 'mentalChange'; amount: number }
+  /** amount 를 직접 쓰거나, mental.json 의 이름(delta)으로 참조한다 */
+  | { type: 'mentalChange'; amount?: number; delta?: string }
   | { type: 'itemGet'; id: string }
   | { type: 'itemRemove'; id: string }
   | { type: 'evidenceGet'; id: string; category?: EvidenceCategory }
   | { type: 'characterClue'; characterId: string; clue: string }
   | { type: 'noteAdd'; id: string }
-  | { type: 'flagSet'; key: string; value: boolean };
+  | { type: 'flagSet'; key: string; value: boolean }
+  | { type: 'messageReceive'; id: string }
+  | { type: 'photoGet'; id: string }
+  | { type: 'chapterSet'; chapter: string };
 
 export interface Choice {
   text: string;
@@ -24,6 +28,8 @@ export interface Choice {
   conditions?: Condition[];   // 조건 미충족 시 비활성/숨김
   /** 조건 미충족 시 숨길지(true) 비활성만 할지(false, 기본) */
   hideIfLocked?: boolean;
+  /** 비활성 사유를 직접 지정할 때 */
+  lockedText?: string;
   effects?: EventEffect[];
 }
 

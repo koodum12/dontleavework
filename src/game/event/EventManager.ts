@@ -2,9 +2,10 @@
 
 import { create } from 'zustand';
 import type { GameEvent } from '@/data/types';
-import { useGameStore } from '@/game/state/gameStore';
+import { gameStateSnapshot, useGameStore } from '@/game/state/gameStore';
 import { executeChoice, executeEvent } from './EventExecutor';
 import { parseEventFile, validateReferences } from './EventParser';
+import { evaluate, firstUnmet, unmetReason } from './ConditionManager';
 
 interface EventManagerState {
   /** id → 이벤트. 여러 챕터 파일을 평탄화해 한 Map 으로 들고 있는다 */
@@ -73,7 +74,11 @@ export const useEventStore = create<EventManagerState>((set, get) => ({
     if (!current || current.id !== fromEventId) return;
     if (current.type !== 'choice') return;
 
-    const next = executeChoice(current, index, useGameStore.getState());
+    // 조건을 만족하지 못한 선택지는 고를 수 없다
+    const choice = current.choices?.[index];
+    if (choice && !evaluate(choice.conditions, gameStateSnapshot())) return;
+
+    const next = executeChoice(current, index, useGameStore.getState(), useGameStore.getState().mentalConfig);
     if (!next) {
       get().stop();
       return;
@@ -91,7 +96,13 @@ type SetState = (partial: Partial<EventManagerState>) => void;
 type GetState = () => EventManagerState;
 
 /** 이벤트에 진입 — effects 를 적용하고 화면에 올린다 */
-function enter(eventId: string, set: SetState, get: GetState): boolean {
+function enter(eventId: string, set: SetState, get: GetState, depth = 0): boolean {
+  if (depth > 50) {
+    console.warn('[EventManager] 분기가 너무 깊습니다. 순환 참조를 의심하세요.');
+    get().stop();
+    return false;
+  }
+
   const event = get().events.get(eventId);
   if (!event) {
     // 존재하지 않는 id 를 가리켜도 앱은 죽지 않는다. 경고 후 체인 종료.
@@ -101,10 +112,49 @@ function enter(eventId: string, set: SetState, get: GetState): boolean {
   }
 
   const game = useGameStore.getState();
-  const next = executeEvent(event, game);
+  const next = executeEvent(event, game, game.mentalConfig);
   game.setCurrentEvent(event.id);
+
+  // branch / condition 이벤트는 화면에 뜨지 않는다. 조건을 판정해 곧바로 다음으로 넘어간다.
+  if (event.type === 'branch' || event.type === 'condition') {
+    const state = gameStateSnapshot();
+    const matched = (event.branches ?? []).find((b) => evaluate(b.conditions, state));
+    const target = matched?.next ?? event.fallback ?? event.next;
+    if (!target) {
+      console.warn(`[EventManager] ${event.id}: 만족하는 분기도 fallback 도 없습니다.`);
+      get().stop();
+      return false;
+    }
+    return enter(target, set, get, depth + 1);
+  }
+
   set({ current: event, pendingNext: next });
   return true;
+}
+
+/** 화면에 그릴 선택지 — 조건 미충족은 숨기거나 사유와 함께 비활성 */
+export interface RenderableChoice {
+  index: number;
+  text: string;
+  disabled: boolean;
+  reason?: string;
+}
+
+export function renderableChoices(event: GameEvent | null): RenderableChoice[] {
+  if (!event?.choices) return [];
+  const state = gameStateSnapshot();
+  const result: RenderableChoice[] = [];
+  event.choices.forEach((choice, index) => {
+    const unmet = firstUnmet(choice.conditions, state);
+    if (unmet && choice.hideIfLocked) return;
+    result.push({
+      index,
+      text: choice.text,
+      disabled: Boolean(unmet),
+      reason: unmet ? choice.lockedText ?? unmetReason(unmet) : undefined,
+    });
+  });
+  return result;
 }
 
 /** 이벤트가 진행 중이면 플레이어 조작을 막는다 */

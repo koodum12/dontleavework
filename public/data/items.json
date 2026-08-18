@@ -1,23 +1,37 @@
 {
   "item_strange_coffee": {
-    "id": "item_strange_coffee",
-    "name": "의문의 커피",
+    "id": "item_strange_coffee", "name": "의문의 커피", "category": "item",
     "description": "07:48, 내 이름으로 주문된 로비 커피. 아직 따뜻하다.",
-    "mentalRecover": 10,
-    "consumable": true
+    "mentalRecover": 10, "consumable": true,
+    "onUseEffects": [
+      { "type": "mentalChange", "amount": 10 },
+      { "type": "flagSet", "key": "drank_coffee", "value": true }
+    ]
   },
   "item_warm_tea": {
-    "id": "item_warm_tea",
-    "name": "따뜻한 차",
-    "description": "탕비실에서 가져온 차.",
-    "mentalRecover": 8,
-    "consumable": true
+    "id": "item_warm_tea", "name": "따뜻한 차", "category": "item",
+    "description": "집에서 끓인 차. 컵을 감싸면 손이 덜 떨린다.",
+    "mentalRecover": 8, "consumable": true,
+    "onUseEffects": [{ "type": "mentalChange", "amount": 8 }]
   },
   "item_emergency_pill": {
-    "id": "item_emergency_pill",
-    "name": "비상 안정제",
+    "id": "item_emergency_pill", "name": "비상 안정제", "category": "item",
     "description": "가방 깊숙한 곳에 있던 약.",
-    "mentalRecover": 20,
-    "consumable": true
+    "mentalRecover": 20, "consumable": true,
+    "onUseEffects": [
+      { "type": "mentalChange", "amount": 20 },
+      { "type": "flagSet", "key": "stabilizer_used", "value": true }
+    ],
+    "onUseEvent": "item_stabilizer_used"
+  },
+  "item_cctv_file": {
+    "id": "item_cctv_file", "name": "CCTV 파일", "category": "special",
+    "description": "관리실에서 받은 열람 사본. 파일 정보가 함께 적혀 있다.",
+    "consumable": false
+  },
+  "item_receipt_photo": {
+    "id": "item_receipt_photo", "name": "QR 영수증 사진", "category": "special",
+    "description": "아침에 찍어 둔 주문 내역 캡처.",
+    "consumable": false
   }
 }

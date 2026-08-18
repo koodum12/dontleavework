@@ -1,18 +1,19 @@
 'use client';
 
-/** gamd.md 8장 — 정신력 구간 */
-export function mentalLabel(mental: number): string {
-  if (mental >= 80) return '안정';
-  if (mental >= 60) return '불안';
-  if (mental >= 40) return '집중 저하';
-  if (mental >= 20) return '손 떨림';
-  return '판단 어려움';
+import type { MentalBand } from '@/data/types';
+import { mentalLabel } from '@/game/state/mental';
+
+interface Props {
+  mental: number;
+  max?: number;
+  bands?: MentalBand[];
 }
 
-export default function MentalState({ mental, max = 100 }: { mental: number; max?: number }) {
+export default function MentalState({ mental, max = 100, bands = [] }: Props) {
   return (
-    <div className="ui-mental">
-      정신력 {mental}/{max} — {mentalLabel(mental)}
+    <div className="ui-mental" data-testid="mental-state">
+      정신력 <span data-testid="mental-value">{mental}</span>/{max} —{' '}
+      <span data-testid="mental-label">{mentalLabel(mental, bands)}</span>
     </div>
   );
 }

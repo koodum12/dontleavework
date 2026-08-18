@@ -5,8 +5,10 @@ export interface Evidence {
   category: EvidenceCategory;
   name: string;
   detail?: string;
-  /** category === 'character' 일 때 어떤 인물의 단서인가 */
-  characterId?: string;
+  /** 이 증거가 가리키는 인물 (인물 단서 집계용) */
+  relatedCharacter?: string;
+  /** 획득 챕터 — 목록 그룹핑용 */
+  chapter?: string;
 }
 
 export type { EvidenceCategory };
