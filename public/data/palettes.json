@@ -1,0 +1,42 @@
+{
+  "day": {
+    "floor": "#292d31", "floorAlt": "#343b3e", "grid": "#41474b", "wall": "#5c6469", "wallEdge": "#7d898e", "wallHighlight": "#aeb7b8",
+    "object": "#675343", "objectSoft": "#917a62", "outline": "#17191d", "shadow": "#111317",
+    "light": "#e0c987", "monitor": "#6fa3ad", "metal": "#8d9698", "plant": "#4d745d", "accent": "#b9865f"
+  },
+  "night": {
+    "floor": "#151a1d", "floorAlt": "#1d2628", "grid": "#2b3337", "wall": "#374149", "wallEdge": "#56656d", "wallHighlight": "#7d898d",
+    "object": "#493d34", "objectSoft": "#665547", "outline": "#080a0d", "shadow": "#050608",
+    "light": "#aa8f55", "monitor": "#3f8790", "metal": "#647178", "plant": "#355444", "accent": "#8f5f55"
+  },
+  "home": {
+    "floor": "#30272b", "floorAlt": "#584149", "grid": "#4a383e", "wall": "#574b51", "wallEdge": "#806f73", "wallHighlight": "#a89491",
+    "object": "#76564c", "objectSoft": "#9a7769", "outline": "#171216", "shadow": "#0d0a0d",
+    "light": "#d8ad67", "monitor": "#6f9393", "metal": "#8c8984", "plant": "#55735b", "accent": "#b77b6d"
+  },
+  "lobby": {
+    "floor": "#303537", "floorAlt": "#414b49", "grid": "#485054", "wall": "#596267", "wallEdge": "#818c90", "wallHighlight": "#b2bab9",
+    "object": "#52615b", "objectSoft": "#78877d", "outline": "#15191a", "shadow": "#0d1112",
+    "light": "#d9c271", "monitor": "#6e9fac", "metal": "#9ba5a5", "plant": "#47745a", "accent": "#9f715f"
+  },
+  "cafe": {
+    "floor": "#342b2b", "floorAlt": "#5b3d3d", "grid": "#523e40", "wall": "#52645e", "wallEdge": "#789087", "wallHighlight": "#aabbb2",
+    "object": "#7a4f43", "objectSoft": "#a87962", "outline": "#1b1414", "shadow": "#100b0c",
+    "light": "#e0ba6c", "monitor": "#709b94", "metal": "#928d84", "plant": "#4f7659", "accent": "#bf6f5f"
+  },
+  "street": {
+    "floor": "#283033", "floorAlt": "#171d20", "grid": "#3a4548", "wall": "#4d5759", "wallEdge": "#727d80", "wallHighlight": "#9da7a6",
+    "object": "#674b4b", "objectSoft": "#8b6c64", "outline": "#101517", "shadow": "#090d0f",
+    "light": "#ddb867", "monitor": "#6b98a5", "metal": "#7f898a", "plant": "#486b52", "accent": "#b76660"
+  },
+  "control": {
+    "floor": "#1d2529", "floorAlt": "#26383a", "grid": "#314047", "wall": "#46535b", "wallEdge": "#6b7a84", "wallHighlight": "#93a2a7",
+    "object": "#3f5c5b", "objectSoft": "#64817c", "outline": "#0b1114", "shadow": "#060a0c",
+    "light": "#ccb46b", "monitor": "#4ba2b2", "metal": "#72848a", "plant": "#3f6752", "accent": "#997060"
+  },
+  "corridor": {
+    "floor": "#1b2024", "floorAlt": "#242d30", "grid": "#30383d", "wall": "#424b51", "wallEdge": "#626e75", "wallHighlight": "#858f91",
+    "object": "#544944", "objectSoft": "#73645d", "outline": "#0a0d0f", "shadow": "#050708",
+    "light": "#a18d58", "monitor": "#478792", "metal": "#6f787a", "plant": "#405d4b", "accent": "#865c58"
+  }
+}

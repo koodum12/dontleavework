@@ -7,6 +7,10 @@
       "text": "(4장. 선택에는 책임이 따른다) 퇴근길. 07:48 커피, 22:28 문자, 01:56 문구 수정, 02:13 백업. …무서워도, 확인한 것부터 정리하자.",
       "effects": [
         {
+          "type": "travel",
+          "to": "street"
+        },
+        {
           "type": "chapterSet",
           "chapter": "chapter04"
         }
@@ -43,6 +47,11 @@
       "text": "집으로 돌아가 기록을 시간순으로 정리한다. 07:48 커피 주문 / 22:28 예약 문자 / 01:56 문구 생성 / 02:13 변경 이력 백업. '그 사람이 회사 사람일 가능성이 있다'는 문장을 적었다가 지운다. 아직은… 그렇게 단정할 수 없어.",
       "effects": [
         {
+          "type": "travel",
+          "to": "home",
+          "spawn": "from_street"
+        },
+        {
           "type": "mentalChange",
           "amount": 5
         },
@@ -64,6 +73,11 @@
       "speaker": "사랑",
       "text": "18:42, 직접 아이스 아메리카노를 주문하고 영수증을 챙긴다. 직원은 '테이크아웃은 전부 직접 가져가세요'라고 답한다. 그때 휴대폰이 짧게 진동한다 — 로비에서 커피를 받는 내 뒷모습 사진이 개인 동기화 폴더에 저장되어 있다. 공유 링크 생성 18:43 / 발신 기기 미확인.",
       "effects": [
+        {
+          "type": "travel",
+          "to": "cafe",
+          "spawn": "from_street"
+        },
         {
           "type": "mentalChange",
           "amount": -10
@@ -119,6 +133,11 @@
       "speaker": "보안 담당자",
       "text": "읽기 전용 사본으로 확인하시죠. — Sarang 계정: 3년 전부터 07:48 출근 확인·로비 주문, 22:28 예약 문자, 02:13 정기 무결성 검사. 미확인 기기: 01:56 MEMORY_01 문구 레이어 생성, 02:04 개인 사진 폴더 열람, 02:11 CCTV 원본 내보내기 요청.",
       "effects": [
+        {
+          "type": "travel",
+          "to": "control_room",
+          "spawn": "from_lobby"
+        },
         {
           "type": "evidenceGet",
           "id": "ev_network_log",

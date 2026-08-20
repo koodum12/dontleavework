@@ -34,6 +34,7 @@
       "speaker": "사랑",
       "text": "(1장. 평범한 월요일) 알람을 끄고 겨우 몸을 일으켰다. 회사에 도착해 자리로 향한다. …책상 위에 커피 한 잔이 놓여 있다.",
       "effects": [
+        { "type": "travel", "to": "office", "spawn": "from_lobby" },
         { "type": "chapterSet", "chapter": "chapter01" },
         { "type": "messageReceive", "id": "msg_0748_checkin" }
       ]

@@ -7,6 +7,8 @@ import type { GameMap } from '@/data/types';
 
 const map: GameMap = {
   id: 'test',
+  name: '테스트 맵',
+  palette: 'day',
   width: 1000,
   height: 800,
   spawn: { x: 100, y: 100 },

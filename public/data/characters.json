@@ -5,6 +5,8 @@
     "role": "주인공",
     "description": "평범한 회사원. 유일하게 밝은 옷.",
     "color": "#e0e4ea",
+    "sprite": "sarang.png",
+    "portrait": "cutout/sarang.png",
     "art": {
       "hair": "long",
       "accessory": "badge"
@@ -16,6 +18,8 @@
     "role": "같은 팀",
     "color": "#8d8f96",
     "description": "월요일 근태 취합 담당. 회색 셔츠를 자주 입는다.",
+    "sprite": "daeri.png",
+    "portrait": "cutout/daeri.png",
     "art": {
       "hair": "short",
       "accessory": "badge"
@@ -27,6 +31,8 @@
     "role": "팀 책임자",
     "color": "#46557d",
     "description": "항상 야근한다. 업무 파일 원격 확인 권한이 있다.",
+    "sprite": "team_leader.png",
+    "portrait": "cutout/team_leader.png",
     "art": {
       "hair": "short",
       "accessory": "glasses"
@@ -38,6 +44,8 @@
     "role": "같은 팀",
     "color": "#c3ae8d",
     "description": "말수가 적다. 사랑의 생활 습관을 안다.",
+    "sprite": "neighbor.png",
+    "portrait": "cutout/neighbor.png",
     "art": {
       "hair": "bob",
       "accessory": "badge"
@@ -49,6 +57,8 @@
     "role": "건물 경비",
     "color": "#26344f",
     "description": "야간 출입 기록 담당. 기록을 보존하려 한다.",
+    "sprite": "guard.png",
+    "portrait": "cutout/guard.png",
     "art": {
       "hair": "short",
       "accessory": "cap"
@@ -60,6 +70,8 @@
     "role": "입사 동기",
     "color": "#8a6a4a",
     "description": "사고 전의 사랑을 기억한다.",
+    "sprite": "peer.png",
+    "portrait": "cutout/peer.png",
     "art": {
       "hair": "tied",
       "accessory": "badge"
@@ -71,6 +83,8 @@
     "role": "사내 보안",
     "description": "읽기 전용 사본과 보존 요청을 담당한다. 유일한 조력자.",
     "color": "#3f8a86",
+    "sprite": "security_staff.png",
+    "portrait": "cutout/security_staff.png",
     "art": {
       "hair": "short",
       "accessory": "tie"
@@ -82,6 +96,8 @@
     "role": "같은 팀",
     "description": "아침에 커피 이야기를 꺼낸 사람.",
     "color": "#9fb59a",
+    "sprite": "intern.png",
+    "portrait": "cutout/intern.png",
     "art": {
       "hair": "bob",
       "accessory": "badge"

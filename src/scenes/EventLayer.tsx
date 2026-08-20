@@ -4,9 +4,10 @@ import DialogBox from '@/components/dialogue/DialogBox';
 import CollectionStrip from '@/components/game/CollectionStrip';
 import { renderableChoices, useEventStore } from '@/game/event/EventManager';
 import { gameStateSnapshot, useGameStore } from '@/game/state/gameStore';
+import type { CharacterFile } from '@/data/types';
 
 /** EventManager 의 현재 이벤트를 구독해 대화창을 그린다 */
-export default function EventLayer() {
+export default function EventLayer({ characters }: { characters: CharacterFile }) {
   const current = useEventStore((s) => s.current);
   const advance = useEventStore((s) => s.advance);
   const choose = useEventStore((s) => s.choose);
@@ -23,6 +24,9 @@ export default function EventLayer() {
     index: c.index,
     note: c.irreversible ? '되돌릴 수 없다' : undefined,
   }));
+  const speakerCharacter = Object.values(characters)
+    .sort((a, b) => b.name.length - a.name.length)
+    .find((character) => current.speaker === character.name || current.speaker?.includes(character.name));
 
   return (
     <div className="event-layer">
@@ -30,6 +34,10 @@ export default function EventLayer() {
       {isChoice && <CollectionStrip state={gameStateSnapshot()} />}
       <DialogBox
         speaker={current.speaker}
+        speakerColor={speakerCharacter?.color}
+        portrait={speakerCharacter?.portrait
+          ? `/assets/images/portraits/${speakerCharacter.portrait}`
+          : undefined}
         text={current.text ?? ''}
         choices={choices}
         // fromEventId 를 넘겨 같은 이벤트에서 온 입력만 받는다 (중복 클릭 잠금)

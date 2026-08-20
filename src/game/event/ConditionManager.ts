@@ -7,6 +7,9 @@ export function evaluateOne(condition: Condition, state: GameStateData): boolean
     case 'flag':
       return (state.flags[condition.key] ?? false) === condition.value;
 
+    case 'current_chapter':
+      return state.currentChapter === condition.value;
+
     case 'evidence_count': {
       const list = condition.category
         ? state.evidence.filter((e) => e.category === condition.category)
@@ -61,6 +64,8 @@ export function conditionLabel(condition: Condition): string {
       return condition.value
         ? FLAG_LABELS[condition.key] ?? condition.key
         : `${FLAG_LABELS[condition.key] ?? condition.key}하지 않음`;
+    case 'current_chapter':
+      return `${condition.value} 진행 중`;
     case 'evidence_count':
       return `${condition.category === 'MEMORY' ? 'MEMORY 증거' : condition.category === 'character' ? '인물 증거' : '증거'} ${condition.min}개 이상`;
     case 'character_clue_count':
@@ -97,6 +102,8 @@ export function unmetReason(condition: Condition): string {
   switch (condition.type) {
     case 'flag':
       return condition.value ? '아직 확인하지 못한 것이 있다.' : '이미 지나간 선택이다.';
+    case 'current_chapter':
+      return '지금 진행 중인 장에서는 선택할 수 없다.';
     case 'evidence_count':
       return `증거가 더 필요하다. (${condition.category ?? '전체'} ${condition.min}개 이상)`;
     case 'character_clue_count':

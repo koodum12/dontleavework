@@ -1,152 +1,214 @@
 {
   "office": {
-    "id": "office",
-    "width": 1280,
-    "height": 960,
-    "spawn": {
-      "x": 160,
-      "y": 480
+    "id": "office", "name": "2층 사무실", "palette": "day", "width": 960, "height": 640,
+    "spawn": { "x": 784, "y": 544 },
+    "spawns": {
+      "from_lobby": { "x": 784, "y": 544 },
+      "from_corridor": { "x": 704, "y": 496 }
     },
-    "walls": [
+    "variants": [
       {
-        "x": 0,
-        "y": 0,
-        "w": 1280,
-        "h": 32
-      },
-      {
-        "x": 0,
-        "y": 928,
-        "w": 1280,
-        "h": 32
-      },
-      {
-        "x": 0,
-        "y": 0,
-        "w": 32,
-        "h": 960
-      },
-      {
-        "x": 1248,
-        "y": 0,
-        "w": 32,
-        "h": 960
-      },
-      {
-        "x": 640,
-        "y": 32,
-        "w": 32,
-        "h": 288
-      },
-      {
-        "x": 640,
-        "y": 640,
-        "w": 32,
-        "h": 288
+        "id": "night", "palette": "night", "nameSuffix": " (야간)",
+        "conditions": [
+          { "type": "flag", "key": "chapter6_started", "value": true },
+          { "type": "flag", "key": "chapter6_done", "value": false }
+        ]
       }
     ],
+    "labels": [
+      { "text": "OPEN OFFICE", "x": 64, "y": 66 },
+      { "text": "PRINT / PANTRY", "x": 704, "y": 66 }
+    ],
+    "walls": [
+      { "x": 0, "y": 0, "w": 960, "h": 32 }, { "x": 0, "y": 608, "w": 960, "h": 32 },
+      { "x": 0, "y": 0, "w": 32, "h": 640 }, { "x": 928, "y": 0, "w": 32, "h": 640 },
+      { "x": 640, "y": 32, "w": 32, "h": 416 }
+    ],
     "objects": [
+      { "id": "obj_desk_team_leader", "label": "팀장 책상 조사하기", "x": 64, "y": 112, "w": 176, "h": 72, "solid": true, "eventId": "desk_team_leader_look" },
+      { "id": "obj_meeting_table", "label": "회의 테이블 살펴보기", "x": 320, "y": 112, "w": 256, "h": 80, "solid": true },
+      { "id": "obj_desk_sarang", "label": "내 책상 조사하기", "x": 128, "y": 272, "w": 176, "h": 72, "solid": true, "eventId": "desk_look" },
+      { "id": "obj_coffee", "label": "의문의 커피 조사하기", "x": 152, "y": 244, "w": 24, "h": 24, "solid": false, "eventId": "chapter1_coffee", "once": true, "conditions": [{ "type": "flag", "key": "coffee_done", "value": false }] },
+      { "id": "obj_desk_neighbor", "label": "옆자리 직원 책상 조사하기", "x": 352, "y": 272, "w": 176, "h": 72, "solid": true, "eventId": "desk_neighbor_look" },
+      { "id": "obj_desk_intern", "label": "인턴 책상 살펴보기", "x": 128, "y": 432, "w": 176, "h": 72, "solid": true },
+      { "id": "obj_desk_daeri", "label": "대리 책상 조사하기", "x": 352, "y": 432, "w": 176, "h": 72, "solid": true, "eventId": "desk_daeri_look" },
+      { "id": "obj_printer", "label": "복합기 조사하기", "x": 736, "y": 112, "w": 112, "h": 64, "solid": true, "eventId": "printer_look" },
+      { "id": "obj_water", "label": "정수기 살펴보기", "x": 752, "y": 288, "w": 48, "h": 64, "solid": true, "eventId": "water_look" },
+      { "id": "obj_corridor_door", "label": "복도로 이동", "x": 672, "y": 480, "w": 64, "h": 96, "solid": false, "travel": { "to": "corridor", "spawn": "from_office" } },
+      { "id": "obj_elevator", "label": "엘리베이터로 로비 이동", "x": 800, "y": 480, "w": 96, "h": 96, "solid": false, "travel": { "to": "lobby", "spawn": "from_office" } }
+    ]
+  },
+  "lobby": {
+    "id": "lobby", "name": "1층 로비", "palette": "lobby", "width": 960, "height": 640,
+    "spawn": { "x": 480, "y": 496 },
+    "spawns": {
+      "from_office": { "x": 736, "y": 160 }, "from_street": { "x": 480, "y": 512 },
+      "from_control": { "x": 736, "y": 256 }, "from_cafe": { "x": 224, "y": 144 }
+    },
+    "labels": [
+      { "text": "LOBBY", "x": 416, "y": 72 }, { "text": "CAFE", "x": 96, "y": 72 },
+      { "text": "SECURITY", "x": 760, "y": 216 }
+    ],
+    "walls": [
+      { "x": 0, "y": 0, "w": 960, "h": 32 }, { "x": 0, "y": 608, "w": 384, "h": 32 },
+      { "x": 576, "y": 608, "w": 384, "h": 32 }, { "x": 0, "y": 0, "w": 32, "h": 640 },
+      { "x": 928, "y": 0, "w": 32, "h": 640 }, { "x": 448, "y": 96, "w": 64, "h": 64 }
+    ],
+    "objects": [
+      { "id": "obj_cafe_door", "label": "로비 카페로 이동", "x": 64, "y": 96, "w": 128, "h": 64, "solid": false, "travel": { "to": "cafe", "spawn": "from_lobby" } },
+      { "id": "obj_reception_desk", "label": "로비 안내판 살펴보기", "x": 320, "y": 224, "w": 320, "h": 64, "solid": true, "eventId": "lobby_directory" },
+      { "id": "obj_lobby_sofa", "label": "로비 소파 살펴보기", "x": 128, "y": 384, "w": 192, "h": 64, "solid": true },
+      { "id": "obj_lobby_plant", "label": "대형 화분 살펴보기", "x": 704, "y": 416, "w": 64, "h": 64, "solid": true },
+      { "id": "obj_lobby_elevator", "label": "2층 사무실로 이동", "x": 768, "y": 96, "w": 128, "h": 96, "solid": false, "travel": { "to": "office", "spawn": "from_lobby" } },
+      { "id": "obj_control_door", "label": "관리실로 이동", "x": 768, "y": 224, "w": 128, "h": 64, "solid": false, "travel": { "to": "control_room", "spawn": "from_lobby" } },
       {
-        "id": "obj_desk_sarang",
-        "label": "내 책상",
-        "x": 320,
-        "y": 400,
-        "w": 96,
-        "h": 64,
-        "solid": true,
-        "eventId": "desk_look"
-      },
-      {
-        "id": "obj_coffee",
-        "label": "의문의 커피",
-        "x": 352,
-        "y": 368,
-        "w": 24,
-        "h": 24,
-        "solid": false,
-        "eventId": "chapter1_coffee",
-        "once": true
-      },
-      {
-        "id": "obj_desk_neighbor",
-        "label": "옆자리 직원 책상",
-        "x": 320,
-        "y": 560,
-        "w": 96,
-        "h": 64,
-        "solid": true,
-        "eventId": "neighbor_gate"
-      },
-      {
-        "id": "obj_desk_team_leader",
-        "label": "팀장 책상",
-        "x": 320,
-        "y": 240,
-        "w": 96,
-        "h": 64,
-        "solid": true,
-        "eventId": "talk_team_leader"
-      },
-      {
-        "id": "obj_printer",
-        "label": "복합기",
-        "x": 800,
-        "y": 224,
-        "w": 64,
-        "h": 48,
-        "solid": true,
-        "eventId": "printer_look"
-      },
-      {
-        "id": "obj_water",
-        "label": "정수기",
-        "x": 928,
-        "y": 448,
-        "w": 40,
-        "h": 40,
-        "solid": true,
-        "eventId": "water_look"
-      },
-      {
-        "id": "obj_security_desk",
-        "label": "경비 데스크",
-        "x": 864,
-        "y": 736,
-        "w": 128,
-        "h": 64,
-        "solid": true,
-        "eventId": "talk_guard"
-      },
-      {
-        "id": "obj_cctv_monitor",
-        "label": "CCTV 모니터",
-        "x": 1024,
-        "y": 736,
-        "w": 64,
-        "h": 48,
-        "solid": true,
-        "eventId": "chapter1_cctv_gate"
-      },
-      {
-        "id": "obj_elevator",
-        "label": "엘리베이터",
-        "x": 1152,
-        "y": 448,
-        "w": 64,
-        "h": 96,
-        "solid": true,
-        "eventId": "day_gate"
-      },
-      {
-        "id": "obj_desk_daeri",
-        "label": "대리 책상",
-        "x": 800,
-        "y": 400,
-        "w": 96,
-        "h": 64,
-        "solid": true,
-        "eventId": "talk_daeri"
+        "id": "obj_lobby_front_door", "label": "거리로 나가기", "x": 384, "y": 544, "w": 192, "h": 64, "solid": false,
+        "travel": {
+          "to": "street", "spawn": "from_lobby",
+          "blocks": [
+            { "conditions": [{ "type": "current_chapter", "value": "chapter01" }, { "type": "flag", "key": "chapter1_done", "value": false }], "lockedText": "아직 오늘 확인할 일이 남았다. 내 책상과 관리실을 먼저 살펴보자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_daeri", "value": false }], "lockedText": "대리에게 퇴근 시간과 야근 명단을 먼저 확인하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_team_leader", "value": false }], "lockedText": "팀장에게 어젯밤 컴퓨터 상태를 먼저 확인하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_neighbor", "value": false }], "lockedText": "옆자리 직원에게 본 것이 있는지 먼저 물어보자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_peer", "value": false }], "lockedText": "동기에게 사고 전 MEMORY에 관해 먼저 물어보자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_guard", "value": false }], "lockedText": "관리실 경비원에게 야간 출입 기록을 먼저 확인하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter06" }, { "type": "flag", "key": "chapter6_done", "value": false }], "lockedText": "아직 야간 조사가 끝나지 않았다. 복도 끝 복합기의 출력물을 확인하자." }
+          ]
+        }
       }
+    ]
+  },
+  "cafe": {
+    "id": "cafe", "name": "로비 카페", "palette": "cafe", "width": 960, "height": 640,
+    "spawn": { "x": 752, "y": 512 },
+    "spawns": { "from_lobby": { "x": 752, "y": 512 }, "from_street": { "x": 816, "y": 160 } },
+    "labels": [{ "text": "ORDER", "x": 112, "y": 74 }, { "text": "PICK UP", "x": 530, "y": 74 }],
+    "walls": [
+      { "x": 0, "y": 0, "w": 960, "h": 32 }, { "x": 0, "y": 608, "w": 960, "h": 32 },
+      { "x": 0, "y": 0, "w": 32, "h": 640 }, { "x": 928, "y": 0, "w": 32, "h": 640 }
+    ],
+    "objects": [
+      { "id": "obj_cafe_counter", "label": "카페 픽업대 조사하기", "x": 96, "y": 112, "w": 512, "h": 96, "solid": true, "eventId": "cafe_counter_look" },
+      { "id": "obj_cafe_machine", "label": "커피 머신 살펴보기", "x": 144, "y": 72, "w": 96, "h": 48, "solid": true },
+      { "id": "obj_cafe_table_1", "label": "창가 테이블 살펴보기", "x": 128, "y": 352, "w": 128, "h": 80, "solid": true },
+      { "id": "obj_cafe_table_2", "label": "안쪽 테이블 살펴보기", "x": 384, "y": 352, "w": 128, "h": 80, "solid": true },
+      { "id": "obj_cafe_table_3", "label": "빈 테이블 살펴보기", "x": 640, "y": 352, "w": 128, "h": 80, "solid": true },
+      { "id": "obj_cafe_lobby_door", "label": "로비로 이동", "x": 736, "y": 512, "w": 128, "h": 64, "solid": false, "travel": { "to": "lobby", "spawn": "from_cafe" } },
+      {
+        "id": "obj_cafe_street_door", "label": "거리로 나가기", "x": 768, "y": 64, "w": 128, "h": 64, "solid": false,
+        "travel": {
+          "to": "street", "spawn": "from_cafe",
+          "blocks": [
+            { "conditions": [{ "type": "current_chapter", "value": "chapter01" }, { "type": "flag", "key": "chapter1_done", "value": false }], "lockedText": "아직 오늘 확인할 일이 남았다. 내 책상과 관리실을 먼저 살펴보자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_daeri", "value": false }], "lockedText": "대리에게 퇴근 시간과 야근 명단을 먼저 확인하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_team_leader", "value": false }], "lockedText": "팀장에게 어젯밤 컴퓨터 상태를 먼저 확인하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_neighbor", "value": false }], "lockedText": "옆자리 직원에게 본 것이 있는지 먼저 물어보자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_peer", "value": false }], "lockedText": "동기에게 사고 전 MEMORY에 관해 먼저 물어보자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_guard", "value": false }], "lockedText": "관리실 경비원에게 야간 출입 기록을 먼저 확인하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter06" }, { "type": "flag", "key": "chapter6_done", "value": false }], "lockedText": "아직 야간 조사가 끝나지 않았다. 복도 끝 복합기의 출력물을 확인하자." }
+          ]
+        }
+      }
+    ]
+  },
+  "street": {
+    "id": "street", "name": "회사 앞 거리", "palette": "street", "width": 960, "height": 640,
+    "spawn": { "x": 480, "y": 320 },
+    "spawns": {
+      "from_lobby": { "x": 192, "y": 192 }, "from_cafe": { "x": 416, "y": 192 },
+      "from_home": { "x": 736, "y": 480 }
+    },
+    "labels": [{ "text": "OFFICE", "x": 136, "y": 72 }, { "text": "CAFE", "x": 376, "y": 72 }, { "text": "HOME", "x": 720, "y": 566 }],
+    "walls": [
+      { "x": 0, "y": 0, "w": 960, "h": 32 }, { "x": 0, "y": 608, "w": 960, "h": 32 },
+      { "x": 0, "y": 0, "w": 32, "h": 640 }, { "x": 928, "y": 0, "w": 32, "h": 640 }
+    ],
+    "objects": [
+      { "id": "obj_street_office_door", "label": "회사 로비로 들어가기", "x": 128, "y": 96, "w": 128, "h": 64, "solid": false, "travel": { "to": "lobby", "spawn": "from_street" } },
+      { "id": "obj_street_cafe_door", "label": "카페로 들어가기", "x": 352, "y": 96, "w": 128, "h": 64, "solid": false, "travel": { "to": "cafe", "spawn": "from_street" } },
+      { "id": "obj_bus_stop", "label": "버스 정류장 살펴보기", "x": 112, "y": 416, "w": 176, "h": 64, "solid": true, "eventId": "street_bus_stop" },
+      { "id": "obj_street_bench", "label": "거리 벤치 살펴보기", "x": 384, "y": 432, "w": 160, "h": 48, "solid": true },
+      { "id": "obj_street_lamp", "label": "가로등 아래 살펴보기", "x": 640, "y": 224, "w": 40, "h": 96, "solid": true },
+      { "id": "obj_home_gate", "label": "집으로 이동", "x": 704, "y": 480, "w": 128, "h": 96, "solid": false, "travel": { "to": "home", "spawn": "from_street" } }
+    ]
+  },
+  "home": {
+    "id": "home", "name": "사랑의 집", "palette": "home", "width": 960, "height": 640,
+    "spawn": { "x": 736, "y": 528 },
+    "spawns": { "from_street": { "x": 736, "y": 528 } },
+    "labels": [{ "text": "BEDROOM", "x": 80, "y": 72 }, { "text": "LIVING", "x": 376, "y": 360 }],
+    "walls": [
+      { "x": 0, "y": 0, "w": 960, "h": 32 }, { "x": 0, "y": 608, "w": 960, "h": 32 },
+      { "x": 0, "y": 0, "w": 32, "h": 640 }, { "x": 928, "y": 0, "w": 32, "h": 640 },
+      { "x": 608, "y": 32, "w": 32, "h": 256 }, { "x": 608, "y": 384, "w": 32, "h": 224 }
+    ],
+    "objects": [
+      { "id": "obj_home_bed", "label": "침대에서 하루 정리하기", "x": 80, "y": 96, "w": 208, "h": 112, "solid": true, "eventId": "day_gate" },
+      { "id": "obj_home_nightstand", "label": "협탁 살펴보기", "x": 320, "y": 112, "w": 64, "h": 64, "solid": true },
+      { "id": "obj_home_desk", "label": "기록용 책상 살펴보기", "x": 80, "y": 288, "w": 192, "h": 64, "solid": true, "eventId": "desk_look_plain" },
+      { "id": "obj_home_tea_table", "label": "식은 차 살펴보기", "x": 384, "y": 288, "w": 128, "h": 80, "solid": true },
+      { "id": "obj_home_sofa", "label": "거실 소파 살펴보기", "x": 352, "y": 448, "w": 208, "h": 64, "solid": true },
+      { "id": "obj_home_window", "label": "창밖 확인하기", "x": 704, "y": 80, "w": 160, "h": 48, "solid": true, "eventId": "home_window" },
+      {
+        "id": "obj_home_front_door", "label": "거리로 나가기", "x": 736, "y": 480, "w": 128, "h": 96, "solid": false,
+        "travel": {
+          "to": "street", "spawn": "from_home",
+          "blocks": [
+            { "conditions": [{ "type": "current_chapter", "value": "chapter01" }, { "type": "flag", "key": "chapter1_done", "value": true }], "lockedText": "오늘 일은 끝났다. 침대에서 기록을 정리하고 쉬자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter02" }, { "type": "flag", "key": "chapter2_done", "value": true }], "lockedText": "문자 기록을 정리했다. 침대에서 다음 날을 시작하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter03" }, { "type": "flag", "key": "asked_daeri", "value": true }, { "type": "flag", "key": "asked_team_leader", "value": true }, { "type": "flag", "key": "asked_neighbor", "value": true }, { "type": "flag", "key": "asked_peer", "value": true }, { "type": "flag", "key": "asked_guard", "value": true }], "lockedText": "확인할 사람은 모두 만났다. 침대에서 오늘 기록을 정리하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter04" }, { "type": "flag", "key": "chapter4_done", "value": true }], "lockedText": "오늘 선택은 끝났다. 침대에서 다음 날을 준비하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter05" }, { "type": "flag", "key": "chapter5_done", "value": true }], "lockedText": "오늘 확인한 사실을 정리해야 한다. 침대로 가자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter06" }, { "type": "flag", "key": "chapter6_done", "value": true }], "lockedText": "남은 건 삭제된 기록이다. 침대에서 다음 장을 시작하자." },
+            { "conditions": [{ "type": "current_chapter", "value": "chapter07" }, { "type": "flag", "key": "chapter7_done", "value": true }], "lockedText": "마지막으로 확인할 기록이 있다. 침대에서 최종장을 시작하자." }
+          ]
+        }
+      }
+    ]
+  },
+  "control_room": {
+    "id": "control_room", "name": "건물 관리실", "palette": "control", "width": 960, "height": 640,
+    "spawn": { "x": 752, "y": 512 },
+    "spawns": { "from_lobby": { "x": 752, "y": 512 }, "from_corridor": { "x": 752, "y": 144 } },
+    "labels": [{ "text": "CCTV ARCHIVE", "x": 96, "y": 72 }, { "text": "ACCESS LOG", "x": 480, "y": 256 }],
+    "walls": [
+      { "x": 0, "y": 0, "w": 960, "h": 32 }, { "x": 0, "y": 608, "w": 960, "h": 32 },
+      { "x": 0, "y": 0, "w": 32, "h": 640 }, { "x": 928, "y": 0, "w": 32, "h": 640 }
+    ],
+    "objects": [
+      { "id": "obj_cctv_monitor", "label": "CCTV 모니터 조사하기", "x": 80, "y": 96, "w": 288, "h": 112, "solid": true, "eventId": "chapter1_cctv_gate" },
+      { "id": "obj_control_console", "label": "출입 기록 콘솔 조사하기", "x": 480, "y": 288, "w": 256, "h": 96, "solid": true, "eventId": "security_desk_look" },
+      { "id": "obj_record_cabinet", "label": "기록 보관함 살펴보기", "x": 80, "y": 352, "w": 192, "h": 128, "solid": true },
+      { "id": "obj_control_corridor_door", "label": "2층 복도로 이동", "x": 768, "y": 96, "w": 128, "h": 64, "solid": false, "travel": { "to": "corridor", "spawn": "from_control" } },
+      { "id": "obj_control_lobby_door", "label": "로비로 이동", "x": 736, "y": 512, "w": 160, "h": 64, "solid": false, "travel": { "to": "lobby", "spawn": "from_control" } }
+    ]
+  },
+  "corridor": {
+    "id": "corridor", "name": "2층 복도", "palette": "corridor", "width": 960, "height": 640,
+    "spawn": { "x": 128, "y": 480 },
+    "spawns": { "from_office": { "x": 128, "y": 480 }, "from_control": { "x": 128, "y": 144 } },
+    "labels": [{ "text": "2F CORRIDOR", "x": 400, "y": 72 }, { "text": "PRINT ROOM", "x": 720, "y": 120 }],
+    "walls": [
+      { "x": 0, "y": 0, "w": 960, "h": 32 }, { "x": 0, "y": 608, "w": 960, "h": 32 },
+      { "x": 0, "y": 0, "w": 32, "h": 640 }, { "x": 928, "y": 0, "w": 32, "h": 640 },
+      { "x": 320, "y": 32, "w": 32, "h": 160 }, { "x": 320, "y": 288, "w": 32, "h": 128 },
+      { "x": 320, "y": 512, "w": 32, "h": 96 }
+    ],
+    "objects": [
+      { "id": "obj_corridor_office_door", "label": "사무실로 이동", "x": 64, "y": 448, "w": 96, "h": 96, "solid": false, "travel": { "to": "office", "spawn": "from_corridor" } },
+      { "id": "obj_corridor_control_door", "label": "관리실로 이동", "x": 64, "y": 96, "w": 96, "h": 96, "solid": false, "travel": { "to": "control_room", "spawn": "from_corridor" } },
+      { "id": "obj_corridor_printer", "label": "복도 끝 복합기 조사하기", "x": 736, "y": 160, "w": 112, "h": 72, "solid": true, "eventId": "printer_look" },
+      {
+        "id": "obj_printed_photo", "label": "출력함 위의 사진 조사하기", "x": 760, "y": 132, "w": 24, "h": 24,
+        "solid": false, "eventId": "ch6_printer", "once": true,
+        "conditions": [
+          { "type": "flag", "key": "chapter6_started", "value": true },
+          { "type": "flag", "key": "chapter6_done", "value": false },
+          { "type": "flag", "key": "found_composite", "value": false }
+        ]
+      },
+      { "id": "obj_cleaning_cart", "label": "멈춰 선 청소 카트 살펴보기", "x": 464, "y": 384, "w": 96, "h": 64, "solid": true, "eventId": "corridor_cart" },
+      { "id": "obj_corridor_window", "label": "어두운 창문 살펴보기", "x": 576, "y": 64, "w": 160, "h": 48, "solid": true }
     ]
   }
 }

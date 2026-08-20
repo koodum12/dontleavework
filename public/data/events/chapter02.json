@@ -7,6 +7,11 @@
       "text": "(2장. 이상한 문자) 집에 도착한 사랑은 가방을 내려놓고도 한동안 현관 앞에 서 있다. 띠링. — 모르는 번호로 문자가 온다.",
       "effects": [
         {
+          "type": "travel",
+          "to": "home",
+          "spawn": "from_street"
+        },
+        {
           "type": "chapterSet",
           "chapter": "chapter02"
         },

@@ -19,7 +19,8 @@ export type EventEffect =
   | { type: 'flagSet'; key: string; value: boolean }
   | { type: 'messageReceive'; id: string }
   | { type: 'photoGet'; id: string }
-  | { type: 'chapterSet'; chapter: string };
+  | { type: 'chapterSet'; chapter: string }
+  | { type: 'travel'; to: string; spawn?: string };
 
 export interface Choice {
   text: string;

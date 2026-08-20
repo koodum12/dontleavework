@@ -34,7 +34,7 @@ npx serve out      # 빌드 결과를 그대로 확인
 | `Space` `Enter` | 대사 진행 |
 | `Tab` | 휴대폰 (문자 · 기록 노트 · 사진 · 음성 메모 · 삭제된 항목) |
 | `I` | 인벤토리 (아이템 · 증거 · 특수 자료) |
-| `ESC` | 메뉴 (저장 / 불러오기 / 사운드) |
+| `ESC` | 메뉴 (저장 / 불러오기 / 타이틀) |
 
 엘리베이터에서 하루가 넘어간다. 사람과 사물은 조사 순서에 따라 다른 내용을 준다.
 
@@ -50,7 +50,9 @@ public/data/
 │   ├── final.json                      # 최종 선택
 │   └── endings.json                    # 4개 엔딩 서술
 ├── endings.json     # 엔딩 조건 (평가 순서: HIDDEN → TRUE → NORMAL → BAD)
-├── locations.json   # 맵 · 충돌 · 상호작용 오브젝트 → eventId
+├── locations.json   # 7개 맵 · 문 연결 · 도착 스폰 · 조건부 오브젝트
+├── npcs.json        # 인물 배치 · 위치 · 조건 · 대화 eventId
+├── palettes.json    # 사무실/집/로비/카페/거리/관리실/복도 색상
 ├── characters.json  items.json  evidence.json  notes.json  phone.json
 └── mental.json      # 정신력 구간과 사건별 변화량
 ```
@@ -89,7 +91,7 @@ InteractionManager ← PlayerController    └→ ConditionManager → EndingMan
 - `src/game/render/` — Camera · Renderer · GameLoop (Canvas 2D)
 - `src/game/interaction/` — 최근접 대상 1개 선택, `once` / 반복 처리
 - `src/game/ending/` — 엔딩 판정 (ConditionManager 재사용)
-- `src/services/` — StorageService(sql.js + IndexedDB) · SaveService · AudioService
+- `src/services/` — StorageService(sql.js + IndexedDB) · SaveService
 
 ## 저장
 
@@ -106,3 +108,19 @@ InteractionManager ← PlayerController    └→ ConditionManager → EndingMan
 | HIDDEN — 퇴근하지 마세요 | TRUE 조건 + CCTV · MEMORY_01 · 02:13 · 사내망 기록 · 삭제 메모/음성 메모 복구 · 인물 단서 비교 |
 
 인물 단서는 단서 개수가 아니라 **서로 다른 인물 수**로 센다.
+
+## 캐릭터와 맵
+
+NPC는 가구와 분리되어 `npcs.json`에 배치된다. 같은 인물의 조건별 위치를 여러 개 선언할 수 있고,
+조건이 겹치면 파일에서 먼저 선언된 위치 하나만 사용한다. `locations.json`의 오브젝트와 맵 변형도
+같은 조건식을 사용하므로 6장 야간 사무실은 맵을 복제하지 않고 팔레트와 배치만 바뀐다.
+
+현재 장소는 저장 데이터에 포함된다. 사무실·로비·카페·거리·집·관리실·복도는 `travel` 오브젝트로
+왕복하며, 이벤트의 `travel` 효과는 챕터 장면과 실제 배경을 함께 전환한다.
+
+필수 조사가 남아 있을 때는 회사 내부 이동을 막지 않고 로비·카페의 외부 출구만 잠근다.
+집에서는 하루 기록을 마친 뒤 현관 대신 침대에서 다음 장을 시작해야 한다. 잠긴 출구는
+현재 장과 완료 플래그를 함께 검사해, 남은 행동을 구체적인 문장으로 알려 준다.
+
+캐릭터 스프라이트는 4방향 2프레임 시트다. 이미지가 없거나 로드에 실패하면 `characters.json`의
+인물 색으로 만든 실루엣이 대신 표시된다. 대화창은 `portraits/hd/`의 768px 투명 초상을 사용한다.

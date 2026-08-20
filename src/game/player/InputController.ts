@@ -2,7 +2,7 @@
 
 /** day1 §4 — 키코드를 컴포넌트에 흩지 않는다. 매핑은 여기 한 곳. */
 export type MoveAction = 'up' | 'down' | 'left' | 'right';
-export type TriggerAction = 'interact' | 'phone' | 'inventory' | 'menu' | 'advance';
+export type TriggerAction = 'interact' | 'phone' | 'inventory' | 'map' | 'menu' | 'advance';
 
 /** 한글 입력 상태에서도 동작하도록 e.key 가 아니라 e.code 를 쓴다 */
 const MOVE_KEYS: Record<string, MoveAction> = {
@@ -23,6 +23,7 @@ const TRIGGER_KEYS: Record<string, TriggerAction> = {
   NumpadEnter: 'advance',
   Tab: 'phone',
   KeyI: 'inventory',
+  KeyM: 'map',
   Escape: 'menu',
 };
 

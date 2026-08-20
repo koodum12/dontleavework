@@ -13,8 +13,8 @@ export async function save(): Promise<void> {
 
   storage.run('DELETE FROM player_state');
   storage.run(
-    'INSERT INTO player_state (id, chapter, current_event, mental, ending, saved_at) VALUES (1, ?, ?, ?, ?, ?)',
-    [s.currentChapter, s.currentEvent, s.mental, s.ending, new Date().toISOString()],
+    'INSERT INTO player_state (id, chapter, current_event, mental, ending, current_location, pending_spawn, saved_at) VALUES (1, ?, ?, ?, ?, ?, ?, ?)',
+    [s.currentChapter, s.currentEvent, s.mental, s.ending, s.currentLocation, s.pendingSpawn, new Date().toISOString()],
   );
 
   storage.run('DELETE FROM inventory');
@@ -59,10 +59,12 @@ export async function hasSave(): Promise<boolean> {
 
 export async function load(): Promise<boolean> {
   await storage.init();
-  const rows = storage.all('SELECT chapter, current_event, mental, ending FROM player_state WHERE id = 1');
+  const rows = storage.all(
+    'SELECT chapter, current_event, mental, ending, current_location, pending_spawn FROM player_state WHERE id = 1',
+  );
   if (rows.length === 0) return false;
 
-  const [chapter, currentEvent, mental, ending] = rows[0];
+  const [chapter, currentEvent, mental, ending, currentLocation, pendingSpawn] = rows[0];
   const clues: Record<string, string[]> = {};
   for (const [characterId, clue] of storage.all('SELECT character_id, clue FROM character_clues')) {
     const id = String(characterId);
@@ -78,6 +80,8 @@ export async function load(): Promise<boolean> {
     currentEvent: str(currentEvent),
     mental: Number(mental),
     ending: str(ending) as GameStateData['ending'],
+    currentLocation: str(currentLocation) ?? 'office',
+    pendingSpawn: str(pendingSpawn),
     inventory: storage.all('SELECT item_id FROM inventory').map(([v]) => String(v)),
     evidence: storage.all('SELECT evidence_id, category FROM evidence').map(([id, category]) => ({
       id: String(id),

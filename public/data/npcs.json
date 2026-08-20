@@ -1,0 +1,57 @@
+{
+  "npc_team_leader_day": {
+    "id": "npc_team_leader_day", "characterId": "team_leader", "location": "office", "label": "팀장에게 말을 건다",
+    "x": 136, "y": 200, "w": 24, "h": 32, "facing": "down", "solid": true, "eventId": "talk_team_leader",
+    "idle": "팀장은 두 대의 모니터 사이에서 야근 명단을 보고 있다.",
+    "conditions": [{ "type": "flag", "key": "chapter6_started", "value": false }]
+  },
+  "npc_neighbor_day": {
+    "id": "npc_neighbor_day", "characterId": "neighbor", "location": "office", "label": "옆자리 직원에게 말을 건다",
+    "x": 428, "y": 360, "w": 24, "h": 32, "facing": "up", "solid": true, "eventId": "neighbor_gate",
+    "idle": "옆자리 직원은 정돈된 책상 앞에 서 있다.",
+    "conditions": [{ "type": "flag", "key": "chapter6_started", "value": false }]
+  },
+  "npc_intern_day": {
+    "id": "npc_intern_day", "characterId": "intern", "location": "office", "label": "인턴에게 말을 건다",
+    "x": 204, "y": 520, "w": 24, "h": 32, "facing": "up", "solid": true, "eventId": "neighbor_gate",
+    "idle": "인턴은 회의실에서 가져온 서류를 정리하고 있다.",
+    "conditions": [{ "type": "flag", "key": "chapter6_started", "value": false }]
+  },
+  "npc_daeri_day": {
+    "id": "npc_daeri_day", "characterId": "daeri", "location": "office", "label": "대리에게 말을 건다",
+    "x": 428, "y": 520, "w": 24, "h": 32, "facing": "up", "solid": true, "eventId": "talk_daeri",
+    "idle": "대리는 근태 취합 파일을 보고 있다.",
+    "conditions": [{ "type": "flag", "key": "chapter6_started", "value": false }]
+  },
+  "npc_peer_day": {
+    "id": "npc_peer_day", "characterId": "peer", "location": "office", "label": "동기에게 말을 건다",
+    "x": 816, "y": 368, "w": 24, "h": 32, "facing": "up", "solid": true, "eventId": "peer_gate",
+    "idle": "동기는 정수기 앞에서 종이컵을 들고 있다.",
+    "conditions": [{ "type": "flag", "key": "chapter6_started", "value": false }]
+  },
+  "npc_guard_day": {
+    "id": "npc_guard_day", "characterId": "guard", "location": "control_room", "label": "경비원에게 말을 건다",
+    "x": 560, "y": 416, "w": 24, "h": 32, "facing": "up", "solid": true, "eventId": "talk_guard",
+    "idle": "경비원은 출입 기록 대장과 CCTV를 번갈아 보고 있다.",
+    "conditions": [{ "type": "flag", "key": "chapter6_started", "value": false }]
+  },
+  "npc_security_night": {
+    "id": "npc_security_night", "characterId": "security_staff", "location": "control_room", "label": "보안 담당자에게 말을 건다",
+    "x": 608, "y": 416, "w": 24, "h": 32, "facing": "up", "solid": true, "eventId": "ch6_stay_main",
+    "idle": "보안 담당자는 읽기 전용 기록을 확인하고 있다.",
+    "conditions": [
+      { "type": "flag", "key": "chapter6_started", "value": true },
+      { "type": "flag", "key": "chapter6_done", "value": false }
+    ]
+  },
+  "npc_daeri_night": {
+    "id": "npc_daeri_night", "characterId": "daeri", "location": "corridor", "label": "복합기 앞의 대리에게 말을 건다",
+    "x": 816, "y": 256, "w": 24, "h": 32, "facing": "up", "solid": true, "eventId": "ch6_ask_daeri",
+    "idle": "대리는 불 꺼진 복합기 쪽을 돌아보고 있다.",
+    "conditions": [
+      { "type": "flag", "key": "chapter6_started", "value": true },
+      { "type": "flag", "key": "chapter6_done", "value": false },
+      { "type": "flag", "key": "found_composite", "value": true }
+    ]
+  }
+}

@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import {
-  loadCharacters, loadEndings, loadEventFiles, loadObjectives, loadEvidence, loadItems, loadMental, loadNotes, loadPhone,
+  loadCharacters, loadEndings, loadEventFiles, loadObjectives, loadEvidence, loadItems, loadLocations,
+  loadMental, loadNotes, loadNpcs, loadPalettes, loadPhone,
 } from '@/data/loader/JsonLoader';
 import type {
-  CharacterFile, EndingFile, EvidenceFile, ItemFile, MentalConfig, NoteFile, PhoneFile,
+  CharacterFile, EndingFile, EvidenceFile, ItemFile, LocationFile, MentalConfig, NoteFile, NpcFile,
+  PaletteFile, PhoneFile,
 } from '@/data/types';
 import type { ObjectiveFile } from '@/game/state/objectives';
 import { useEventStore } from '@/game/event/EventManager';
@@ -17,6 +19,9 @@ export interface GameData {
   notes: NoteFile;
   phone: PhoneFile;
   characters: CharacterFile;
+  locations: LocationFile;
+  npcs: NpcFile;
+  palettes: PaletteFile;
   mental: MentalConfig | null;
   endings: EndingFile | null;
   objectives: ObjectiveFile | null;
@@ -25,6 +30,7 @@ export interface GameData {
 
 const EMPTY: GameData = {
   items: {}, evidence: {}, notes: {}, characters: {},
+  locations: {}, npcs: {}, palettes: {},
   phone: { messages: {}, photos: {}, memos: {} },
   mental: null, endings: null, objectives: null, ready: false,
 };
@@ -46,11 +52,17 @@ export function useGameData(): GameData {
       loadNotes().catch(warn('notes.json')),
       loadPhone().catch(warn('phone.json')),
       loadCharacters().catch(warn('characters.json')),
+      loadLocations().catch(warn('locations.json')),
+      loadNpcs().catch(warn('npcs.json')),
+      loadPalettes().catch(warn('palettes.json')),
       loadMental().catch(warn('mental.json')),
       loadEndings().catch(warn('endings.json')),
       loadObjectives().catch(warn('objectives.json')),
       loadEventFiles(),
-    ]).then(([items, evidence, notes, phone, characters, mental, endings, objectives, eventFiles]) => {
+    ]).then(([
+      items, evidence, notes, phone, characters, locations, npcs, palettes,
+      mental, endings, objectives, eventFiles,
+    ]) => {
       if (cancelled) return;
       useEventStore.getState().loadFromRaw(eventFiles);
       if (mental) useGameStore.getState().setMentalConfig(mental);
@@ -60,6 +72,9 @@ export function useGameData(): GameData {
         notes: notes ?? {},
         phone: phone ?? EMPTY.phone,
         characters: characters ?? {},
+        locations: locations ?? {},
+        npcs: npcs ?? {},
+        palettes: palettes ?? {},
         mental,
         endings,
         objectives,

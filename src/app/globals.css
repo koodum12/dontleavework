@@ -1,5 +1,7 @@
 /* ---- 색상 토큰: 늦은 밤 사무실 ---- */
 :root {
+  --font-sans: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans CJK KR', system-ui, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
   --bg: #0d0f13;
   --panel: #14171d;
   --panel-strong: #1b1f27;
@@ -15,7 +17,7 @@
   --saturate: 1;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; letter-spacing: 0 !important; }
 
 html, body {
   margin: 0;
@@ -34,22 +36,34 @@ html, body {
 
 /* ---- 타이틀 ---- */
 .home {
+  position: relative;
   width: 100vw; height: 100vh;
   display: flex; align-items: center; justify-content: center;
-  background:
-    radial-gradient(120% 90% at 50% 0%, #171b22 0%, var(--bg) 60%),
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 3px);
+  overflow: hidden;
+  background: #080a0d;
 }
-.home-inner { text-align: center; max-width: 520px; padding: 0 24px; }
+.home::before {
+  content: ''; position: absolute; inset: 0;
+  background: url('/assets/images/title-office.png') center center / cover no-repeat;
+  transform: scale(1.01);
+}
+.home::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(5, 7, 9, 0.58);
+}
+.home-inner {
+  position: relative; z-index: 1;
+  text-align: center; max-width: 560px; padding: 0 24px;
+}
 .home-title {
-  margin: 0 0 10px; font-size: 40px; font-weight: 700; letter-spacing: 0.16em;
+  margin: 0 0 10px; font-size: 40px; font-weight: 700;
   color: var(--text);
-  text-shadow: 0 0 26px rgba(200, 162, 90, 0.16);
+  text-shadow: 0 2px 18px #000, 0 0 28px rgba(200, 162, 90, 0.26);
 }
-.home-sub { margin: 0 0 32px; color: var(--text-dim); font-size: 14px; }
+.home-sub { margin: 0 0 32px; color: #c7ccd4; font-size: 14px; text-shadow: 0 2px 8px #000; }
 .home-menu { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 .home-menu .ui-button { min-width: 220px; padding: 10px 16px; font-size: 15px; }
-.home-help { margin-top: 36px; color: var(--text-dim); font-size: 12px; letter-spacing: 0.02em; }
+.home-help { margin-top: 36px; color: #aeb5bf; font-size: 12px; text-shadow: 0 2px 8px #000; }
 
 /* ---- 게임 화면 ---- */
 .game-root {
@@ -96,8 +110,14 @@ html, body {
 .hud { position: absolute; inset: 0; pointer-events: none; }
 .hud > * { pointer-events: auto; }
 .hud-top-left { position: absolute; top: 14px; left: 14px; font-size: 12px; }
-.hud-top-right { position: absolute; top: 14px; right: 14px; }
+.hud-top-right { position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 6px; }
 .hud-help { margin-top: 6px; color: var(--text-dim); letter-spacing: 0.01em; }
+.hud-location {
+  width: max-content; margin-bottom: 6px;
+  color: var(--accent); font-size: 11px; font-weight: 600;
+  background: rgba(10, 12, 16, 0.82); border-left: 2px solid var(--accent-dim);
+  padding: 3px 8px;
+}
 .hud-bottom {
   position: absolute; bottom: 22px; left: 0; right: 0;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -126,6 +146,15 @@ html, body {
 }
 .ui-button:hover:not(:disabled) { border-color: var(--accent-dim); color: var(--accent); }
 .ui-button:disabled { opacity: 0.4; cursor: default; }
+.ui-icon-button {
+  width: 34px; height: 34px; flex: 0 0 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--panel-strong); color: var(--text);
+  font: inherit; font-size: 20px; line-height: 1; cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+}
+.ui-icon-button:hover { border-color: var(--accent-dim); color: var(--accent); }
 
 .ui-panel {
   border: 1px solid var(--line); border-radius: var(--radius);
@@ -152,6 +181,58 @@ html, body {
 .ui-modal-header h2 { margin: 0; font-size: 15px; letter-spacing: 0.08em; }
 .ui-modal-body { padding: 14px; }
 
+/* ---- 이동 지도 ---- */
+.world-map-backdrop { z-index: 8; background: rgba(4, 6, 8, 0.82); }
+.world-map-modal { width: min(760px, 94%); overflow: hidden; }
+.world-map-kicker {
+  display: block; margin-bottom: 1px;
+  color: var(--accent-dim); font: 600 9px var(--font-mono), monospace;
+}
+.world-map-canvas {
+  position: relative; height: 430px; overflow: hidden;
+  background:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+    #10141a;
+  background-size: 32px 32px;
+  border-top: 1px solid #1e252e; border-bottom: 1px solid #1e252e;
+}
+.world-map-canvas::before {
+  content: ''; position: absolute; inset: 28px;
+  border: 1px solid rgba(200, 162, 90, 0.12); pointer-events: none;
+}
+.world-map-links { position: absolute; inset: 0; width: 100%; height: 100%; }
+.world-map-links line {
+  stroke: #52606c; stroke-width: 0.65; stroke-dasharray: 1.4 1.2;
+  vector-effect: non-scaling-stroke;
+}
+.world-map-node {
+  position: absolute; z-index: 1; transform: translate(-50%, -50%);
+  width: 110px; min-height: 54px; padding: 7px 9px;
+  display: flex; flex-direction: column; justify-content: center;
+  border: 1px solid #42505d; border-left: 3px solid #667583;
+  border-radius: 3px; background: rgba(20, 25, 32, 0.97);
+  box-shadow: 0 7px 16px rgba(0,0,0,0.38);
+  color: var(--text-dim);
+}
+.world-map-node-code { color: #74818c; font: 600 8px var(--font-mono), monospace; }
+.world-map-node strong { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; }
+.world-map-node small { margin-top: 2px; color: var(--accent); font-size: 9px; }
+.world-map-node.is-current {
+  border-color: var(--accent-dim); border-left-color: var(--accent);
+  background: #211d17; box-shadow: 0 0 0 3px rgba(200,162,90,0.08), 0 9px 20px rgba(0,0,0,0.48);
+}
+.world-map-footer {
+  min-height: 38px; padding: 8px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  color: var(--text-dim); font-size: 10px;
+}
+.world-map-footer span { display: inline-flex; align-items: center; gap: 6px; }
+.world-map-current-dot {
+  display: inline-block; width: 7px; height: 7px;
+  border: 1px solid var(--accent); background: rgba(200,162,90,0.25);
+}
+
 .ui-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
 .ui-tabs .ui-button:disabled { opacity: 1; border-color: var(--accent-dim); color: var(--accent); }
 .ui-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
@@ -162,15 +243,31 @@ html, body {
 .ui-item small, .ui-list small { color: var(--text-dim); font-size: 12px; }
 
 /* ---- 대화창 ---- */
-.event-layer { width: min(760px, 94%); }
+.event-layer { width: min(880px, 96%); }
 .ui-dialog {
+  position: relative;
   border: 1px solid var(--line); border-left: 2px solid var(--accent-dim);
   border-radius: var(--radius);
-  background: rgba(10, 12, 16, 0.93); padding: 14px 16px;
+  background: rgba(10, 12, 16, 0.94); padding: 19px 22px;
   box-shadow: var(--shadow);
 }
-.ui-speaker { color: var(--accent); font-weight: 500; margin-bottom: 6px; letter-spacing: 0.04em; font-size: 13px; }
-.ui-dialog-text { margin: 0 0 12px; font-size: 15px; line-height: 1.8; }
+.ui-dialog-character {
+  position: absolute; left: 0; bottom: 0;
+  width: 250px; height: 220px; overflow: hidden;
+  pointer-events: none;
+}
+.ui-dialog-portrait {
+  position: absolute; left: -40px; top: -3px;
+  width: 330px; height: 495px;
+  object-fit: contain; object-position: center top;
+  border: 0; background: transparent;
+  filter: drop-shadow(0 9px 9px rgba(0, 0, 0, 0.56));
+  image-rendering: auto;
+}
+.ui-dialog-content { min-width: 0; min-height: 174px; margin-left: 228px; }
+.ui-dialog-content:only-child { min-height: 0; margin-left: 0; }
+.ui-speaker { color: var(--accent); font-weight: 600; margin-bottom: 8px; letter-spacing: 0.04em; font-size: 14px; }
+.ui-dialog-text { margin: 0 0 15px; font-size: 16px; line-height: 1.8; }
 .ui-choices { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .ui-choices .ui-button { width: 100%; text-align: left; padding: 8px 12px; }
 
@@ -232,11 +329,6 @@ html, body {
 .ui-debug div { display: contents; }
 .ui-debug dt { color: var(--text-dim); }
 .ui-debug dd { margin: 0; word-break: break-all; }
-.menu-audio {
-  border-top: 1px solid var(--line-soft); margin-top: 14px; padding-top: 12px;
-  display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-dim);
-}
-.menu-audio input[type='range'] { flex: 1; accent-color: var(--accent-dim); }
 .menu-status { margin: 10px 0 0; font-size: 12px; color: var(--accent); }
 
 /* ---- 엔딩 ---- */
@@ -300,3 +392,32 @@ html, body {
 .ending-checklists .unmet { color: #a5736c; }
 .ending-archive { color: var(--accent-dim); font-size: 12px; margin: 0 0 18px; letter-spacing: 0.06em; }
 .home-archive { margin: 18px 0 0; color: var(--accent-dim); font-size: 12px; }
+
+@media (max-width: 680px) {
+  .home::before { background-position: 62% center; }
+  .home-title { font-size: 32px; }
+  .game-stage { width: 100vw; }
+  .hud-top-left { top: 8px; left: 8px; right: 8px; }
+  .hud-top-right { top: 8px; right: 8px; }
+  .hud-help { display: none; }
+  .hud-objective { max-width: calc(100% - 86px); font-size: 11px; }
+  .hud-bottom { bottom: 8px; gap: 6px; }
+  .event-layer { width: 98%; }
+  .ui-dialog { padding: 12px; }
+  .ui-dialog-character { width: 132px; height: 126px; }
+  .ui-dialog-portrait { left: -26px; top: -2px; width: 184px; height: 276px; }
+  .ui-dialog-content { min-height: 106px; margin-left: 118px; }
+  .ui-dialog-text { font-size: 13px; line-height: 1.6; margin-bottom: 10px; }
+  .ui-speaker { margin-bottom: 4px; font-size: 12px; }
+  .ui-dialog .ui-button { padding: 5px 8px; font-size: 11px; }
+  .collection-strip { gap: 8px; padding: 4px 8px; font-size: 10px; }
+  .world-map-modal { width: 96%; }
+  .world-map-canvas { height: 330px; }
+  .world-map-node { width: 76px; min-height: 46px; padding: 5px 6px; }
+  .world-map-node[data-location='home'] { left: 15% !important; }
+  .world-map-node-code { font-size: 7px; }
+  .world-map-node strong { font-size: 9px; white-space: normal; line-height: 1.25; }
+  .world-map-node small { font-size: 7px; }
+  .world-map-footer { justify-content: center; }
+  .world-map-footer span:last-child { display: none; }
+}

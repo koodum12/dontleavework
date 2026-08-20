@@ -18,9 +18,9 @@ import { consumeItem } from '@/game/interaction/consumeItem';
 import type { NearestResult } from '@/game/interaction/InteractionManager';
 import type { Evidence, Note, PhoneMessage, PhonePhoto, VoiceMemoData } from '@/data/types';
 import { deleteSave, hasSave, load, recordEnding, save, unlockedEndings } from '@/services/SaveService';
-import { audio } from '@/services/AudioService';
 import MentalState from '@/components/game/MentalState';
 import InteractionPrompt from '@/components/game/InteractionPrompt';
+import WorldMap from '@/components/game/WorldMap';
 import GameMenu from '@/components/game/GameMenu';
 import DebugState from '@/components/game/DebugState';
 import EndingScreen from '@/components/game/EndingScreen';
@@ -47,6 +47,8 @@ export default function GameRoot() {
   const characterClues = useGameStore((s) => s.characterClues);
   const unread = useGameStore((s) => s.unreadMessages);
   const chapter = useGameStore((s) => s.currentChapter);
+  const currentLocation = useGameStore((s) => s.currentLocation);
+  const pendingSpawn = useGameStore((s) => s.pendingSpawn);
   const ending = useGameStore((s) => s.ending);
   const bandId = useMentalBandId();
   const currentEvent = useEventStore((s) => s.current);
@@ -57,8 +59,7 @@ export default function GameRoot() {
   const [showDebug, setShowDebug] = useState(false);
   const [fading, setFading] = useState(false);
   const [log, setLog] = useState<string | null>(null);
-  const [volume, setVolume] = useState(audio.volume);
-  const [muted, setMuted] = useState(audio.muted);
+  const [locationName, setLocationName] = useState('2층 사무실');
   const logTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const nearestRef = useRef<NearestResult | null>(null);
 
@@ -89,25 +90,22 @@ export default function GameRoot() {
   useEffect(() => {
     if (phase !== 'playing' || !chapter) return;
     setFading(true);
-    audio.play('door');
     const timer = setTimeout(() => setFading(false), 600);
     void autoSave();
     return () => clearTimeout(timer);
-  }, [chapter, phase, autoSave]);
+  }, [chapter, currentLocation, phase, autoSave]);
 
   /* ---- 이벤트 체인이 끝날 때 자동 저장 ---- */
   const prevEventRef = useRef<string | null>(null);
   useEffect(() => {
     const id = currentEvent?.id ?? null;
     if (prevEventRef.current && !id && phase === 'playing') void autoSave();
-    if (id && id !== prevEventRef.current) audio.play('keyboard');
     prevEventRef.current = id;
   }, [currentEvent, phase, autoSave]);
 
   /* ---- 엔딩 도달 ---- */
   useEffect(() => {
     if (!ending) return;
-    audio.play('ending');
     void autoSave();
     // 회차 기록은 새 게임을 해도 남는다
     void recordEnding(ending).then(() => unlockedEndings().then(setUnlocked));
@@ -116,7 +114,6 @@ export default function GameRoot() {
   /* ---- 휴대폰을 여는 것 자체가 이벤트 트리거 (day3 §5) ---- */
   useEffect(() => {
     if (activeOverlay !== 'phone' || !data.ready) return;
-    audio.play('phone');
     const state = gameStateSnapshot();
     const hit = (data.phone.onOpen ?? []).find((entry) => evaluate(entry.conditions, state));
     if (!hit) return;
@@ -144,15 +141,18 @@ export default function GameRoot() {
             case 'inventory':
               ui.toggleOverlay('inventory');
               break;
+            case 'map':
+              ui.toggleOverlay('map');
+              break;
             case 'menu':
               if (ui.activeOverlay !== 'none') ui.closeOverlay();
               else ui.toggleOverlay('menu');
               break;
             case 'interact': {
               if (ui.activeOverlay !== 'none') break;
-              const reason = triggerInteraction(nearestRef.current);
-              if (reason === 'ok') audio.play('door');
-              if (reason === 'no-event' && nearestRef.current) {
+              const result = triggerInteraction(nearestRef.current);
+              if (result.reason === 'locked') flash(result.message ?? '아직 갈 수 없다.');
+              if (result.reason === 'no-event' && nearestRef.current) {
                 flash(`${nearestRef.current.interactable.prompt}: 아직 볼 것이 없다.`);
               }
               break;
@@ -175,14 +175,22 @@ export default function GameRoot() {
   }, [input, phase]);
 
   const startNewGame = useCallback(() => {
+    if (!data.ready) {
+      flash('게임 데이터를 불러오는 중이다. 잠시 후 다시 시도해 주세요.');
+      return;
+    }
     useGameStore.getState().resetGame();
     useEventStore.getState().stop();
     useUIStore.getState().closeOverlay();
     setPhase('playing');
     useEventStore.getState().start('prologue_start');
-  }, []);
+  }, [data.ready, flash]);
 
   const continueGame = useCallback(async () => {
+    if (!data.ready) {
+      flash('게임 데이터를 불러오는 중이다. 잠시 후 다시 시도해 주세요.');
+      return;
+    }
     const ok = await load();
     if (!ok) {
       flash('불러올 저장 데이터가 없다.');
@@ -190,7 +198,7 @@ export default function GameRoot() {
     }
     useEventStore.getState().stop();
     setPhase('playing');
-  }, [flash]);
+  }, [data.ready, flash]);
 
   /* ---- id → 데이터 ---- */
   const items = inventoryIds.map((id) => data.items[id] ?? { id, name: id, description: '(데이터 없음)' });
@@ -213,9 +221,10 @@ export default function GameRoot() {
   const characterNames = Object.fromEntries(Object.entries(data.characters).map(([id, c]) => [id, c.name]));
   const endingMeta = ending && data.endings ? findEnding(data.endings, ending) : null;
   const objective = currentObjective(data.objectives, gameStateSnapshot(), data.notes);
+  const activeMap = data.locations[currentLocation] ?? data.locations.office;
 
   if (phase === 'home') {
-    return <Home onNewGame={startNewGame} onContinue={continueGame} />;
+    return <Home ready={data.ready} onNewGame={startNewGame} onContinue={continueGame} />;
   }
 
   return (
@@ -223,6 +232,12 @@ export default function GameRoot() {
       <div className={`game-stage mental-${bandId ?? 'stable'}`}>
         <Office
           input={input}
+          map={activeMap}
+          spawnKey={pendingSpawn}
+          npcs={data.npcs}
+          palettes={data.palettes}
+          characters={data.characters}
+          onLocationChange={setLocationName}
           onNearestChange={(target) => {
             nearestRef.current = target;
           }}
@@ -230,6 +245,7 @@ export default function GameRoot() {
 
         <div className="hud">
           <div className="hud-top-left">
+            <div className="hud-location">{locationName}</div>
             <MentalState mental={mental} max={data.mental?.max ?? 100} bands={data.mental?.bands ?? []} />
             {objective && (
               <div className="hud-objective" data-testid="objective">
@@ -242,14 +258,23 @@ export default function GameRoot() {
           </div>
 
           <div className="hud-top-right">
+            <button
+              type="button"
+              className="ui-icon-button hud-map-button"
+              onClick={() => useUIStore.getState().toggleOverlay('map')}
+              aria-label="지도 열기"
+              title="지도"
+            >
+              <span aria-hidden="true">⌖</span>
+            </button>
             <Button onClick={() => setShowDebug((v) => !v)}>상태 {showDebug ? '숨기기' : '보기'}</Button>
           </div>
 
           <div className="hud-bottom">
-            {!currentEvent && !ending && <InteractionPrompt prompt={interactionTarget?.label ?? null} />}
+            {!currentEvent && !ending && <InteractionPrompt prompt={interactionTarget?.label ?? null} kind={interactionTarget?.kind} />}
             {log && !ending && <div className="hud-log">{log}</div>}
             {/* 엔딩 화면이 뜨면 대화창은 감춘다 (같은 텍스트가 두 번 보이지 않게) */}
-            {!ending && <EventLayer />}
+            {!ending && <EventLayer characters={data.characters} />}
           </div>
 
           {showDebug && (
@@ -288,6 +313,12 @@ export default function GameRoot() {
               }
             }}
           />
+          <WorldMap
+            open={activeOverlay === 'map'}
+            locations={data.locations}
+            currentLocation={currentLocation}
+            onClose={closeOverlay}
+          />
           <GameMenu
             open={activeOverlay === 'menu'}
             onClose={closeOverlay}
@@ -303,10 +334,6 @@ export default function GameRoot() {
               useEventStore.getState().stop();
               setPhase('home');
             }}
-            volume={volume}
-            muted={muted}
-            onVolume={(v) => { audio.setVolume(v); setVolume(v); }}
-            onMute={(m) => { audio.setMuted(m); setMuted(m); }}
           />
 
           <EndingScreen

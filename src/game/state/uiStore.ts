@@ -2,9 +2,9 @@
 
 import { create } from 'zustand';
 
-export type Overlay = 'none' | 'phone' | 'inventory' | 'menu';
+export type Overlay = 'none' | 'phone' | 'inventory' | 'map' | 'menu';
 
-export interface InteractionTarget { id: string; label: string }
+export interface InteractionTarget { id: string; label: string; kind: 'object' | 'npc' }
 
 interface UIState {
   /** 동시에 두 개가 열리지 않도록 오버레이는 하나만 관리한다 */

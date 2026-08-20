@@ -49,20 +49,11 @@ async function idbPut(bytes: Uint8Array): Promise<void> {
   });
 }
 
-async function idbDelete(): Promise<void> {
-  const db = await openIndexedDb();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    tx.objectStore(STORE).delete(KEY);
-    tx.oncomplete = () => resolve();
-    tx.onerror = () => reject(tx.error);
-  });
-}
-
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS player_state (
   id INTEGER PRIMARY KEY CHECK (id = 1),
-  chapter TEXT, current_event TEXT, mental INTEGER, ending TEXT, saved_at TEXT
+  chapter TEXT, current_event TEXT, mental INTEGER, ending TEXT,
+  current_location TEXT, pending_spawn TEXT, saved_at TEXT
 );
 CREATE TABLE IF NOT EXISTS inventory (item_id TEXT PRIMARY KEY);
 CREATE TABLE IF NOT EXISTS evidence (evidence_id TEXT PRIMARY KEY, category TEXT);
@@ -86,6 +77,9 @@ export class StorageService {
     const saved = await idbGet().catch(() => null);
     this.db = saved ? new SQL.Database(saved) : new SQL.Database();
     this.db.run(SCHEMA);
+    const columns = new Set(this.all('PRAGMA table_info(player_state)').map((row) => String(row[1])));
+    if (!columns.has('current_location')) this.db.run('ALTER TABLE player_state ADD COLUMN current_location TEXT');
+    if (!columns.has('pending_spawn')) this.db.run('ALTER TABLE player_state ADD COLUMN pending_spawn TEXT');
   }
 
   private require(): Database {

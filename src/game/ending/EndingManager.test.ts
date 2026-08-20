@@ -12,7 +12,7 @@ const file = JSON.parse(
 const base: GameStateData = {
   mental: 100, inventory: [], evidence: [], characterClues: {}, flags: {}, notes: [],
   messages: [], photos: [], unreadMessages: 0, completedInteractions: [],
-  currentChapter: null, currentEvent: null, ending: null,
+  currentChapter: null, currentEvent: null, currentLocation: 'office', pendingSpawn: null, ending: null,
 };
 const state = (over: Partial<GameStateData>): GameStateData => ({ ...base, ...over });
 

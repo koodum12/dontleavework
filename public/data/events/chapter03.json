@@ -7,6 +7,11 @@
       "text": "(3장. 회사에서도) 꿈이 아니었네. 어제 문자가 그대로 남아 있다. 회사에 도착하니 책상 위에 커피는 없다. 대신 알림 하나 — 07:48 로비 픽업 주문이 준비되었습니다.",
       "effects": [
         {
+          "type": "travel",
+          "to": "office",
+          "spawn": "from_lobby"
+        },
+        {
           "type": "chapterSet",
           "chapter": "chapter03"
         }

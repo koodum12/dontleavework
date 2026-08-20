@@ -13,6 +13,7 @@ export default function DebugState() {
   const flags = useGameStore((s) => s.flags);
   const completed = useGameStore((s) => s.completedInteractions);
   const currentEvent = useGameStore((s) => s.currentEvent);
+  const currentLocation = useGameStore((s) => s.currentLocation);
   const warnings = useEventStore((s) => s.warnings);
 
   const flagEntries = Object.entries(flags).filter(([, v]) => v);
@@ -22,6 +23,7 @@ export default function DebugState() {
       <dl className="ui-debug">
         <dt>정신력</dt><dd data-testid="dbg-mental">{mental}</dd>
         <dt>현재 이벤트</dt><dd data-testid="dbg-event">{currentEvent ?? '-'}</dd>
+        <dt>현재 장소</dt><dd data-testid="dbg-location">{currentLocation}</dd>
         <dt>아이템</dt><dd data-testid="dbg-inventory">{inventory.join(', ') || '-'}</dd>
         <dt>증거</dt><dd data-testid="dbg-evidence">{evidence.map((e) => `${e.id}(${e.category})`).join(', ') || '-'}</dd>
         <dt>기록</dt><dd data-testid="dbg-notes">{notes.join(', ') || '-'}</dd>

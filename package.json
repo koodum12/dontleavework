@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate": "tsx scripts/validate-events.ts",
+    "validate": "node --import tsx scripts/validate-events.ts",
     "prebuild": "npm run validate"
   },
   "dependencies": {

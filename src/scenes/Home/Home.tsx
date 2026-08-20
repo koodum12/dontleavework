@@ -7,10 +7,11 @@ import { hasSave, unlockedEndings } from '@/services/SaveService';
 interface Props {
   onNewGame: () => void;
   onContinue: () => void;
+  ready: boolean;
 }
 
 /** 타이틀 화면 — 이어하기 / 새 게임 */
-export default function Home({ onNewGame, onContinue }: Props) {
+export default function Home({ onNewGame, onContinue, ready }: Props) {
   const [saveExists, setSaveExists] = useState<boolean | null>(null);
   const [unlocked, setUnlocked] = useState<string[]>([]);
 
@@ -29,10 +30,12 @@ export default function Home({ onNewGame, onContinue }: Props) {
         <h1 className="home-title">퇴근하지 마세요</h1>
         <p className="home-sub">기록은 남는다. 누가 남겼는지는 확인해야 한다.</p>
         <div className="home-menu">
-          <Button onClick={onContinue} disabled={saveExists !== true}>
+          <Button onClick={onContinue} disabled={!ready || saveExists !== true}>
             {saveExists === null ? '저장 확인 중…' : saveExists ? '이어하기' : '이어하기 (저장 없음)'}
           </Button>
-          <Button onClick={onNewGame}>새 게임</Button>
+          <Button onClick={onNewGame} disabled={!ready}>
+            {ready ? '새 게임' : '게임 준비 중…'}
+          </Button>
         </div>
         {unlocked.length > 0 && (
           <p className="home-archive" data-testid="home-archive">

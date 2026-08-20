@@ -7,8 +7,18 @@
       "text": "(6장. 기록되지 않은 하루) 오후 6시 30분. 오늘은 내가 정할 수 있는 것부터 정하자.",
       "effects": [
         {
+          "type": "travel",
+          "to": "office",
+          "spawn": "from_lobby"
+        },
+        {
           "type": "chapterSet",
           "chapter": "chapter06"
+        },
+        {
+          "type": "flagSet",
+          "key": "chapter6_started",
+          "value": true
         }
       ],
       "choices": [
@@ -30,6 +40,11 @@
       "speaker": "사랑",
       "text": "평소보다 30분 이르게 퇴근한다. 회사에서 나가려던 순간 휴대폰이 울린다 — '오늘은 그냥 퇴근하시네요.' 어제 두 번째 문자와 같은 번호. 발신·도착 시간이 같고, 자동 전송 식별값도 없다.",
       "effects": [
+        {
+          "type": "travel",
+          "to": "home",
+          "spawn": "from_street"
+        },
         {
           "type": "mentalChange",
           "delta": "strange_message"
@@ -81,11 +96,16 @@
       "text": "'관리실에 있습니다. 혼자 복도로 다니지 마세요.' 낮에는 평범했던 복도가 불이 절반만 켜진 채 길게 이어져 있다. 복도 끝의 형체는 가까이 가 보니 복사기 옆 비닐 커버였다. …내가 본 것과 내가 무서워한 건 다를 수 있어.",
       "effects": [
         {
+          "type": "travel",
+          "to": "corridor",
+          "spawn": "from_control"
+        },
+        {
           "type": "mentalChange",
           "delta": "stay_at_night"
         }
       ],
-      "next": "ch6_printer"
+      "next": null
     },
     {
       "id": "ch6_printer",
@@ -259,6 +279,11 @@
       "speaker": "사랑",
       "text": "오늘 확인한 것과 무서웠던 것을 나눠 적는다. 남은 건 삭제된 기록이다.",
       "effects": [
+        {
+          "type": "travel",
+          "to": "home",
+          "spawn": "from_street"
+        },
         {
           "type": "flagSet",
           "key": "chapter6_done",

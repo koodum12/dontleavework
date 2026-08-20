@@ -1,7 +1,8 @@
 'use client';
 
 import type {
-  CharacterFile, EndingFile, EvidenceFile, ItemFile, LocationFile, MentalConfig, NoteFile, PhoneFile,
+  CharacterFile, EndingFile, EvidenceFile, ItemFile, LocationFile, MentalConfig, NoteFile, NpcFile,
+  PaletteFile, PhoneFile,
 } from '@/data/types';
 import type { ObjectiveFile } from '@/game/state/objectives';
 
@@ -29,6 +30,8 @@ export function loadJson<T>(path: string): Promise<T> {
 }
 
 export const loadLocations = () => loadJson<LocationFile>(`${DATA_BASE}/locations.json`);
+export const loadNpcs = () => loadJson<NpcFile>(`${DATA_BASE}/npcs.json`);
+export const loadPalettes = () => loadJson<PaletteFile>(`${DATA_BASE}/palettes.json`);
 export const loadItems = () => loadJson<ItemFile>(`${DATA_BASE}/items.json`);
 export const loadEvidence = () => loadJson<EvidenceFile>(`${DATA_BASE}/evidence.json`);
 export const loadNotes = () => loadJson<NoteFile>(`${DATA_BASE}/notes.json`);

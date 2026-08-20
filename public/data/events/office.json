@@ -146,7 +146,7 @@
       ]
     },
     {
-      "id": "water_look",
+      "id": "peer_gate",
       "type": "branch",
       "branches": [
         {
@@ -160,13 +160,73 @@
           "next": "talk_peer"
         }
       ],
-      "fallback": "water_idle"
+      "fallback": "peer_idle"
     },
     {
-      "id": "water_idle",
+      "id": "peer_idle",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "정수기 앞. 동기가 종이컵을 들고 서 있다. 지금은 가벼운 인사만 나눈다."
+      "text": "동기가 종이컵을 들고 서 있다. 지금은 가벼운 인사만 나눈다."
+    },
+    {
+      "id": "water_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "정수기. 종이컵이 몇 개 남아 있다. 누가 언제 왔다 갔는지는 여기에 남지 않는다."
+    },
+    {
+      "id": "desk_team_leader_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "팀장 책상. 모니터 두 대가 늘 켜져 있고, 야근 명단이 출력된 채 엎어져 있다."
+    },
+    {
+      "id": "desk_neighbor_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "옆자리 직원의 책상. 필기구가 줄을 맞춰 놓여 있다. 내 자리에서 화면이 반쯤 보이는 각도다."
+    },
+    {
+      "id": "desk_daeri_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "대리 책상. 근태 취합 파일이 열려 있다. 이름 열에 내 이름도 있다."
+    },
+    {
+      "id": "security_desk_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "경비 데스크. 출입 기록 대장이 펼쳐져 있다. 오늘 날짜 칸은 아직 비어 있다."
+    },
+    {
+      "id": "lobby_directory",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "안내판에는 1층 로비 카페, 건물 관리실, 2층 사무실이 표시되어 있다."
+    },
+    {
+      "id": "cafe_counter_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "픽업대의 주문 번호가 차례로 사라진다. 직원이 책상까지 배달하지 않는다는 문구가 영수증 보관함 옆에 붙어 있다."
+    },
+    {
+      "id": "street_bus_stop",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "버스 도착 안내가 바뀔 때마다 유리 벽에 내 뒤쪽이 비친다. 오늘은 같은 방향으로 걷던 사람이 보이지 않는다."
+    },
+    {
+      "id": "home_window",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "커튼 틈으로 회사 방향의 불빛이 보인다. 집 안인데도 휴대폰 알림음이 들릴 것만 같다."
+    },
+    {
+      "id": "corridor_cart",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "청소 카트는 복도 한가운데 멈춰 있다. 바퀴 자국은 복합기 쪽에서 끊겼다."
     }
   ]
 }

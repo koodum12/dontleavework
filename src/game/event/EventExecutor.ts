@@ -42,6 +42,9 @@ export function applyEffects(
       case 'chapterSet':
         state.setChapter(effect.chapter);
         break;
+      case 'travel':
+        state.travelTo(effect.to, effect.spawn);
+        break;
       default: {
         const unknown = effect as { type: string };
         console.warn(`[EventExecutor] 알 수 없는 effect type: ${unknown.type}`);

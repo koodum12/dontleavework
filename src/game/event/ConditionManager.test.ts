@@ -16,6 +16,8 @@ const base: GameStateData = {
   completedInteractions: [],
   currentChapter: null,
   currentEvent: null,
+  currentLocation: 'office',
+  pendingSpawn: null,
   ending: null,
 };
 
@@ -35,6 +37,12 @@ describe('ConditionManager — 개별 조건', () => {
     expect(evaluateOne({ type: 'flag', key: 'checked_cctv', value: true }, base)).toBe(false);
     // 설정된 적 없는 플래그는 false 로 본다
     expect(evaluateOne({ type: 'flag', key: 'never_set', value: false }, base)).toBe(true);
+  });
+
+  it('current_chapter', () => {
+    const chapter3 = state({ currentChapter: 'chapter03' });
+    expect(evaluateOne({ type: 'current_chapter', value: 'chapter03' }, chapter3)).toBe(true);
+    expect(evaluateOne({ type: 'current_chapter', value: 'chapter06' }, chapter3)).toBe(false);
   });
 
   it('evidence_count — 카테고리별/전체', () => {

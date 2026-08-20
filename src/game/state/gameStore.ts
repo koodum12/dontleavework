@@ -21,6 +21,8 @@ export interface GameStateData {
   completedInteractions: string[];            // once: true 인 상호작용 기록
   currentChapter: string | null;
   currentEvent: string | null;
+  currentLocation: string;
+  pendingSpawn: string | null;
   /** 도달한 엔딩 (엔딩 화면 표시용) */
   ending: EndingId | null;
 }
@@ -39,6 +41,7 @@ export interface GameStateActions {
   completeInteraction: (interactableId: string) => void;
   setChapter: (chapter: string | null) => void;
   setCurrentEvent: (eventId: string | null) => void;
+  travelTo: (location: string, spawn?: string) => void;
   setEnding: (ending: EndingId | null) => void;
   setMentalConfig: (config: MentalConfig) => void;
   resetGame: () => void;
@@ -61,6 +64,8 @@ const initialState: GameStateData = {
   completedInteractions: [],
   currentChapter: null,
   currentEvent: null,
+  currentLocation: 'office',
+  pendingSpawn: null,
   ending: null,
 };
 
@@ -113,6 +118,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   setChapter: (currentChapter) => set({ currentChapter }),
   setCurrentEvent: (currentEvent) => set({ currentEvent }),
+  travelTo: (currentLocation, pendingSpawn) => set({ currentLocation, pendingSpawn: pendingSpawn ?? null }),
   setEnding: (ending) => set({ ending }),
 
   setMentalConfig: (mentalConfig) =>
@@ -151,6 +157,8 @@ export const gameStateSnapshot = (): GameStateData => {
     completedInteractions: s.completedInteractions,
     currentChapter: s.currentChapter,
     currentEvent: s.currentEvent,
+    currentLocation: s.currentLocation,
+    pendingSpawn: s.pendingSpawn,
     ending: s.ending,
   };
 };

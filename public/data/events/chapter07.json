@@ -3,7 +3,10 @@
     {
       "id": "chapter07_start",
       "type": "branch",
-      "effects": [{ "type": "chapterSet", "chapter": "chapter07" }],
+      "effects": [
+        { "type": "travel", "to": "home", "spawn": "from_street" },
+        { "type": "chapterSet", "chapter": "chapter07" }
+      ],
       "branches": [
         {
           "conditions": [{ "type": "evidence_count", "category": "MEMORY", "min": 2 }],

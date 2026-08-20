@@ -1,7 +1,7 @@
-import type { GameMap, Rect } from '@/data/types';
+import type { Facing, GameMap, Rect } from '@/data/types';
 import { PLAYER_SIZE, PLAYER_SPEED } from '@/game/interaction/constants';
 
-export type Facing = 'up' | 'down' | 'left' | 'right';
+export type { Facing };
 
 export interface Player {
   x: number; // 중심 좌표
@@ -9,9 +9,9 @@ export interface Player {
   facing: Facing;
 }
 
-export const createPlayer = (map: GameMap): Player => ({
-  x: map.spawn.x,
-  y: map.spawn.y,
+export const createPlayer = (map: GameMap, spawn = map.spawn): Player => ({
+  x: spawn.x,
+  y: spawn.y,
   facing: 'down',
 });
 
@@ -25,10 +25,11 @@ const playerRect = (x: number, y: number): Rect => ({
   h: PLAYER_SIZE,
 });
 
-/** 벽 + solid 오브젝트 */
+/** 벽 + solid 오브젝트 + solid NPC (사람도 몸으로 막는다) */
 export const solidRects = (map: GameMap): Rect[] => [
   ...map.walls,
   ...map.objects.filter((o) => o.solid),
+  ...(map.npcs ?? []).filter((n) => n.solid),
 ];
 
 const blocked = (x: number, y: number, solids: Rect[]) => {

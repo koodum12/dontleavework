@@ -56,5 +56,13 @@ describe('GameState', () => {
     expect(store().mental).toBe(MAX_MENTAL);
     expect(store().inventory).toEqual([]);
     expect(store().completedInteractions).toEqual([]);
+    expect(store().currentLocation).toBe('office');
+    expect(store().pendingSpawn).toBeNull();
+  });
+
+  it('장소와 도착 스폰을 함께 바꾼다', () => {
+    store().travelTo('home', 'from_street');
+    expect(store().currentLocation).toBe('home');
+    expect(store().pendingSpawn).toBe('from_street');
   });
 });

@@ -18,6 +18,7 @@ const chapter01 = {
       { type: 'noteAdd', id: 'note_coffee_order' },
       { type: 'flagSet', key: 'kept_coffee', value: true },
       { type: 'mentalChange', amount: -5 },
+      { type: 'travel', to: 'home', spawn: 'from_street' },
     ] },
     { id: 'throw', type: 'dialogue', text: '버렸다', next: 'nowhere' },
   ],
@@ -65,6 +66,8 @@ describe('EventExecutor', () => {
     expect(s.notes).toEqual(['note_coffee_order']);
     expect(s.flags.kept_coffee).toBe(true);
     expect(s.mental).toBe(95);
+    expect(s.currentLocation).toBe('home');
+    expect(s.pendingSpawn).toBe('from_street');
   });
 
   it('없는 선택지를 고르면 경고 후 null 을 돌려준다', () => {

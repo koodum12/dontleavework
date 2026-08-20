@@ -19,7 +19,7 @@
           "value": true
         }
       ],
-      "text": "엘리베이터 앞에서 마지막 정리를 한다. (최종장)",
+      "text": "집의 침대에서 마지막 기록을 정리한다. (최종장)",
       "navigation": true
     },
     {
@@ -30,7 +30,7 @@
           "value": true
         }
       ],
-      "text": "엘리베이터에서 하루를 넘긴다. 삭제된 기록을 찾을 차례다. (7장)",
+      "text": "집의 침대에서 하루를 넘긴다. 삭제된 기록을 찾을 차례다. (7장)",
       "navigation": true
     },
     {
@@ -41,7 +41,7 @@
           "value": true
         }
       ],
-      "text": "엘리베이터에서 하루를 넘긴다. (6장)",
+      "text": "로비와 거리를 지나 집으로 돌아가 침대에서 하루를 정리한다. (6장)",
       "navigation": true
     },
     {
@@ -52,8 +52,68 @@
           "value": true
         }
       ],
-      "text": "엘리베이터에서 하루를 넘긴다. (5장)",
+      "text": "거리에서 집으로 돌아가 침대에서 하루를 정리한다. (5장)",
       "navigation": true
+    },
+    {
+      "conditions": [
+        {
+          "type": "flag", "key": "checked_memory_01", "value": true
+        },
+        {
+          "type": "flag", "key": "asked_daeri", "value": false
+        }
+      ],
+      "text": "대리에게 퇴근 시간과 야근 명단을 확인한다.",
+      "navigation": false
+    },
+    {
+      "conditions": [
+        {
+          "type": "flag", "key": "checked_memory_01", "value": true
+        },
+        {
+          "type": "flag", "key": "asked_team_leader", "value": false
+        }
+      ],
+      "text": "팀장에게 어젯밤 컴퓨터 상태를 확인한다.",
+      "navigation": false
+    },
+    {
+      "conditions": [
+        {
+          "type": "flag", "key": "checked_memory_01", "value": true
+        },
+        {
+          "type": "flag", "key": "asked_neighbor", "value": false
+        }
+      ],
+      "text": "옆자리 직원에게 내 자리에서 본 것이 있는지 묻는다.",
+      "navigation": false
+    },
+    {
+      "conditions": [
+        {
+          "type": "flag", "key": "checked_memory_01", "value": true
+        },
+        {
+          "type": "flag", "key": "asked_peer", "value": false
+        }
+      ],
+      "text": "동기에게 사고 전 MEMORY에 관해 묻는다.",
+      "navigation": false
+    },
+    {
+      "conditions": [
+        {
+          "type": "flag", "key": "checked_memory_01", "value": true
+        },
+        {
+          "type": "flag", "key": "asked_guard", "value": false
+        }
+      ],
+      "text": "관리실 경비원에게 야간 출입 기록을 확인한다.",
+      "navigation": false
     },
     {
       "conditions": [
@@ -63,19 +123,8 @@
           "value": true
         }
       ],
-      "text": "엘리베이터에서 퇴근한다. 어디로 갈지 정해야 한다. (4장)",
+      "text": "엘리베이터로 로비에 내려가 거리를 지나 집으로 돌아간다. (4장)",
       "navigation": true
-    },
-    {
-      "conditions": [
-        {
-          "type": "flag",
-          "key": "checked_memory_01",
-          "value": true
-        }
-      ],
-      "text": "사무실 사람들에게 말을 건다. (대리 · 팀장 · 옆자리 직원 · 경비 데스크 · 정수기 앞 동기)",
-      "navigation": false
     },
     {
       "conditions": [
@@ -85,7 +134,7 @@
           "value": true
         }
       ],
-      "text": "엘리베이터에서 하루를 넘긴다. (3장)",
+      "text": "집의 침대에서 다음 날을 시작한다. (3장)",
       "navigation": true
     },
     {
@@ -96,7 +145,7 @@
           "value": true
         }
       ],
-      "text": "오른쪽 끝 엘리베이터를 타고 퇴근한다.",
+      "text": "엘리베이터로 로비에 내려가 거리를 지나 집으로 돌아간다.",
       "navigation": true
     },
     {
@@ -107,7 +156,7 @@
           "value": true
         }
       ],
-      "text": "관리실 쪽 CCTV 모니터나 경비 데스크에서 오전 영상을 확인한다.",
+      "text": "엘리베이터로 로비에 내려가 관리실의 CCTV 모니터나 경비원에게 확인한다.",
       "navigation": false
     },
     {
