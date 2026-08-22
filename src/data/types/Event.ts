@@ -43,6 +43,8 @@ export interface Branch {
 export interface GameEvent {
   id: string;
   type: EventType;
+  /** characters.json 의 키. 표시 이름과 초상/역할 연결을 문자열 추측에 맡기지 않는다. */
+  speakerId?: string;
   speaker?: string;
   text?: string;
   choices?: Choice[];

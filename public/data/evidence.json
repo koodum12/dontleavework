@@ -61,9 +61,16 @@
     "id": "ev_clue_neighbor",
     "category": "character",
     "relatedCharacter": "neighbor",
-    "chapter": "chapter01",
+    "chapter": "chapter03",
     "name": "옆자리 직원에 관한 단서",
-    "detail": "8시쯤 자리를 비웠고, 돌아왔을 때 커피가 이미 있었다고 했다."
+    "detail": "지난주 사랑의 자리에서 노트북 화면을 보던 미확인 인물을 목격했다."
+  },
+  "ev_intern_statement": {
+    "id": "ev_intern_statement",
+    "category": "case",
+    "chapter": "chapter01",
+    "name": "인턴의 진술",
+    "detail": "인턴은 8시쯤 회의실에 다녀왔고, 돌아왔을 때 커피가 이미 놓여 있었다고 말했다."
   },
   "ev_clue_guard": {
     "id": "ev_clue_guard",

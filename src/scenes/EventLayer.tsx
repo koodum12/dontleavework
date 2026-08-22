@@ -24,9 +24,7 @@ export default function EventLayer({ characters }: { characters: CharacterFile }
     index: c.index,
     note: c.irreversible ? '되돌릴 수 없다' : undefined,
   }));
-  const speakerCharacter = Object.values(characters)
-    .sort((a, b) => b.name.length - a.name.length)
-    .find((character) => current.speaker === character.name || current.speaker?.includes(character.name));
+  const speakerCharacter = current.speakerId ? characters[current.speakerId] : undefined;
 
   return (
     <div className="event-layer">

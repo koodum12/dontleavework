@@ -45,6 +45,12 @@ describe('ConditionManager — 개별 조건', () => {
     expect(evaluateOne({ type: 'current_chapter', value: 'chapter06' }, chapter3)).toBe(false);
   });
 
+  it('current_chapter_in', () => {
+    const chapter3 = state({ currentChapter: 'chapter03' });
+    expect(evaluateOne({ type: 'current_chapter_in', values: ['chapter01', 'chapter03'] }, chapter3)).toBe(true);
+    expect(evaluateOne({ type: 'current_chapter_in', values: ['chapter04', 'chapter05'] }, chapter3)).toBe(false);
+  });
+
   it('evidence_count — 카테고리별/전체', () => {
     const s = state({
       evidence: [

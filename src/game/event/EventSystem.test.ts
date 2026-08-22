@@ -7,7 +7,7 @@ import type { GameEvent } from '@/data/types';
 
 const chapter01 = {
   events: [
-    { id: 'a', type: 'dialogue', speaker: '사랑', text: '1', next: 'b' },
+    { id: 'a', type: 'dialogue', speaker: '사랑', speakerId: 'sarang', text: '1', next: 'b' },
     { id: 'b', type: 'choice', text: '고른다', choices: [
       { text: '보관', next: 'save' },
       { text: '버린다', next: 'throw' },

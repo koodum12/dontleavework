@@ -7,6 +7,8 @@ export interface CharacterArt {
 export interface Character {
   id: string;
   name: string;
+  /** 같은 초상을 쓰는 문맥별 표시 이름. 예: 사랑 / 과거의 사랑 */
+  speakerLabels?: string[];
   role?: string;
   description?: string;
   /** 옷 기본색 — 스프라이트와 실루엣 대체 색의 원본 */

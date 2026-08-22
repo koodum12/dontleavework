@@ -81,6 +81,7 @@
       "id": "day_gate_blocked",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "아직 퇴근할 수 없다. 자리에서 확인할 것이 남았다. (왼쪽 책상 구역을 먼저 살펴보자)"
     },
     {
@@ -90,15 +91,37 @@
         {
           "conditions": [
             {
+              "type": "current_chapter",
+              "value": "chapter03"
+            },
+            {
               "type": "flag",
               "key": "checked_memory_01",
               "value": true
             }
           ],
           "next": "talk_neighbor_main"
-        },
+        }
+      ],
+      "fallback": "neighbor_idle"
+    },
+    {
+      "id": "neighbor_idle",
+      "type": "dialogue",
+      "speaker": "옆자리 직원",
+      "speakerId": "neighbor",
+      "text": "옆자리 직원은 모니터에서 눈을 떼고 짧게 인사한다. 지금은 따로 확인할 말이 없다."
+    },
+    {
+      "id": "intern_gate",
+      "type": "branch",
+      "branches": [
         {
           "conditions": [
+            {
+              "type": "current_chapter",
+              "value": "chapter01"
+            },
             {
               "type": "flag",
               "key": "asked_intern",
@@ -110,6 +133,10 @@
         {
           "conditions": [
             {
+              "type": "current_chapter",
+              "value": "chapter01"
+            },
+            {
               "type": "flag",
               "key": "coffee_done",
               "value": true
@@ -118,7 +145,46 @@
           "next": "chapter1_ask_intern"
         }
       ],
-      "fallback": "talk_later"
+      "fallback": "intern_idle"
+    },
+    {
+      "id": "intern_idle",
+      "type": "dialogue",
+      "speaker": "인턴",
+      "speakerId": "intern",
+      "text": "회의실 서류는 정리해 두었습니다. 더 필요한 게 있으면 말씀해 주세요."
+    },
+    {
+      "id": "talk_security_staff",
+      "type": "branch",
+      "branches": [
+        {
+          "conditions": [{ "type": "current_chapter", "value": "chapter06" }],
+          "next": "security_staff_night_idle"
+        }
+      ],
+      "fallback": "security_staff_idle"
+    },
+    {
+      "id": "security_staff_idle",
+      "type": "dialogue",
+      "speaker": "보안 담당자",
+      "speakerId": "security_staff",
+      "text": "읽기 전용 사본은 별도로 보존하고 있습니다. 원본에는 손대지 않을게요."
+    },
+    {
+      "id": "security_staff_night_idle",
+      "type": "dialogue",
+      "speaker": "보안 담당자",
+      "speakerId": "security_staff",
+      "text": "관리실은 비우지 않겠습니다. 복도로 나갈 때는 먼저 알려 주세요."
+    },
+    {
+      "id": "talk_cafe_staff",
+      "type": "dialogue",
+      "speaker": "로비 카페 직원",
+      "speakerId": "cafe_staff",
+      "text": "테이크아웃 음료는 픽업대에서 직접 가져가셔야 합니다. 저희가 사무실 책상까지 전달하지는 않아요."
     },
     {
       "id": "printer_look",
@@ -141,12 +207,14 @@
       "id": "printer_idle",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "2층 사무실 복합기. 출력함은 비어 있고, 사용자 계정은 공용으로 잡혀 있다."
     },
     {
       "id": "printer_after",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "출력 기록은 20:16에서 멈춰 있다. 공용 계정이라 누가 눌렀는지는 남지 않는다.",
       "effects": [
         {
@@ -162,6 +230,10 @@
         {
           "conditions": [
             {
+              "type": "current_chapter",
+              "value": "chapter03"
+            },
+            {
               "type": "flag",
               "key": "checked_memory_01",
               "value": true
@@ -176,72 +248,84 @@
       "id": "peer_idle",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "동기가 종이컵을 들고 서 있다. 지금은 가벼운 인사만 나눈다."
     },
     {
       "id": "water_look",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "정수기. 종이컵이 몇 개 남아 있다. 누가 언제 왔다 갔는지는 여기에 남지 않는다."
     },
     {
       "id": "desk_team_leader_look",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "팀장 책상. 모니터 두 대가 늘 켜져 있고, 야근 명단이 출력된 채 엎어져 있다."
     },
     {
       "id": "desk_neighbor_look",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "옆자리 직원의 책상. 필기구가 줄을 맞춰 놓여 있다. 내 자리에서 화면이 반쯤 보이는 각도다."
     },
     {
       "id": "desk_daeri_look",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "대리 책상. 근태 취합 파일이 열려 있다. 이름 열에 내 이름도 있다."
     },
     {
       "id": "security_desk_look",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "경비 데스크. 출입 기록 대장이 펼쳐져 있다. 오늘 날짜 칸은 아직 비어 있다."
     },
     {
       "id": "lobby_directory",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "안내판에는 1층 로비 카페, 건물 관리실, 2층 사무실이 표시되어 있다."
     },
     {
       "id": "cafe_counter_look",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "픽업대의 주문 번호가 차례로 사라진다. 직원이 책상까지 배달하지 않는다는 문구가 영수증 보관함 옆에 붙어 있다."
     },
     {
       "id": "street_bus_stop",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "버스 도착 안내가 바뀔 때마다 유리 벽에 내 뒤쪽이 비친다. 오늘은 같은 방향으로 걷던 사람이 보이지 않는다."
     },
     {
       "id": "home_window",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "커튼 틈으로 회사 방향의 불빛이 보인다. 집 안인데도 휴대폰 알림음이 들릴 것만 같다."
     },
     {
       "id": "home_desk_look",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "집에서 기록을 정리하는 책상. 시간과 출처를 나눠 적은 메모가 가지런히 놓여 있다."
     },
     {
       "id": "corridor_cart",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "청소 카트는 복도 한가운데 멈춰 있다. 바퀴 자국은 복합기 쪽에서 끊겼다."
     }
   ]

@@ -11,6 +11,7 @@
       "id": "prologue_voice_1",
       "type": "dialogue",
       "speaker": "과거의 사랑",
+      "speakerId": "sarang",
       "text": "혹시 내가 이걸 잊어버리면, 기록을 봐.",
       "next": "prologue_voice_2"
     },
@@ -18,6 +19,7 @@
       "id": "prologue_voice_2",
       "type": "dialogue",
       "speaker": "과거의 사랑",
+      "speakerId": "sarang",
       "text": "그래도 기록만 믿지는 마. 누가 바꾼 기록일 수도 있으니까, 날짜랑 출처까지 확인해.",
       "next": "prologue_save"
     },
@@ -31,6 +33,7 @@
       "id": "chapter1_wake",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "(1장. 평범한 월요일) 알람이 울린다. 오늘도 평범한 월요일이다. 한참 이불 속에 누워 있다가 겨우 몸을 일으킨다. — 아… 벌써 집에 가고 싶다.",
       "effects": [
         { "type": "travel", "to": "home" },
@@ -42,6 +45,7 @@
       "id": "chapter1_home_morning",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "세면대 옆 칫솔, 식탁 위 사원증, 현관에 벗어 둔 구두. 어제와 다를 것 없는 집이다. 가방에 휴대폰을 넣고 문이 잠겼는지 한 번 확인한 뒤 출근한다.",
       "next": "chapter1_commute"
     },
@@ -49,6 +53,7 @@
       "id": "chapter1_commute",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "출근길 하늘은 이상할 만큼 맑다. — 오늘따라 날씨가 좋긴 하네.",
       "effects": [{ "type": "travel", "to": "street", "spawn": "from_home" }],
       "next": "chapter1_arrival"
@@ -57,6 +62,7 @@
       "id": "chapter1_arrival",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "회사에 도착해 익숙한 얼굴들에게 작게 인사한다. — 안녕하세요. 늘 걷던 통로를 지나 내 자리로 향한다.",
       "effects": [{ "type": "travel", "to": "office", "spawn": "from_lobby" }],
       "next": "chapter1_open"
@@ -65,6 +71,7 @@
       "id": "chapter1_open",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "그런데 자리 앞에서 발걸음이 멈춘다. …책상 위에 커피 한 잔이 놓여 있다. 내가 주문한 적 없는 커피다.",
       "effects": [
         { "type": "flagSet", "key": "prologue_done", "value": true },
@@ -75,6 +82,7 @@
       "id": "phone_first_open",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "휴대폰에는 읽지 않은 알림이 하나 있다. 07:48 — 출근 확인 완료.",
       "effects": [{ "type": "flagSet", "key": "phone_intro_done", "value": true }]
     }

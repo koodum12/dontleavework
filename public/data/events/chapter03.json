@@ -4,6 +4,7 @@
       "id": "chapter03_start",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "(3장. 회사에서도) 꿈이 아니었네. 어제 문자가 그대로 남아 있다. 회사에 도착하니 책상 위에 커피는 없다. 대신 알림 하나 — 07:48 로비 픽업 주문이 준비되었습니다.",
       "effects": [
         {
@@ -22,6 +23,7 @@
       "id": "chapter03_order_detail",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "주문 경로: 사내 복지 포인트 연동 / 예약 주문 템플릿 / 수령 위치 로비 픽업대. — 커피는 여기까지만 자동으로 오는 거구나. 어제 내 책상 위 컵은, 누군가가 픽업대에서 가져다 둔 것이다.",
       "effects": [
         {
@@ -36,6 +38,7 @@
       "id": "chapter03_desktop",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "바탕화면이 바뀌어 있다. 어제 집에서 찍은 사진이다. 인터넷에 올린 적도, 누구에게 보낸 적도 없다. 사진 한쪽 구석에 — '어제보다 오늘이 더 예뻐요.'",
       "effects": [
         {
@@ -53,6 +56,7 @@
       "id": "chapter03_memory01",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "파일 이름 MEMORY_01 / 최초 생성 3년 전 / 원본 동기화 어제 21:52 / 문구 레이어 생성 오늘 01:56 / 무결성 백업 오늘 02:13 / 접속 기기: 등록되지 않은 사내망 기기. …02:13, 이건 무슨 시간이야?",
       "effects": [
         {
@@ -91,6 +95,7 @@
       "id": "chapter03_ask_intro",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "누가 했는지보다… 누가 무엇을 볼 수 있었는지부터 물어보자. (사무실을 돌아다니며 사람들에게 E로 말을 걸 수 있다)"
     },
     {
@@ -99,6 +104,10 @@
       "branches": [
         {
           "conditions": [
+            {
+              "type": "current_chapter",
+              "value": "chapter03"
+            },
             {
               "type": "flag",
               "key": "checked_memory_01",
@@ -114,6 +123,7 @@
       "id": "talk_daeri_main",
       "type": "dialogue",
       "speaker": "대리",
+      "speakerId": "daeri",
       "text": "어제 많이 늦게까지 있었죠? 팀장님이 야근 명단 확인한다고 해서요. 사랑 씨 이름이 있길래. — 저 어제는 6시 반쯤 나갔는데요. — 아… 그러면 제가 다른 날이랑 헷갈렸나 봐요. 명단은 팀장님, 저, 총무 쪽이 볼 수 있어요.",
       "effects": [
         {
@@ -144,6 +154,10 @@
         {
           "conditions": [
             {
+              "type": "current_chapter",
+              "value": "chapter03"
+            },
+            {
               "type": "flag",
               "key": "checked_memory_01",
               "value": true
@@ -158,6 +172,7 @@
       "id": "talk_team_leader_main",
       "type": "dialogue",
       "speaker": "팀장",
+      "speakerId": "team_leader",
       "text": "사랑 씨, 어제 컴퓨터 켜져 있던데요. 내가 마지막으로 확인했을 때 화면이 켜져 있었어요. 원격 권한은 총무랑 시스템 업체에 있고, 나는 업무 파일만 확인할 수 있어요. …무슨 일 있으면 혼자 끙끙대지 말고 말해요.",
       "effects": [
         {
@@ -185,12 +200,18 @@
       "id": "talk_neighbor_main",
       "type": "dialogue",
       "speaker": "옆자리 직원",
+      "speakerId": "neighbor",
       "text": "지난주에 누가 사랑 씨 자리에서 노트북을 보고 있던 건 봤어요. 뒷모습만 봐서 누군지는 몰라요. 회색 셔츠였던 것 같은데… 확실하지 않아요. — 그럼 대리님이라고 말할 수는 없는 거죠? — 네. 그건 아니에요.",
       "effects": [
         {
           "type": "characterClue",
           "characterId": "neighbor",
           "clue": "내 자리에서 화면을 보던 미확인 인물을 목격했다"
+        },
+        {
+          "type": "evidenceGet",
+          "id": "ev_clue_neighbor",
+          "category": "character"
         },
         {
           "type": "noteAdd",
@@ -210,6 +231,10 @@
         {
           "conditions": [
             {
+              "type": "current_chapter",
+              "value": "chapter03"
+            },
+            {
               "type": "flag",
               "key": "checked_memory_01",
               "value": true
@@ -219,6 +244,10 @@
         },
         {
           "conditions": [
+            {
+              "type": "current_chapter",
+              "value": "chapter01"
+            },
             {
               "type": "flag",
               "key": "cctv_decided",
@@ -234,6 +263,7 @@
       "id": "talk_guard_main",
       "type": "dialogue",
       "speaker": "경비원",
+      "speakerId": "guard",
       "text": "어제 사랑 씨 나가고 한참 뒤에 누가 다시 들어왔어요. 사원증은 찍었는데 화면이 흐려서 얼굴은 잘 안 보였어요. 요즘 심야 서버 로그가 조금 이상해서, 보안 담당자랑 같이 보는 게 나을 거예요. 읽기 전용 확인 요청을 남겨 둘게요.",
       "effects": [
         {
@@ -269,6 +299,10 @@
         {
           "conditions": [
             {
+              "type": "current_chapter",
+              "value": "chapter03"
+            },
+            {
               "type": "flag",
               "key": "checked_memory_01",
               "value": true
@@ -283,6 +317,7 @@
       "id": "talk_peer_main",
       "type": "dialogue",
       "speaker": "동기",
+      "speakerId": "peer",
       "text": "사고 전에도 너, 누가 컴퓨터를 본다고 했어. 그래서 백업 프로그램 같은 걸 만든다고 했던 것도 기억나. 근데 자세히는 나도 몰라. …이름은 아마 MEMORY였을 거야.",
       "effects": [
         {
@@ -310,7 +345,8 @@
       "id": "talk_later",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "지금은 물어볼 말이 정리되지 않았다. 내 자리와 커피부터 확인하자."
+      "speakerId": "sarang",
+      "text": "지금은 따로 확인할 말이 없다. 먼저 내가 확인해야 할 일을 정리하자."
     }
   ]
 }

@@ -14,8 +14,8 @@ const map: GameMap = {
   spawn: { x: 100, y: 100 },
   walls: [{ x: 200, y: 0, w: 32, h: 800 }], // 세로 벽
   objects: [
-    { id: 'desk', label: '책상', x: 400, y: 400, w: 96, h: 64, solid: true },
-    { id: 'coffee', label: '커피', x: 100, y: 300, w: 24, h: 24, solid: false },
+    { id: 'desk', label: '책상', x: 400, y: 400, w: 96, h: 64, solid: true, eventId: 'desk_test' },
+    { id: 'coffee', label: '커피', x: 100, y: 300, w: 24, h: 24, solid: false, eventId: 'coffee_test' },
   ],
 };
 
@@ -79,6 +79,27 @@ describe('플레이어 이동', () => {
   it('멀어지면 상호작용 대상이 없다', () => {
     const p = { x: 900, y: 700, facing: 'down' as const };
     expect(findNearest(p, map)).toBeNull();
+  });
+
+  it('이벤트와 이동이 없는 장식물은 상호작용 대상으로 잡지 않는다', () => {
+    const visualOnly: GameMap = {
+      ...map,
+      objects: [{ id: 'sofa', label: '소파', x: 80, y: 80, w: 64, h: 32, solid: true }],
+    };
+    expect(findNearest({ x: 100, y: 100, facing: 'down' }, visualOnly)).toBeNull();
+  });
+
+  it('같은 거리의 대상 중 플레이어가 바라보는 쪽을 우선한다', () => {
+    const targets: GameMap = {
+      ...map,
+      walls: [],
+      objects: [
+        { id: 'left', label: '왼쪽', x: 52, y: 88, w: 24, h: 24, solid: false, eventId: 'left' },
+        { id: 'right', label: '오른쪽', x: 124, y: 88, w: 24, h: 24, solid: false, eventId: 'right' },
+      ],
+    };
+    expect(findNearest({ x: 100, y: 100, facing: 'right' }, targets)?.object.id).toBe('right');
+    expect(findNearest({ x: 100, y: 100, facing: 'left' }, targets)?.object.id).toBe('left');
   });
 });
 

@@ -27,12 +27,14 @@
       "id": "final_too_early",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "아직 확인하지 못한 기록이 있다. 삭제된 항목부터 열어 봐야 한다."
     },
     {
       "id": "final_laptop",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "(최종장. 퇴근하지 마세요) 보안 담당자와 함께 노트북을 확인한다. 프로그램 이름 MEMORY / 설치 3년 전 / 사용자 Sarang. 관리자 권한 기록도 내 계정이다. 3년 전, 극심한 스트레스를 받던 시기에 내가 만들었다. 사고 뒤 그 사실을 기억하지 못하게 된 것뿐이다.",
       "next": "final_but"
     },
@@ -40,6 +42,7 @@
       "id": "final_but",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "하지만 모든 것이 설명되지는 않는다. 누군가는 자동 주문된 커피를 내 책상에 옮겼고, 사진에 문구를 덧썼고, CCTV 원본과 MEMORY 폴더를 열람했고, 사진을 출력하고 내 퇴근 직후 문자를 보냈다.",
       "next": "final_people"
     },
@@ -47,6 +50,7 @@
       "id": "final_people",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "대리 — 일정은 알았지만 직접적인 증거는 부족하다. 팀장 — 야간에 남았지만 업무상 확인일 수 있다. 옆자리 직원 — 습관은 알지만 얼굴은 못 봤다. 경비원 — 기록을 보존하려 했다. 동기 — 계획은 알았지만 접근 흔적이 없다. …누구 하나만 보고 범인이라고 할 수는 없어.",
       "effects": [
         {
@@ -61,6 +65,7 @@
       "id": "final_prememory",
       "type": "dialogue",
       "speaker": "보안 담당자",
+      "speakerId": "security_staff",
       "text": "오래된 파일 하나가 나왔습니다 — Evidence_PreMemory. 최초 저장 3년 전, MEMORY 백업 등록은 이틀 뒤. 파일이 손상됐지만, 조건이 맞으면 복구해 볼 수 있습니다.",
       "effects": [
         {
@@ -75,6 +80,7 @@
       "id": "final_choice",
       "type": "choice",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "마지막 선택.",
       "choices": [
         {

@@ -46,6 +46,13 @@ export function parseEventFile(raw: unknown, source = '(unknown)'): ParseResult 
       warnings.push(`${source} ${id}: choice 인데 choices 가 없습니다.`);
       continue;
     }
+    const { speaker, speakerId } = item as Partial<GameEvent>;
+    if (typeof speaker === 'string' && (typeof speakerId !== 'string' || speakerId.length === 0)) {
+      warnings.push(`${source} ${id}: speaker "${speaker}"에 speakerId가 없습니다.`);
+    }
+    if (speakerId !== undefined && typeof speakerId !== 'string') {
+      warnings.push(`${source} ${id}: speakerId가 문자열이 아닙니다.`);
+    }
     if (events.has(id)) {
       warnings.push(`${source} ${id}: 중복 id — 나중 것을 무시합니다.`);
       continue;

@@ -53,6 +53,24 @@ for (const event of events.values()) {
   for (const branch of event.branches ?? []) {
     if (!events.has(branch.next)) fail(`[참조] ${event.id} → 분기 대상 "${branch.next}" 없음`);
   }
+
+  if (event.speaker) {
+    if (!event.speakerId) {
+      fail(`[대화자] ${event.id}: "${event.speaker}"의 speakerId 없음`);
+      continue;
+    }
+    const character = characters[event.speakerId];
+    if (!character) {
+      fail(`[대화자] ${event.id}: speakerId "${event.speakerId}" 미정의`);
+      continue;
+    }
+    const labels = new Set([character.name, ...(character.speakerLabels ?? [])]);
+    if (!labels.has(event.speaker)) {
+      fail(`[대화자] ${event.id}: "${event.speaker}"가 ${event.speakerId}의 표시 이름이 아님`);
+    }
+  } else if (event.speakerId) {
+    fail(`[대화자] ${event.id}: speakerId는 있지만 표시할 speaker가 없음`);
+  }
 }
 
 /* ---- 2. 참조된 데이터 id ---- */
@@ -79,6 +97,9 @@ for (const { owner, effect } of effects) {
       if (!evidence[effect.id]) fail(`[데이터] ${owner}: 증거 "${effect.id}" 미정의`);
       else if (effect.category && evidence[effect.id].category !== effect.category)
         fail(`[데이터] ${owner}: 증거 "${effect.id}" 카테고리 불일치 (${effect.category} ≠ ${evidence[effect.id].category})`);
+      break;
+    case 'characterClue':
+      if (!characters[effect.characterId]) fail(`[데이터] ${owner}: 단서 인물 "${effect.characterId}" 미정의`);
       break;
     case 'noteAdd':
       if (!notes[effect.id]) fail(`[데이터] ${owner}: 노트 "${effect.id}" 미정의`);
@@ -122,6 +143,9 @@ const checkConditions = (owner: string, conditions: Condition[] | undefined) => 
   for (const condition of conditions ?? []) {
     if (condition.type === 'flag' && condition.value && !definedFlagKeys.has(condition.key)) {
       fail(`[조건] ${owner}: true 로 설정되는 곳이 없는 플래그 "${condition.key}"`);
+    }
+    if (condition.type === 'current_chapter_in' && condition.values.length === 0) {
+      fail(`[조건] ${owner}: current_chapter_in 목록이 비어 있음`);
     }
   }
 };
@@ -188,6 +212,49 @@ for (const npc of Object.values(npcs)) {
   const solids: Rect[] = [...map.walls, ...map.objects.filter((object) => object.solid)];
   if (solids.some((solid) => overlaps(npc, solid))) fail(`[NPC] ${npc.id}: 벽 또는 가구 안에 배치됨`);
   checkConditions(npc.id, npc.conditions);
+}
+
+const npcEventOwners = new Map<string, Set<string>>();
+for (const npc of Object.values(npcs)) {
+  if (!npc.eventId) continue;
+  const owners = npcEventOwners.get(npc.eventId) ?? new Set<string>();
+  owners.add(npc.characterId);
+  npcEventOwners.set(npc.eventId, owners);
+}
+for (const [eventId, owners] of npcEventOwners) {
+  if (owners.size > 1) fail(`[NPC] ${eventId}: 서로 다른 인물이 같은 대화 이벤트를 공유함 (${[...owners].join(', ')})`);
+}
+
+const firstSpeakerIds = (eventId: string, seen = new Set<string>()): Set<string> => {
+  if (seen.has(eventId)) return new Set();
+  seen.add(eventId);
+  const event = events.get(eventId);
+  if (!event) return new Set();
+  if (event.type !== 'branch' && event.type !== 'condition') {
+    if (event.speakerId) return new Set([event.speakerId]);
+    return event.next ? firstSpeakerIds(event.next, seen) : new Set();
+  }
+  const targets = [...(event.branches ?? []).map((branch) => branch.next), event.fallback, event.next]
+    .filter((target): target is string => Boolean(target));
+  return new Set(targets.flatMap((target) => [...firstSpeakerIds(target, new Set(seen))]));
+};
+
+for (const npc of Object.values(npcs)) {
+  if (!npc.eventId) continue;
+  const wrong = [...firstSpeakerIds(npc.eventId)]
+    .filter((speakerId) => speakerId !== 'sarang' && speakerId !== npc.characterId);
+  if (wrong.length > 0) {
+    fail(`[NPC] ${npc.id}: ${npc.characterId}에게 말을 걸었지만 ${wrong.join(', ')} 대사가 시작됨`);
+  }
+}
+
+for (const event of events.values()) {
+  for (const effect of event.effects ?? []) {
+    if (effect.type !== 'characterClue' || !event.speakerId || event.speakerId === 'sarang') continue;
+    if (effect.characterId !== event.speakerId) {
+      fail(`[단서] ${event.id}: ${event.speakerId} 대사를 ${effect.characterId} 단서로 저장함`);
+    }
+  }
 }
 
 const imageRoot = join(process.cwd(), 'public/assets/images');

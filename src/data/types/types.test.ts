@@ -9,6 +9,7 @@ describe('이벤트 타입 스키마', () => {
       id: 'chapter1_coffee',
       type: 'dialogue',
       speaker: '사랑',
+      speakerId: 'sarang',
       text: '누가 주문했다고…?',
       choices: [
         { text: '커피를 마신다', next: 'coffee_drink', effects: [{ type: 'mentalChange', amount: 10 }] },

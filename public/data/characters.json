@@ -2,6 +2,7 @@
   "sarang": {
     "id": "sarang",
     "name": "사랑",
+    "speakerLabels": ["과거의 사랑"],
     "role": "주인공",
     "description": "평범한 회사원. 유일하게 밝은 옷.",
     "color": "#e0e4ea",
@@ -92,8 +93,8 @@
   },
   "intern": {
     "id": "intern",
-    "name": "옆자리 인턴",
-    "role": "같은 팀",
+    "name": "인턴",
+    "role": "같은 팀 신입",
     "description": "아침에 커피 이야기를 꺼낸 사람.",
     "color": "#9fb59a",
     "sprite": "intern.png",
@@ -101,6 +102,19 @@
     "art": {
       "hair": "bob",
       "accessory": "badge"
+    }
+  },
+  "cafe_staff": {
+    "id": "cafe_staff",
+    "name": "로비 카페 직원",
+    "role": "로비 카페",
+    "description": "테이크아웃 주문과 픽업 기록을 관리한다.",
+    "color": "#8f4552",
+    "sprite": "cafe_staff.png",
+    "portrait": "cutout/cafe_staff.png",
+    "art": {
+      "hair": "short",
+      "accessory": "none"
     }
   }
 }

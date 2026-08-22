@@ -130,6 +130,73 @@ describe('스토리 데이터 정합성', () => {
     expect(missing).toEqual([]);
   });
 
+  it('모든 대화자는 speakerId 로 실제 캐릭터와 정확히 연결된다', () => {
+    const broken: string[] = [];
+    for (const event of events.values()) {
+      if (!event.speaker) {
+        if (event.speakerId) broken.push(`${event.id}: 이름 없이 ${event.speakerId}`);
+        continue;
+      }
+      const character = event.speakerId ? characters[event.speakerId] : undefined;
+      if (!character) {
+        broken.push(`${event.id}: ${event.speaker} → ${event.speakerId ?? '(없음)'}`);
+        continue;
+      }
+      const labels = [character.name, ...(character.speakerLabels ?? [])];
+      if (!labels.includes(event.speaker)) broken.push(`${event.id}: ${event.speaker} ≠ ${event.speakerId}`);
+    }
+    expect(broken).toEqual([]);
+  });
+
+  it('서로 다른 NPC가 대화 이벤트를 공유하거나 다른 인물 대사를 시작하지 않는다', () => {
+    const broken: string[] = [];
+    const owners = new Map<string, Set<string>>();
+    for (const npc of Object.values(npcs)) {
+      if (!npc.eventId) continue;
+      const ids = owners.get(npc.eventId) ?? new Set<string>();
+      ids.add(npc.characterId);
+      owners.set(npc.eventId, ids);
+    }
+    for (const [eventId, ids] of owners) {
+      if (ids.size > 1) broken.push(`${eventId}: ${[...ids].join(', ')}`);
+    }
+
+    const firstSpeakers = (eventId: string, seen = new Set<string>()): Set<string> => {
+      if (seen.has(eventId)) return new Set();
+      seen.add(eventId);
+      const event = events.get(eventId);
+      if (!event) return new Set();
+      if (event.type !== 'branch' && event.type !== 'condition') {
+        if (event.speakerId) return new Set([event.speakerId]);
+        return event.next ? firstSpeakers(event.next, seen) : new Set();
+      }
+      const targets = [...(event.branches ?? []).map((branch) => branch.next), event.fallback, event.next]
+        .filter((target): target is string => Boolean(target));
+      return new Set(targets.flatMap((target) => [...firstSpeakers(target, new Set(seen))]));
+    };
+
+    for (const npc of Object.values(npcs)) {
+      if (!npc.eventId) continue;
+      const wrong = [...firstSpeakers(npc.eventId)]
+        .filter((speakerId) => speakerId !== 'sarang' && speakerId !== npc.characterId);
+      if (wrong.length > 0) broken.push(`${npc.id}: ${npc.characterId} → ${wrong.join(', ')}`);
+    }
+    expect(broken).toEqual([]);
+  });
+
+  it('인물 대사가 다른 캐릭터의 단서로 저장되지 않는다', () => {
+    const broken: string[] = [];
+    for (const event of events.values()) {
+      for (const effect of event.effects ?? []) {
+        if (effect.type !== 'characterClue' || !event.speakerId || event.speakerId === 'sarang') continue;
+        if (effect.characterId !== event.speakerId) {
+          broken.push(`${event.id}: ${event.speakerId} → ${effect.characterId}`);
+        }
+      }
+    }
+    expect(broken).toEqual([]);
+  });
+
   it('NPC 가 벽이나 solid 오브젝트에 끼어 있지 않다', () => {
     const overlaps = (a: Rect, b: Rect) =>
       a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
@@ -141,6 +208,19 @@ describe('스토리 데이터 정합성', () => {
       }
     }
     expect(stuck).toEqual([]);
+  });
+
+  it('1장 핵심 커피의 상호작용 범위에 다른 NPC가 들어오지 않는다', () => {
+    const coffee = locations.office.objects.find((object) => object.id === 'obj_coffee')!;
+    const distance = (a: Rect, b: Rect) => {
+      const dx = Math.max(a.x - (b.x + b.w), b.x - (a.x + a.w), 0);
+      const dy = Math.max(a.y - (b.y + b.h), b.y - (a.y + a.h), 0);
+      return Math.hypot(dx, dy);
+    };
+    const tooClose = Object.values(npcs)
+      .filter((npc) => npc.location === 'office' && distance(coffee, npc) <= 48)
+      .map((npc) => npc.id);
+    expect(tooClose).toEqual([]);
   });
 
   it('NPC 위치와 맵 팔레트 참조가 유효하다', () => {
@@ -220,7 +300,7 @@ describe('스토리 데이터 정합성', () => {
 
   it('1장 책상과 인턴 대화는 조사 완료 뒤 반복되지 않는다', () => {
     const desk = events.get('desk_look');
-    const intern = events.get('neighbor_gate');
+    const intern = events.get('intern_gate');
     expect(desk?.branches?.[0]).toMatchObject({
       conditions: [{ type: 'flag', key: 'asked_intern', value: true }],
       next: 'desk_look_after',

@@ -4,6 +4,7 @@
       "id": "chapter2_start",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "(2장. 이상한 문자) 집에 도착한 사랑은 가방을 내려놓고도 한동안 현관 앞에 서 있다. 띠링. — 모르는 번호로 문자가 온다.",
       "effects": [
         {
@@ -30,6 +31,7 @@
       "id": "chapter2_notice",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "화면 위에는 집 와이파이에 연결되었다는 알림, 그 아래에 시스템 알림이 겹쳐 뜬다. — 예약 메시지 전송 완료 / 식별값 M-228-AUTO.",
       "effects": [
         {
@@ -67,6 +69,7 @@
       "id": "chapter2_reply_who",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "누구세요? — 답장은 전송되었지만, 읽음 표시는 뜨지 않는다.",
       "effects": [
         {
@@ -81,6 +84,7 @@
       "id": "chapter2_reply_angry",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "장난치지 마세요. — 손끝이 조금 떨린다.",
       "effects": [
         {
@@ -99,6 +103,7 @@
       "id": "chapter2_reply_ignore",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "답장을 보내지 않는다. 휴대폰을 쥔 채 침대 끝에 앉는다.",
       "effects": [
         {
@@ -113,6 +118,7 @@
       "id": "chapter2_second_message",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "차를 끓여 컵을 감싸고 있을 때 휴대폰이 다시 울린다. — '집에 잘 도착했네요.'",
       "effects": [
         {
@@ -126,6 +132,7 @@
       "id": "chapter2_compare",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "첫 문자에는 식별값 M-228-AUTO, 두 번째에는 아무 정보도 없다. 번호를 눌러 통화를 걸어 보지만 — 연결할 수 없는 번호입니다.",
       "effects": [
         {
@@ -156,6 +163,7 @@
       "id": "chapter2_with_cctv",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "오늘 찍은 영수증 사진 옆에, 관리실에서 받은 영상 사본의 파일 정보를 나란히 연다. 열람 사본 생성 18:37 / 원본 보존 확인.",
       "next": "chapter2_note"
     },
@@ -163,6 +171,7 @@
       "id": "chapter2_without_cctv",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "영수증 사진만 다시 본다. 내일 관리실에 요청할 내용을 메모장에 적는다. — '07:48 로비 픽업대 / 내 자리 전달 장면 확인 필요.'",
       "next": "chapter2_note"
     },
@@ -170,6 +179,7 @@
       "id": "chapter2_note",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "커피는 회사에서 시작됐고, 문자는 집에 온 뒤 도착했다. 두 사건을 한 사람에게 묶을 근거는 아직 없다.",
       "effects": [
         {
@@ -221,6 +231,7 @@
       "id": "chapter2_cross_check",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "07:48의 인물과 22:28의 자동 전송. 시간대는 다르지만 둘 다 '자동'이라는 말이 붙어 있다.",
       "effects": [
         {
@@ -240,6 +251,7 @@
       "id": "chapter2_memory_compare",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "07:48과 22:28. 둘 다 내가 한 일로 기록되어 있다. 내가 하지 않았는데도.",
       "effects": [
         {
@@ -254,6 +266,7 @@
       "id": "chapter2_write_fear",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "'누군가 나를 지켜보고 있다.' …잠시 눈을 감았다가, 마지막 문장을 지운다. 아니. 내가 확인한 건 문자 두 개뿐이야.",
       "effects": [
         {
@@ -267,6 +280,7 @@
       "id": "chapter2_end",
       "type": "dialogue",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "현관 잠금장치를 다시 확인하고, 문자를 지우지 않은 채 알람을 조금 일찍 맞춘다. 커튼을 치고, 긴 밤을 보낸다. (2장 끝)",
       "effects": [
         {
@@ -280,6 +294,7 @@
       "id": "item_stabilizer_used",
       "type": "itemUse",
       "speaker": "사랑",
+      "speakerId": "sarang",
       "text": "약을 삼키고 잠시 눈을 감는다. 흐릿하던 글자들이 다시 또렷해진다."
     }
   ]
