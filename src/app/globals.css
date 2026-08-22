@@ -53,7 +53,7 @@ html, body {
 }
 .home-inner {
   position: relative; z-index: 1;
-  text-align: center; max-width: 560px; padding: 0 24px;
+  text-align: center; width: min(640px, 100%); padding: 0 24px;
 }
 .home-title {
   margin: 0 0 10px; font-size: 40px; font-weight: 700;
@@ -63,7 +63,23 @@ html, body {
 .home-sub { margin: 0 0 32px; color: #c7ccd4; font-size: 14px; text-shadow: 0 2px 8px #000; }
 .home-menu { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 .home-menu .ui-button { min-width: 220px; padding: 10px 16px; font-size: 15px; }
-.home-help { margin-top: 36px; color: #aeb5bf; font-size: 12px; text-shadow: 0 2px 8px #000; }
+.home-ending-gallery {
+  width: min(560px, 100%); margin: 24px auto 0; padding-top: 14px;
+  border-top: 1px solid rgba(200, 162, 90, 0.35); text-align: left;
+}
+.home-ending-gallery header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.home-ending-gallery h2 { margin: 0; color: #d5d9df; font-size: 12px; font-weight: 600; }
+.home-ending-gallery header span { color: var(--accent); font: 11px var(--font-mono), monospace; }
+.home-ending-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.home-ending-grid > div {
+  min-width: 0; display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: center;
+  padding: 7px 9px; border: 1px solid rgba(148, 156, 171, 0.25); background: rgba(8, 10, 13, 0.7);
+}
+.home-ending-grid > div > span { color: #737b88; font: 10px var(--font-mono), monospace; }
+.home-ending-grid strong { min-width: 0; overflow: hidden; color: #777f8b; font-size: 11px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.home-ending-grid .is-found { border-color: rgba(200, 162, 90, 0.45); }
+.home-ending-grid .is-found > span, .home-ending-grid .is-found strong { color: var(--accent); }
+.home-help { margin-top: 22px; color: #aeb5bf; font-size: 12px; text-shadow: 0 2px 8px #000; }
 
 /* ---- 게임 화면 ---- */
 .game-root {
@@ -373,29 +389,13 @@ html, body {
 .event-layer .collection-strip + .ui-dialog { border-radius: 0 var(--radius) var(--radius) 0; }
 .choice-note { display: block; margin: 2px 0 0 2px; color: var(--text-dim); font-size: 10.5px; }
 
-/* 엔딩 체크리스트 */
-.ending-checklists { text-align: left; margin: 0 0 20px; }
-.ending-checklists h3 { font-size: 12px; color: var(--text-dim); letter-spacing: 0.08em; margin: 0 0 10px; }
-.ending-checklists article {
-  border: 1px solid var(--line-soft); border-radius: var(--radius);
-  padding: 8px 12px; margin-bottom: 8px;
-}
-.ending-checklists article.is-reached { border-color: var(--accent-dim); }
-.ending-checklists h4 { margin: 0 0 6px; font-size: 12px; color: var(--text); }
-.ending-checklists article.is-reached h4 { color: var(--accent); }
-.ending-checklists ul {
-  list-style: none; margin: 0; padding: 0; display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 2px 12px;
-  font-size: 11.5px; font-family: var(--font-mono), monospace;
-}
-.ending-checklists .met { color: var(--text-dim); }
-.ending-checklists .unmet { color: #a5736c; }
 .ending-archive { color: var(--accent-dim); font-size: 12px; margin: 0 0 18px; letter-spacing: 0.06em; }
-.home-archive { margin: 18px 0 0; color: var(--accent-dim); font-size: 12px; }
 
 @media (max-width: 680px) {
   .home::before { background-position: 62% center; }
   .home-title { font-size: 32px; }
+  .home-ending-grid { grid-template-columns: 1fr; }
+  .home-help { display: none; }
   .game-stage { width: 100vw; }
   .hud-top-left { top: 8px; left: 8px; right: 8px; }
   .hud-top-right { top: 8px; right: 8px; }

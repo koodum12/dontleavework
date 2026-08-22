@@ -101,6 +101,16 @@
           "conditions": [
             {
               "type": "flag",
+              "key": "asked_intern",
+              "value": true
+            }
+          ],
+          "next": "chapter1_intern_after"
+        },
+        {
+          "conditions": [
+            {
+              "type": "flag",
               "key": "coffee_done",
               "value": true
             }
@@ -221,6 +231,12 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "커튼 틈으로 회사 방향의 불빛이 보인다. 집 안인데도 휴대폰 알림음이 들릴 것만 같다."
+    },
+    {
+      "id": "home_desk_look",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "집에서 기록을 정리하는 책상. 시간과 출처를 나눠 적은 메모가 가지런히 놓여 있다."
     },
     {
       "id": "corridor_cart",

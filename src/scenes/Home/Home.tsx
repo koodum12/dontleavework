@@ -10,6 +10,13 @@ interface Props {
   ready: boolean;
 }
 
+const ENDINGS = [
+  { id: 'bad', number: '01', name: '기록이 없는 사람' },
+  { id: 'normal', number: '02', name: '새로운 출근' },
+  { id: 'true', number: '03', name: '퇴근합니다' },
+  { id: 'hidden', number: '04', name: '퇴근하지 마세요' },
+] as const;
+
 /** 타이틀 화면 — 이어하기 / 새 게임 */
 export default function Home({ onNewGame, onContinue, ready }: Props) {
   const [saveExists, setSaveExists] = useState<boolean | null>(null);
@@ -19,10 +26,6 @@ export default function Home({ onNewGame, onContinue, ready }: Props) {
     hasSave().then(setSaveExists);
     unlockedEndings().then(setUnlocked);
   }, []);
-
-  const ENDING_NAMES: Record<string, string> = {
-    bad: '기록이 없는 사람', normal: '새로운 출근', true: '퇴근합니다', hidden: '퇴근하지 마세요',
-  };
 
   return (
     <div className="home">
@@ -37,14 +40,23 @@ export default function Home({ onNewGame, onContinue, ready }: Props) {
             {ready ? '새 게임' : '게임 준비 중…'}
           </Button>
         </div>
-        {unlocked.length > 0 && (
-          <p className="home-archive" data-testid="home-archive">
-            기록 보관함 {unlocked.length} / 4 —{' '}
-            {['bad', 'normal', 'true', 'hidden']
-              .map((id) => (unlocked.includes(id) ? ENDING_NAMES[id] : '????'))
-              .join(' · ')}
-          </p>
-        )}
+        <section className="home-ending-gallery" data-testid="home-archive" aria-label="엔딩 기록">
+          <header>
+            <h2>엔딩 기록</h2>
+            <span>{unlocked.length} / {ENDINGS.length}</span>
+          </header>
+          <div className="home-ending-grid">
+            {ENDINGS.map((ending) => {
+              const found = unlocked.includes(ending.id);
+              return (
+                <div key={ending.id} className={found ? 'is-found' : 'is-locked'}>
+                  <span>{ending.number}</span>
+                  <strong>{found ? ending.name : '미확인'}</strong>
+                </div>
+              );
+            })}
+          </div>
+        </section>
         <p className="home-help">WASD 이동 · E 조사 · Space 진행 · Tab 휴대폰 · I 인벤토리 · ESC 메뉴</p>
       </div>
     </div>

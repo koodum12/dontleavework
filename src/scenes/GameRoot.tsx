@@ -12,7 +12,7 @@ import { useMentalBandId } from '@/game/state/useMentalFilter';
 import { currentObjective } from '@/game/state/objectives';
 import { useEventStore } from '@/game/event/EventManager';
 import { evaluate } from '@/game/event/ConditionManager';
-import { collectionStats, endingChecklists, findEnding } from '@/game/ending/EndingManager';
+import { collectionStats, findEnding } from '@/game/ending/EndingManager';
 import { triggerInteraction } from '@/game/interaction/InteractionObject';
 import { consumeItem } from '@/game/interaction/consumeItem';
 import type { NearestResult } from '@/game/interaction/InteractionManager';
@@ -59,7 +59,7 @@ export default function GameRoot() {
   const [showDebug, setShowDebug] = useState(false);
   const [fading, setFading] = useState(false);
   const [log, setLog] = useState<string | null>(null);
-  const [locationName, setLocationName] = useState('2층 사무실');
+  const [locationName, setLocationName] = useState('사랑의 집');
   const logTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const nearestRef = useRef<NearestResult | null>(null);
 
@@ -340,7 +340,6 @@ export default function GameRoot() {
             ending={endingMeta}
             text={currentEvent?.type === 'ending' ? currentEvent.text ?? '' : ''}
             stats={collectionStats(gameStateSnapshot(), Object.keys(data.evidence).length)}
-            checklists={data.endings ? endingChecklists(data.endings, gameStateSnapshot(), ending) : []}
             unlocked={unlocked}
             onRestart={async () => {
               await deleteSave();

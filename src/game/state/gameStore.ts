@@ -64,7 +64,7 @@ const initialState: GameStateData = {
   completedInteractions: [],
   currentChapter: null,
   currentEvent: null,
-  currentLocation: 'office',
+  currentLocation: 'home',
   pendingSpawn: null,
   ending: null,
 };

@@ -56,7 +56,7 @@ describe('GameState', () => {
     expect(store().mental).toBe(MAX_MENTAL);
     expect(store().inventory).toEqual([]);
     expect(store().completedInteractions).toEqual([]);
-    expect(store().currentLocation).toBe('office');
+    expect(store().currentLocation).toBe('home');
     expect(store().pendingSpawn).toBeNull();
   });
 

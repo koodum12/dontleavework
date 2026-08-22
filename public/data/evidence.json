@@ -136,6 +136,13 @@
     "name": "버린 컵의 스티커 사진",
     "detail": "버리기 전 촬영한 주문 시간과 수령 위치."
   },
+  "ev_pantry_missing_cup": {
+    "id": "ev_pantry_missing_cup",
+    "category": "case",
+    "chapter": "chapter01",
+    "name": "탕비실에서 사라진 컵",
+    "detail": "정기 수거 전, 탕비실 쓰레기통에서 사랑이 버린 커피 컵만 사라졌다. 누가 가져갔는지는 확인되지 않았다."
+  },
   "ev_lobby_photo": {
     "id": "ev_lobby_photo",
     "category": "case",

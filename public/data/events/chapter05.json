@@ -41,9 +41,14 @@
     {
       "id": "chapter05_coffee_again",
       "type": "dialogue",
-      "speaker": "로비 카페 직원",
-      "text": "책상 위에 커피와 메모가 있다 — '어제 주문하신 걸 잘못 전달했습니다.' 직원에게 가져가자: 저희가 책상까지 전달한 적은 없어요. 어제도 직접 받아 가셨고요. …저희 글씨는 아닌 것 같은데요.",
+      "speaker": "사랑",
+      "text": "회사에 도착하자 책상 위에 커피와 메모가 놓여 있다. — '어제 주문하신 걸 잘못 전달했습니다.' 컵과 메모를 들고 로비 카페로 내려간다.",
       "effects": [
+        {
+          "type": "travel",
+          "to": "office",
+          "spawn": "from_lobby"
+        },
         {
           "type": "itemGet",
           "id": "item_strange_coffee"
@@ -54,6 +59,20 @@
           "value": true
         }
       ],
+      "next": "chapter05_coffee_staff"
+    },
+    {
+      "id": "chapter05_coffee_staff",
+      "type": "dialogue",
+      "speaker": "로비 카페 직원",
+      "text": "저희가 책상까지 전달한 적은 없어요. 어제도 직접 받아 가셨고요. …이 메모도 저희 글씨는 아닌 것 같은데요.",
+      "effects": [
+        {
+          "type": "travel",
+          "to": "cafe",
+          "spawn": "from_lobby"
+        }
+      ],
       "next": "chapter05_coffee_note"
     },
     {
@@ -61,6 +80,13 @@
       "type": "dialogue",
       "speaker": "사랑",
       "text": "주문 기록 자체는 자동일 수 있어. 그런데 누군가가 그 기록을 이용해서 내 자리까지 온 거야.",
+      "effects": [
+        {
+          "type": "travel",
+          "to": "office",
+          "spawn": "from_lobby"
+        }
+      ],
       "next": "chapter05_neighbor"
     },
     {
@@ -69,6 +95,11 @@
       "speaker": "사랑",
       "text": "쓰레기통에서 구겨진 사진 한 장을 발견한다. 사랑과 전 애인이 함께 찍힌 사진. 뒷면에는 — '저 자리가 내 자리였어야 했는데.' 모서리에 회사 복합기 관리 번호가 희미하게 남아 있다.",
       "effects": [
+        {
+          "type": "travel",
+          "to": "office",
+          "spawn": "from_lobby"
+        },
         {
           "type": "mentalChange",
           "delta": "found_own_photo"
@@ -106,11 +137,6 @@
       "speaker": "옆자리 직원",
       "text": "오늘 향수 바꾸셨어요? 가끔 옆에서 맡으니까요. 어제랑은 확실히 달라요. — 저에 대해 아는 게 많아 보이면 다 의심해야 하는 줄 알았어요. — 옆자리면 알 수 있는 것도 있죠.",
       "effects": [
-        {
-          "type": "travel",
-          "to": "office",
-          "spawn": "from_lobby"
-        },
         {
           "type": "noteAdd",
           "id": "note_observation"

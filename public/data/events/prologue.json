@@ -25,17 +25,49 @@
       "id": "prologue_save",
       "type": "dialogue",
       "text": "화면에 메모 저장 표시가 잠깐 켜진다. — 저장되지 않은 기록이 있습니다.",
-      "effects": [{ "type": "flagSet", "key": "prologue_done", "value": true }],
+      "next": "chapter1_wake"
+    },
+    {
+      "id": "chapter1_wake",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "(1장. 평범한 월요일) 알람이 울린다. 오늘도 평범한 월요일이다. 한참 이불 속에 누워 있다가 겨우 몸을 일으킨다. — 아… 벌써 집에 가고 싶다.",
+      "effects": [
+        { "type": "travel", "to": "home" },
+        { "type": "chapterSet", "chapter": "chapter01" }
+      ],
+      "next": "chapter1_home_morning"
+    },
+    {
+      "id": "chapter1_home_morning",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "세면대 옆 칫솔, 식탁 위 사원증, 현관에 벗어 둔 구두. 어제와 다를 것 없는 집이다. 가방에 휴대폰을 넣고 문이 잠겼는지 한 번 확인한 뒤 출근한다.",
+      "next": "chapter1_commute"
+    },
+    {
+      "id": "chapter1_commute",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "출근길 하늘은 이상할 만큼 맑다. — 오늘따라 날씨가 좋긴 하네.",
+      "effects": [{ "type": "travel", "to": "street", "spawn": "from_home" }],
+      "next": "chapter1_arrival"
+    },
+    {
+      "id": "chapter1_arrival",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "회사에 도착해 익숙한 얼굴들에게 작게 인사한다. — 안녕하세요. 늘 걷던 통로를 지나 내 자리로 향한다.",
+      "effects": [{ "type": "travel", "to": "office", "spawn": "from_lobby" }],
       "next": "chapter1_open"
     },
     {
       "id": "chapter1_open",
       "type": "dialogue",
       "speaker": "사랑",
-      "text": "(1장. 평범한 월요일) 알람을 끄고 겨우 몸을 일으켰다. 회사에 도착해 자리로 향한다. …책상 위에 커피 한 잔이 놓여 있다.",
+      "text": "그런데 자리 앞에서 발걸음이 멈춘다. …책상 위에 커피 한 잔이 놓여 있다. 내가 주문한 적 없는 커피다.",
       "effects": [
-        { "type": "travel", "to": "office", "spawn": "from_lobby" },
-        { "type": "chapterSet", "chapter": "chapter01" },
+        { "type": "flagSet", "key": "prologue_done", "value": true },
         { "type": "messageReceive", "id": "msg_0748_checkin" }
       ]
     },

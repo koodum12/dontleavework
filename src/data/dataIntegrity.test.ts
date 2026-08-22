@@ -23,6 +23,9 @@ const locations = read<LocationFile>('locations.json');
 const characters = read<CharacterFile>('characters.json');
 const npcs = read<NpcFile>('npcs.json');
 const palettes = read<PaletteFile>('palettes.json');
+const objectives = read<{
+  objectives: Array<{ conditions: Array<{ type: string; key?: string; value?: boolean }>; text: string }>;
+}>('objectives.json');
 
 const events = new Map<string, GameEvent>();
 const parseWarnings: string[] = [];
@@ -43,6 +46,9 @@ const allEffects = (): EventEffect[] => {
 };
 
 describe('스토리 데이터 정합성', () => {
+  const travelTarget = (eventId: string) =>
+    events.get(eventId)?.effects?.find((effect) => effect.type === 'travel');
+
   it('이벤트 파싱 경고가 없다', () => {
     expect(parseWarnings).toEqual([]);
   });
@@ -204,6 +210,44 @@ describe('스토리 데이터 정합성', () => {
     expect([...homeChapters]).toEqual([
       'chapter01', 'chapter02', 'chapter03', 'chapter04', 'chapter05', 'chapter06', 'chapter07',
     ]);
+  });
+
+  it('1장 출근 장면은 집에서 시작해 거리와 회사 순서로 이동한다', () => {
+    expect(travelTarget('chapter1_wake')).toMatchObject({ type: 'travel', to: 'home' });
+    expect(travelTarget('chapter1_commute')).toMatchObject({ type: 'travel', to: 'street' });
+    expect(travelTarget('chapter1_arrival')).toMatchObject({ type: 'travel', to: 'office' });
+  });
+
+  it('1장 책상과 인턴 대화는 조사 완료 뒤 반복되지 않는다', () => {
+    const desk = events.get('desk_look');
+    const intern = events.get('neighbor_gate');
+    expect(desk?.branches?.[0]).toMatchObject({
+      conditions: [{ type: 'flag', key: 'asked_intern', value: true }],
+      next: 'desk_look_after',
+    });
+    expect(intern?.branches?.some((branch) =>
+      branch.next === 'chapter1_intern_after' && branch.conditions.some((condition) =>
+        condition.type === 'flag' && condition.key === 'asked_intern' && condition.value,
+      ),
+    )).toBe(true);
+  });
+
+  it('4장 회사 재진입 경고와 5장 대사의 장소 전환이 유지된다', () => {
+    expect(events.get('route_network_return')?.text).toContain('여기를 다시 오면 안 되었어');
+    expect(travelTarget('route_network_return')).toMatchObject({ type: 'travel', to: 'lobby' });
+
+    expect(travelTarget('chapter05_coffee_again')).toMatchObject({ type: 'travel', to: 'office' });
+    expect(travelTarget('chapter05_coffee_staff')).toMatchObject({ type: 'travel', to: 'cafe' });
+    expect(travelTarget('chapter05_coffee_note')).toMatchObject({ type: 'travel', to: 'office' });
+    expect(travelTarget('chapter05_old_photo')).toMatchObject({ type: 'travel', to: 'office' });
+    expect(travelTarget('chapter05_neighbor')).toBeUndefined();
+  });
+
+  it('3장 완료 뒤 오늘 할 일에 다음 장 번호를 미리 표시하지 않는다', () => {
+    const afterChapter3 = objectives.objectives.find((objective) =>
+      objective.conditions.some((condition) => condition.key === 'chapter3_done' && condition.value),
+    );
+    expect(afterChapter3?.text).not.toContain('(4장)');
   });
 
   it('characters.json 에 선언된 스프라이트와 초상이 실제로 있다', () => {

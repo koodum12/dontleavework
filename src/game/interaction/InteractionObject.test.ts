@@ -19,7 +19,10 @@ const target = (travel: TravelTarget): NearestResult => {
 };
 
 describe('이동 진행 잠금', () => {
-  beforeEach(() => useGameStore.getState().resetGame());
+  beforeEach(() => {
+    useGameStore.getState().resetGame();
+    useGameStore.getState().travelTo('office');
+  });
 
   it('현재 장의 미완료 블록이 있으면 이동하지 않고 안내 문구를 돌려준다', () => {
     useGameStore.getState().setChapter('chapter03');

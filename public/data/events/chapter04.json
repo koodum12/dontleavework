@@ -115,10 +115,24 @@
               "value": true
             }
           ],
-          "next": "route_network_main"
+          "next": "route_network_return"
         }
       ],
       "fallback": "route_network_blocked"
+    },
+    {
+      "id": "route_network_return",
+      "type": "dialogue",
+      "speaker": "사랑",
+      "text": "회사를 나왔다가 다시 로비로 들어서는 순간, 붉은 문장이 시야 위로 잠깐 겹친다. — 여기를 다시 오면 안 되었어. 누가 한 말도, 기록에 남은 문장도 아니다. 휴대폰을 고쳐 쥐고 보안 담당자가 기다리는 관리실로 향한다.",
+      "effects": [
+        {
+          "type": "travel",
+          "to": "lobby",
+          "spawn": "from_street"
+        }
+      ],
+      "next": "route_network_main"
     },
     {
       "id": "route_network_blocked",
